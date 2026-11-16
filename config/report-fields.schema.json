@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gramvaani.local/schemas/report-fields.schema.json",
+  "title": "GramVaani report field configuration",
+  "description": "Validates config/report-fields.json. Every field is a hypothesis until verification.status becomes 'verified' with a validated_in citation.",
+  "type": "object",
+  "required": ["config_version", "fields"],
+  "additionalProperties": true,
+  "properties": {
+    "$schema": { "type": "string" },
+    "config_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semver. Bump on every field change."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["hypothesis-only", "partially-verified", "verified"]
+    },
+    "disclaimer": { "type": "string" },
+    "language": {
+      "type": "object",
+      "required": ["primary", "output_script"],
+      "additionalProperties": true,
+      "properties": {
+        "primary": { "type": "string" },
+        "secondary": { "type": "string" },
+        "output_script": { "type": "string" },
+        "preserve_english_tokens": { "type": "boolean" }
+      }
+    },
+    "clarification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_questions": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "allow_dont_know": { "type": "boolean" },
+        "ordering": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "preview": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title_te": { "type": "string" },
+        "title_en": { "type": "string" },
+        "footer_te": { "type": "string" },
+        "footer_en": { "type": "string" },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label_te", "label_en"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "label_te": { "type": "string" },
+              "label_en": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/field" }
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "required": [
+        "id",
+        "label_te",
+        "label_en",
+        "type",
+        "requirement",
+        "priority",
+        "section",
+        "extraction",
+        "clarification",
+        "verification"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "description": "Stable snake_case identifier. Never renamed silently."
+        },
+        "label_te": { "type": "string", "minLength": 1 },
+        "label_en": { "type": "string", "minLength": 1 },
+        "type": {
+          "type": "string",
+          "enum": ["date", "string", "integer", "number", "boolean", "enum_list", "string_list"]
+        },
+        "requirement": { "type": "string", "enum": ["required", "optional", "conditional"] },
+        "priority": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Lower number = asked/reviewed earlier."
+        },
+        "section": { "type": "string", "description": "Must match a preview.sections[].id." },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["value", "label_te", "label_en"],
+            "additionalProperties": false,
+            "properties": {
+              "value": { "type": "string" },
+              "label_te": { "type": "string" },
+              "label_en": { "type": "string" }
+            }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "min": { "type": "number" },
+            "max": { "type": "number" },
+            "max_length": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "extraction": {
+          "type": "object",
+          "required": ["hints_te", "hints_en"],
+          "additionalProperties": false,
+          "properties": {
+            "hints_te": { "type": "array", "items": { "type": "string" } },
+            "hints_en": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "clarification": {
+          "type": "object",
+          "required": ["question_te", "question_en"],
+          "additionalProperties": false,
+          "properties": {
+            "question_te": { "type": "string", "minLength": 1 },
+            "question_en": { "type": "string", "minLength": 1 }
+          }
+        },
+        "verification": {
+          "type": "object",
+          "required": ["status", "source"],
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["unverified", "observed", "verified", "rejected"]
+            },
+            "source": {
+              "type": "string",
+              "enum": ["assumption", "hypothesis", "session-note", "official-document", "worker-statement"]
+            },
+            "validated_in": {
+              "type": ["string", "null"],
+              "description": "Citation such as notes/2026-12-01-session-02.md#fields. Required when status is 'verified'."
+            },
+            "note": { "type": "string" }
+          },
+          "if": {
+            "properties": { "status": { "const": "verified" } },
+            "required": ["status"]
+          },
+          "then": {
+            "required": ["validated_in"],
+            "properties": { "validated_in": { "type": "string", "minLength": 3 } }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "type": { "const": "enum_list" } },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["options"],
+            "properties": {
+              "options": { "type": "array", "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "enum": ["integer", "number"] } },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["validation"],
+            "properties": {
+              "validation": { "type": "object", "required": ["min", "max"] }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

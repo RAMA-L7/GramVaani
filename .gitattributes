@@ -1,0 +1,23 @@
+# Normalise line endings so the repo is identical on Windows and Linux.
+* text=auto eol=lf
+
+# Explicit text types
+*.md       text eol=lf
+*.json     text eol=lf
+*.mjs      text eol=lf
+*.ts       text eol=lf
+*.tsx      text eol=lf
+*.py       text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+*.toml     text eol=lf
+
+# Never convert these
+*.wav      binary
+*.m4a      binary
+*.mp3      binary
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.pdf      binary
+*.webp     binary

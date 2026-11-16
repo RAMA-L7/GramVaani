@@ -1,0 +1,40 @@
+# Node / frontend
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+.pnpm-store/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Python / backend
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.local
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+uv.lock.bak
+
+# Local tooling
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# --- Project-specific safety net ---------------------------------------------
+# Raw field audio, screenshots and notes must never be committed.
+# Only synthetic assets belong in prototype-assets/.
+research/notes/*.private.md
+prototype-assets/audio-samples/*.wav
+prototype-assets/audio-samples/*.m4a
+prototype-assets/audio-samples/*.mp3
+*.recording.json

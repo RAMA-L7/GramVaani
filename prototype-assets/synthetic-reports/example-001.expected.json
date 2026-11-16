@@ -1,0 +1,77 @@
+{
+  "_comment": "SYNTHETIC. Expected extraction for example-001-te-mixed.md. Team-authored target, not validated by a field worker. Values are invented.",
+  "source": "prototype-assets/synthetic-reports/example-001-te-mixed.md",
+  "config_version": "0.1.0",
+  "fields": {
+    "report_date": {
+      "value": "2026-11-16",
+      "raw_text": "పదహారు నవంబర్",
+      "confidence": "high",
+      "note": "Spoken day+month, year inferred from session context."
+    },
+    "children_present": {
+      "value": 24,
+      "raw_text": "ఇరవై నాలుగు మంది పిల్లలు వచ్చారు",
+      "confidence": "high"
+    },
+    "activity_type": {
+      "value": ["pre_school", "nutrition", "weighing", "home_visit"],
+      "raw_text": "పూర్-స్కూల్ క్లాస్ ... భోజనం ... తూకం ... home visit",
+      "confidence": "high",
+      "note": "Multi-value. Referral is counted in referrals_made, not as a primary activity."
+    },
+    "meal_served": {
+      "value": true,
+      "raw_text": "అన్నం, పప్పు, కూర పెట్టాం",
+      "confidence": "high"
+    },
+    "menu_items": {
+      "value": ["అన్నం", "పప్పు", "కూర"],
+      "raw_text": "అన్నం, పప్పు, కూర",
+      "confidence": "high"
+    },
+    "children_weighed": {
+      "value": 10,
+      "raw_text": "పది మంది పిల్లల బరువు తూకం వేశాం",
+      "confidence": "high"
+    },
+    "referrals_made": {
+      "value": 1,
+      "raw_text": "ఒక పిల్లవాడిని PHC కి refer చేశాం",
+      "confidence": "high"
+    },
+    "take_home_ration": {
+      "value": false,
+      "raw_text": "ఇంటికి తీసుకెళ్లే పౌష్టికాహారం ఈరోజు ఇవ్వలేదు",
+      "confidence": "high",
+      "note": "Negation test. 'వచ్చే వారం ఇస్తాం' is a future plan and must not flip the value."
+    },
+    "home_visits": {
+      "value": 2,
+      "raw_text": "రెండు ఇళ్లకు home visit కి వెళ్ళాం",
+      "confidence": "high"
+    },
+    "absentees": {
+      "value": 3,
+      "raw_text": "ముగ్గురు పిల్లలు జ్వరంతో రాలేదు",
+      "confidence": "high"
+    },
+    "remarks": {
+      "value": "ముగ్గురు పిల్లలు జ్వరంతో రాలేదు.",
+      "raw_text": "ముగ్గురు పిల్లలు జ్వరంతో రాలేదు",
+      "confidence": "medium",
+      "note": "Partly duplicates absentees; acceptable, worker confirms."
+    }
+  },
+  "expected_absent_fields": ["centre_code", "children_enrolled", "children_immunised"],
+  "expected_clarifications": [
+    { "field_id": "centre_code", "reason": "optional-but-missing", "should_be_asked": false },
+    { "field_id": "children_enrolled", "reason": "optional-but-missing", "should_be_asked": false }
+  ],
+  "_clarification_comment": "All required fields are present, so zero questions should be asked. With max_questions=3 and required-missing ordering, this sample must produce an empty question list.",
+  "expected_preview_contains": [
+    "రోజు నివేదిక",
+    "ఇది పరిశోధన ప్రోటోటైప్‌తో తయారు చేసిన డ్రాఫ్ట్",
+    "Not submitted"
+  ]
+}

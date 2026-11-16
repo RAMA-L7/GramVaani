@@ -1,0 +1,370 @@
+{
+  "$schema": "./report-fields.schema.json",
+  "config_version": "0.1.0",
+  "status": "hypothesis-only",
+  "disclaimer": "UNVERIFIED. No field in this file has been confirmed against field research or any government system. This is not a specification of official reporting requirements.",
+  "language": {
+    "primary": "te",
+    "secondary": "en",
+    "output_script": "Telugu",
+    "preserve_english_tokens": true
+  },
+  "clarification": {
+    "max_questions": 3,
+    "allow_dont_know": true,
+    "ordering": ["required_missing", "ambiguous", "optional_missing"]
+  },
+  "preview": {
+    "title_te": "రోజు నివేదిక — డ్రాఫ్ట్",
+    "title_en": "Daily report — draft",
+    "footer_te": "ఇది పరిశోధన ప్రోటోటైప్‌తో తయారు చేసిన డ్రాఫ్ట్. ఇది అధికారిక నివేదిక కాదు. ఎక్కడికీ పంపబడలేదు.",
+    "footer_en": "Draft prepared with a research prototype. Not an official record. Not submitted.",
+    "sections": [
+      { "id": "header", "label_te": "వివరాలు", "label_en": "Details" },
+      { "id": "activities", "label_te": "కార్యకలాపాలు", "label_en": "Activities" },
+      { "id": "nutrition", "label_te": "పౌష్టికాహారం", "label_en": "Nutrition" },
+      { "id": "health", "label_te": "ఆరోగ్యం", "label_en": "Health" },
+      { "id": "notes", "label_te": "వ్యాఖ్యలు", "label_en": "Remarks" }
+    ]
+  },
+  "fields": [
+    {
+      "id": "report_date",
+      "label_te": "నివేదిక తేదీ",
+      "label_en": "Report date",
+      "type": "date",
+      "requirement": "required",
+      "priority": 1,
+      "section": "header",
+      "extraction": {
+        "hints_te": ["ఈరోజు", "నేటి తేదీ", "ఈ రోజు తేదీ"],
+        "hints_en": ["today", "date"]
+      },
+      "clarification": {
+        "question_te": "ఈ నివేదిక ఏ తేదీకి?",
+        "question_en": "Which date is this report for?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "assumption",
+        "validated_in": null,
+        "note": "Assumed reports are dated and usually refer to the current day. Cadence unconfirmed (Q-2)."
+      }
+    },
+    {
+      "id": "centre_code",
+      "label_te": "కేంద్రం కోడ్",
+      "label_en": "Centre code",
+      "type": "string",
+      "requirement": "optional",
+      "priority": 6,
+      "section": "header",
+      "extraction": {
+        "hints_te": ["కేంద్రం", "సెంటర్"],
+        "hints_en": ["centre", "center"]
+      },
+      "clarification": {
+        "question_te": "ఏ కేంద్రం నివేదిక?",
+        "question_en": "Which centre is this report for?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Synthetic identifiers only. Never a real beneficiary or staff identifier."
+      }
+    },
+    {
+      "id": "activity_type",
+      "label_te": "కార్యకలాపం",
+      "label_en": "Activity",
+      "type": "enum_list",
+      "requirement": "required",
+      "priority": 2,
+      "section": "activities",
+      "options": [
+        { "value": "pre_school", "label_te": "పూర్వ ప్రాథమిక విద్య", "label_en": "Pre-school education" },
+        { "value": "nutrition", "label_te": "పౌష్టికాహారం", "label_en": "Nutrition / meal" },
+        { "value": "health_check", "label_te": "ఆరోగ్య పరీక్ష", "label_en": "Health check" },
+        { "value": "weighing", "label_te": "తూకం", "label_en": "Weighing" },
+        { "value": "immunisation", "label_te": "టీకాలు", "label_en": "Immunisation" },
+        { "value": "home_visit", "label_te": "ఇంటి సందర్శన", "label_en": "Home visit" },
+        { "value": "awareness", "label_te": "అవగాహన సదస్సు", "label_en": "Awareness session" }
+      ],
+      "extraction": {
+        "hints_te": ["పాఠం చెప్పాం", "భోజనం పెట్టాం", "తూకం వేశాం", "టీకా వేశాం", "ఇంటికి వెళ్ళాం", "మీటింగ్ పెట్టాం"],
+        "hints_en": ["class", "meal", "weighing", "vaccine", "home visit", "meeting"]
+      },
+      "clarification": {
+        "question_te": "ఈరోజు ప్రధాన కార్యకలాపం ఏమిటి?",
+        "question_en": "What was the main activity today?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Options guessed from typical Anganwadi work. The real list must come from observation (Q-1)."
+      }
+    },
+    {
+      "id": "children_enrolled",
+      "label_te": "నమోదైన పిల్లలు",
+      "label_en": "Children enrolled",
+      "type": "integer",
+      "requirement": "optional",
+      "priority": 7,
+      "section": "activities",
+      "validation": { "min": 0, "max": 200 },
+      "extraction": {
+        "hints_te": ["మొత్తం పిల్లలు", "నమోదు"],
+        "hints_en": ["enrolled", "total children"]
+      },
+      "clarification": {
+        "question_te": "కేంద్రంలో మొత్తం ఎంత మంది పిల్లలు నమోదయ్యారు?",
+        "question_en": "How many children are enrolled at the centre?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Aggregate count only. No child-level records exist anywhere in this prototype."
+      }
+    },
+    {
+      "id": "children_present",
+      "label_te": "హాజరైన పిల్లలు",
+      "label_en": "Children present",
+      "type": "integer",
+      "requirement": "required",
+      "priority": 3,
+      "section": "activities",
+      "validation": { "min": 0, "max": 200 },
+      "extraction": {
+        "hints_te": ["హాజరు", "వచ్చారు", "మంది పిల్లలు"],
+        "hints_en": ["attendance", "present", "came"]
+      },
+      "clarification": {
+        "question_te": "ఈరోజు ఎంత మంది పిల్లలు వచ్చారు?",
+        "question_en": "How many children came today?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Most likely field, but its label, period and required-ness are unconfirmed."
+      }
+    },
+    {
+      "id": "absentees",
+      "label_te": "గైర్హాజరు",
+      "label_en": "Absent children",
+      "type": "integer",
+      "requirement": "optional",
+      "priority": 8,
+      "section": "activities",
+      "validation": { "min": 0, "max": 200 },
+      "extraction": {
+        "hints_te": ["రాలేదు", "గైర్హాజరు", "లేరు"],
+        "hints_en": ["absent", "did not come"]
+      },
+      "clarification": {
+        "question_te": "ఎంత మంది రాలేదు?",
+        "question_en": "How many were absent?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "May be derived from enrolled − present rather than reported separately."
+      }
+    },
+    {
+      "id": "meal_served",
+      "label_te": "భోజనం పెట్టారా",
+      "label_en": "Meal served",
+      "type": "boolean",
+      "requirement": "optional",
+      "priority": 5,
+      "section": "nutrition",
+      "extraction": {
+        "hints_te": ["భోజనం పెట్టాం", "అన్నం", "పెట్టలేదు"],
+        "hints_en": ["meal served", "lunch"]
+      },
+      "clarification": {
+        "question_te": "ఈరోజు భోజనం పెట్టారా?",
+        "question_en": "Was the meal served today?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Whether a boolean, a count, or a menu field in the real workflow is unknown."
+      }
+    },
+    {
+      "id": "menu_items",
+      "label_te": "మెనూ",
+      "label_en": "Menu",
+      "type": "string_list",
+      "requirement": "optional",
+      "priority": 9,
+      "section": "nutrition",
+      "extraction": {
+        "hints_te": ["అన్నం", "పప్పు", "కూర", "సాంబార్", "పెరుగు", "గుడ్డు", "పాలు"],
+        "hints_en": ["rice", "dal", "curry", "sambar", "curd", "egg", "milk"]
+      },
+      "clarification": {
+        "question_te": "ఈరోజు ఏమి వండారు?",
+        "question_en": "What was cooked today?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Free text or a fixed menu calendar? Unknown (Q-5)."
+      }
+    },
+    {
+      "id": "take_home_ration",
+      "label_te": "ఇంటికి తీసుకెళ్లే పౌష్టికాహారం",
+      "label_en": "Take-home ration distributed",
+      "type": "boolean",
+      "requirement": "optional",
+      "priority": 10,
+      "section": "nutrition",
+      "extraction": {
+        "hints_te": ["పౌష్టికాహారం ఇచ్చాం", "రేషన్", "ఇంటికి ఇచ్చాం"],
+        "hints_en": ["take home", "ration", "given"]
+      },
+      "clarification": {
+        "question_te": "ఇంటికి తీసుకెళ్లే పౌష్టికాహారం ఇచ్చారా?",
+        "question_en": "Was take-home nutrition distributed?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Frequency (weekly/fortnightly) and quantity fields unknown."
+      }
+    },
+    {
+      "id": "children_weighed",
+      "label_te": "తూకం వేసిన పిల్లలు",
+      "label_en": "Children weighed",
+      "type": "integer",
+      "requirement": "optional",
+      "priority": 4,
+      "section": "health",
+      "validation": { "min": 0, "max": 200 },
+      "extraction": {
+        "hints_te": ["తూకం వేశాం", "బరువు చూశాం"],
+        "hints_en": ["weighed", "weight"]
+      },
+      "clarification": {
+        "question_te": "ఎంత మంది పిల్లలకు తూకం వేశారు?",
+        "question_en": "How many children were weighed?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Aggregate count only. Growth-status categories (normal/moderate/severe) may also be needed — unconfirmed."
+      }
+    },
+    {
+      "id": "children_immunised",
+      "label_te": "టీకాలు వేసిన పిల్లలు",
+      "label_en": "Children immunised",
+      "type": "integer",
+      "requirement": "optional",
+      "priority": 11,
+      "section": "health",
+      "validation": { "min": 0, "max": 200 },
+      "extraction": {
+        "hints_te": ["టీకా వేశాం", "వ్యాక్సిన్"],
+        "hints_en": ["vaccine", "immunised", "immunized"]
+      },
+      "clarification": {
+        "question_te": "ఎంత మందికి టీకాలు వేశారు?",
+        "question_en": "How many children were immunised?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Vaccine names and due lists are explicitly out of scope; count only, if anything."
+      }
+    },
+    {
+      "id": "referrals_made",
+      "label_te": "రెఫరల్స్",
+      "label_en": "Referrals made",
+      "type": "integer",
+      "requirement": "optional",
+      "priority": 12,
+      "section": "health",
+      "validation": { "min": 0, "max": 50 },
+      "extraction": {
+        "hints_te": ["ఆసుపత్రికి పంపాం", "రెఫర్ చేశాం"],
+        "hints_en": ["referred", "hospital", "PHC"]
+      },
+      "clarification": {
+        "question_te": "ఎంత మందిని ఆసుపత్రికి పంపారు?",
+        "question_en": "How many referrals were made?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Count only. No referral reasons, no identifying details."
+      }
+    },
+    {
+      "id": "home_visits",
+      "label_te": "ఇంటి సందర్శనలు",
+      "label_en": "Home visits",
+      "type": "integer",
+      "requirement": "optional",
+      "priority": 13,
+      "section": "activities",
+      "validation": { "min": 0, "max": 50 },
+      "extraction": {
+        "hints_te": ["ఇంటికి వెళ్ళాం", "సందర్శన"],
+        "hints_en": ["home visit", "visited house"]
+      },
+      "clarification": {
+        "question_te": "ఎన్ని ఇళ్లకు వెళ్ళారు?",
+        "question_en": "How many home visits did you make?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Count only. Who was visited is never recorded in this prototype."
+      }
+    },
+    {
+      "id": "remarks",
+      "label_te": "వ్యాఖ్యలు",
+      "label_en": "Remarks",
+      "type": "string",
+      "requirement": "optional",
+      "priority": 14,
+      "section": "notes",
+      "extraction": {
+        "hints_te": ["గమనిక", "చెప్పాలంటే", "విషయం"],
+        "hints_en": ["note", "remark", "also"]
+      },
+      "clarification": {
+        "question_te": "ఇంకా ఏమైనా చెప్పాలా?",
+        "question_en": "Anything else to add?"
+      },
+      "verification": {
+        "status": "unverified",
+        "source": "hypothesis",
+        "validated_in": null,
+        "note": "Free text. Must be scrubbed of names before display; v0 accepts synthetic content only."
+      }
+    }
+  ]
+}
