@@ -1,6 +1,7 @@
-import type { Extraction, PilotReport, Validation } from './types';
+import type { Extraction, LocalWorkerProfile, PilotReport, Validation } from './types';
 
 const KEY = 'gramvaani_pilot_workflow_v1';
+const PROFILE_KEY = 'gramvaani_pilot_worker_profile_v1';
 
 export interface WorkflowState {
   provider?: string;
@@ -16,7 +17,33 @@ export interface WorkflowState {
   report: PilotReport | null;
   validation: Validation | null;
   scenarioId?: string;
+  draftId?: string;
+  workerProfile?: LocalWorkerProfile;
   updatedAt?: string;
+}
+
+export function defaultWorkerProfile(): LocalWorkerProfile {
+  return { worker_code: 'SYN-PILOT-W001', centre_code: 'SYN-PILOT-C001' };
+}
+
+export function loadWorkerProfile(): LocalWorkerProfile {
+  if (typeof window === 'undefined') return defaultWorkerProfile();
+  try {
+    const raw = window.localStorage.getItem(PROFILE_KEY);
+    if (!raw) return defaultWorkerProfile();
+    const parsed = JSON.parse(raw) as Partial<LocalWorkerProfile>;
+    return {
+      worker_code: (parsed.worker_code || '').toString().trim() || 'SYN-PILOT-W001',
+      centre_code: (parsed.centre_code || '').toString().trim() || 'SYN-PILOT-C001',
+    };
+  } catch {
+    return defaultWorkerProfile();
+  }
+}
+
+export function saveWorkerProfile(profile: LocalWorkerProfile) {
+  if (typeof window === 'undefined') return;
+  try { window.localStorage.setItem(PROFILE_KEY, JSON.stringify(profile)); } catch { /* ignore */ }
 }
 
 export function emptyWorkflow(): WorkflowState {

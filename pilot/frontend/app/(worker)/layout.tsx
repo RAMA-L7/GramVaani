@@ -6,7 +6,10 @@ export default function WorkerLayout({ children }: { children: React.ReactNode }
       <header className="topbar">
         <div className="wrap topbar-inner">
           <Link href="/" className="brand">గ్రామవాణి <small>Pilot</small></Link>
-          <Link href="/research" className="subtle-link">పరిశోధకులు / Researcher</Link>
+          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+            <Link href="/history" className="subtle-link">చరిత్ర (History)</Link>
+            <Link href="/research" className="subtle-link">పరిశోధకులు / Researcher</Link>
+          </div>
         </div>
       </header>
       <main className="main">

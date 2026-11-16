@@ -21,6 +21,7 @@ export default function HomeClient() {
       report: null,
       validation: null,
       scenarioId: undefined,
+      draftId: undefined,
     });
     router.push('/speak');
   }
@@ -54,7 +55,8 @@ export default function HomeClient() {
         </div>
       </section>
 
-      <section>
+      <section className="stack">
+        <Link href="/history" className="btn btn-secondary">నా చరిత్ర చూడండి / View history</Link>
         <Link href="/review" className="btn btn-secondary">కొనసాగించండి (ముందు సేవ్ చేసినది) / Continue saved</Link>
       </section>
     </div>

@@ -75,3 +75,11 @@ The following must be **personally verified in a browser** (especially on a real
 - **Runtime note:** after restructuring, dev cache was cleared (`.next` removed) and frontend dev server restarted; verified HTTP 200 for `/`, `/speak`, `/research` at report time.
 
 *Experimental pilot interface — sample outputs only, not official, not submitted, no government integration.*
+
+## 8. Addendum �?" Worker reporting history & local dashboard (implemented)
+- **Route/UI:** worker-facing `/history` page added (Telugu-first, mobile-first) with counts (total/completed sample/draft-pending/corrected), day/week/month views, record status (`Draft` / `Completed (sample)` / `Corrected`), entry and last-updated timestamps, safe local profile identity (worker/centre code, stored locally; no sensitive/beneficiary PII), and actions to open/edit previous drafts into the existing workflow.
+- **Navigation/wiring:** History links added to worker layout/home; confirm/save flows preserve `draft_id` continuity and local worker/profile/report-date hints; saving an edited previously confirmed sample can be marked `Corrected` (local status). Saving a draft remains **not** an official submission.
+- **Backend (additive, local SQLite `pilot.db`, gitignored):** existing `drafts` persistence reused (no duplicate model); richer draft summaries, `GET /api/drafts/history` aggregations/counts, and safe meta/worker/status handling added.
+- **Safety labels:** history shows local pilot records only �?" **sample/experimental, not official, not submitted, no government integration**.
+- **Verification (this change):** backend `uv run pytest -q` **14 passed**; frontend `tsc --noEmit` **PASS**, `vitest` **1 file/5 passed**, `next build` **PASS (21 routes, includes `/history`)**.
+- **Manual/end-to-end to confirm in browser:** create/save/confirm drafts, reload `/history`, switch day/week/month, open/edit records, and confirm local profile/timestamps/status display. Live mic/real Telugu STT acceptance and real-corpus ASR evaluation remain **not performed/unmeasured** (D-12); Phase 0 field validation/impact remain **open/unproven**.

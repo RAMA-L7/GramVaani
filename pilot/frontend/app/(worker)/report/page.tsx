@@ -73,6 +73,7 @@ export default function ReportPage() {
       });
       // merge clarification answers into corrections/answers payload
       const mergedAnswers = { ...(wf.answers || {}), ...answers };
+      const profile = wf.workerProfile;
       const payload = {
         extractions: extractions.map((ex) => ({ ...ex, value: coerceLike(values[ex.field_id] ?? stringifyValue(ex.value), ex.value) })),
         answers: mergedAnswers,
@@ -81,14 +82,17 @@ export default function ReportPage() {
         idempotency_key: confirmKey,
         transcript,
         original_transcript: original,
+        draft_id: wf.draftId,
+        worker: profile ? { worker_code: profile.worker_code, centre_code: profile.centre_code } : undefined,
         explicit_confirmation: true,
         sample_report: true,
+        meta: { worker_code: profile?.worker_code, centre_code: profile?.centre_code, report_date: (mergedAnswers as any)?.report_date },
       };
       const res = await api.confirm(payload);
-      const rep = { ...res.report, sample: true, label: res.report.label || 'Experimental sample report (not official, not submitted)' } as PilotReport;
+      const rep = { ...res.report, sample: true, label: (res.report as any).label || 'Experimental sample report (not official, not submitted)' } as PilotReport;
       setReport(rep);
       setValidation(res.validation);
-      patchWorkflow({ report: rep, validation: res.validation, answers: mergedAnswers, corrections, transcript, originalTranscript: original });
+      patchWorkflow({ report: rep, validation: res.validation, answers: mergedAnswers, corrections, transcript, originalTranscript: original, draftId: res.draft_id || wf.draftId });
       router.push('/done');
     } catch (e) {
       setError(`నమూనా నివేదిక తయారు కాలేదు. మళ్లీ ప్రయత్నించండి. (${errorMessage(e)})`);

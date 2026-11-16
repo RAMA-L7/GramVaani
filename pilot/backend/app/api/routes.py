@@ -328,6 +328,13 @@ def confirm(request: ConfirmRequest) -> Any:
         worker=request.worker,
     )
     validation = validate_report(report.model_dump(mode="json"))
+    meta = request.meta if isinstance(request.meta, dict) else {}
+    # persist safe local worker/profile identity hints if provided (non-identifying, local-only)
+    if request.worker:
+        try:
+            meta = {**meta, "worker_code": request.worker.worker_code, "centre_code": request.worker.centre_code}
+        except Exception:
+            meta = {**meta}
     draft_data = {
         "transcript": request.transcript,
         "original_transcript": original,
@@ -336,7 +343,7 @@ def confirm(request: ConfirmRequest) -> Any:
         "corrections": request.corrections,
         "report": report.model_dump(mode="json"),
         "validation": validation.model_dump(mode="json"),
-        "meta": request.meta,
+        "meta": meta,
     }
     saved = save_draft(request.draft_id, draft_data, status="confirmed_sample")
     resp = ConfirmResponse(report=report, validation=validation, draft_id=saved["draft_id"], saved=True)
@@ -383,26 +390,145 @@ async def voice_confirm(request: Request) -> Any:
 
 
 @router.get("/drafts")
-def drafts_list() -> list[dict[str, Any]]:
-    items = list_drafts()
-    # add frontend-friendly aliases
+def drafts_list(limit: int = 200) -> list[dict[str, Any]]:
+    items = list_drafts(limit=limit)
+    # aliases kept for compatibility
     for it in items:
         it["id"] = it.get("draft_id")
-        it["updated_at"] = it.get("updated_at")
-        it["status"] = it.get("status")
     return items
+
+
+@router.get("/drafts/history")
+def drafts_history(limit: int = 500) -> dict[str, Any]:
+    """Worker-facing history summary (local pilot DB). Experimental sample records only, not submitted."""
+    items = list_drafts(limit=limit)
+
+    def _date_key(it: dict[str, Any]) -> str | None:
+        d = it.get("report_date")
+        if isinstance(d, str) and len(d) >= 10:
+            return d[:10]
+        # fallback to updated/created date
+        for k in ("updated_at", "created_at"):
+            v = it.get(k)
+            if isinstance(v, str) and len(v) >= 10:
+                return v[:10]
+        return None
+
+    def _status_label(raw: str | None, summary: dict[str, Any]) -> str:
+        if summary.get("confirmed") or raw == "confirmed_sample":
+            return "Completed (sample)"
+        if raw == "corrected":
+            return "Corrected"
+        return "Draft"
+
+    def _period_label(date_str: str | None) -> str:
+        if not date_str:
+            return "Unknown period"
+        try:
+            dt = datetime.fromisoformat(date_str)
+        except Exception:
+            try:
+                dt = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+            except Exception:
+                return "Daily report"
+        # simple: treat report-dated entries as daily report records
+        return "Daily report"
+
+    records = []
+    for it in items:
+        summary = it.get("summary") or {}
+        date_key = _date_key(it)
+        rec = {
+            **it,
+            "date_key": date_key,
+            "period_label": _period_label(date_key),
+            "status_label": _status_label(it.get("status"), summary),
+            "not_official": True,
+            "not_submitted": True,
+        }
+        records.append(rec)
+
+    # counts
+    completed = sum(1 for r in records if r.get("summary", {}).get("confirmed") or r.get("status") == "confirmed_sample")
+    corrected = sum(1 for r in records if r.get("status") == "corrected")
+    drafts = sum(1 for r in records if r.get("status_label") == "Draft")
+    # pending = drafts not yet explicitly confirmed as sample
+    pending = drafts
+
+    # daily groups
+    by_day: dict[str, dict[str, Any]] = {}
+    for r in records:
+        k = r.get("date_key") or "unknown"
+        g = by_day.setdefault(k, {"date": k, "total": 0, "completed": 0, "drafts": 0, "corrected": 0, "items": []})
+        g["total"] += 1
+        if r.get("summary", {}).get("confirmed") or r.get("status") == "confirmed_sample":
+            g["completed"] += 1
+        elif r.get("status") == "corrected":
+            g["corrected"] += 1
+        else:
+            g["drafts"] += 1
+        g["items"].append(r)
+
+    # weekly and monthly rollups (by date_key)
+    def _week_key(date_str: str) -> str | None:
+        try:
+            dt = datetime.fromisoformat(date_str)
+        except Exception:
+            return None
+        iso = dt.isocalendar()
+        return f"{iso.year}-W{iso.week:02d}"
+
+    def _month_key(date_str: str) -> str | None:
+        return date_str[:7] if date_str and len(date_str) >= 7 and date_str != "unknown" else None
+
+    weekly: dict[str, dict[str, Any]] = {}
+    monthly: dict[str, dict[str, Any]] = {}
+    for day_key, g in by_day.items():
+        if day_key and day_key != "unknown":
+            wk = _week_key(day_key) or "unknown"
+            wg = weekly.setdefault(wk, {"period": wk, "total": 0, "completed": 0, "drafts": 0, "corrected": 0})
+            wg["total"] += g["total"]; wg["completed"] += g["completed"]; wg["drafts"] += g["drafts"]; wg["corrected"] += g["corrected"]
+            mk = _month_key(day_key) or "unknown"
+            mg = monthly.setdefault(mk, {"period": mk, "total": 0, "completed": 0, "drafts": 0, "corrected": 0})
+            mg["total"] += g["total"]; mg["completed"] += g["completed"]; mg["drafts"] += g["drafts"]; mg["corrected"] += g["corrected"]
+        else:
+            wg = weekly.setdefault("unknown", {"period": "unknown", "total": 0, "completed": 0, "drafts": 0, "corrected": 0})
+            wg["total"] += g["total"]; wg["completed"] += g["completed"]; wg["drafts"] += g["drafts"]; wg["corrected"] += g["corrected"]
+            mg = monthly.setdefault("unknown", {"period": "unknown", "total": 0, "completed": 0, "drafts": 0, "corrected": 0})
+            mg["total"] += g["total"]; mg["completed"] += g["completed"]; mg["drafts"] += g["drafts"]; mg["corrected"] += g["corrected"]
+
+    return {
+        "records": records,
+        "counts": {
+            "total": len(records),
+            "completed_samples": completed,
+            "drafts": drafts,
+            "pending": pending,
+            "corrected": corrected,
+        },
+        "daily": sorted(by_day.values(), key=lambda x: x["date"], reverse=True),
+        "weekly": sorted(weekly.values(), key=lambda x: x["period"], reverse=True),
+        "monthly": sorted(monthly.values(), key=lambda x: x["period"], reverse=True),
+        "note": "Local pilot history only. Sample/experimental records, not official and not submitted to any government system.",
+    }
 
 
 @router.post("/drafts")
 def drafts_save(request: DraftSaveRequest) -> dict[str, Any]:
     data = request.model_dump(mode="json")
     status = "draft"
+    # allow explicit status hints in meta (e.g. corrected) without claiming official submission
+    meta = data.get("meta") if isinstance(data.get("meta"), dict) else {}
+    meta_hint = meta.get("status") if isinstance(meta, dict) else None
     if request.report and getattr(request.report, "confirmation", None):
         try:
             if request.report.confirmation.explicit_confirmation:
                 status = "confirmed_sample"
         except Exception:
-            status = "draft"
+            pass
+    # explicit corrected hint takes precedence over confirmed sample for edited records
+    if meta_hint == "corrected":
+        status = "corrected"
     saved = save_draft(request.draft_id, data, status=status)
     saved["id"] = saved.get("draft_id")
     return saved

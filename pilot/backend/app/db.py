@@ -105,6 +105,33 @@ def get_draft(draft_id: str) -> dict[str, Any] | None:
     }
 
 
+def _extract_history_fields(data: dict[str, Any]) -> dict[str, Any]:
+    report = data.get("report") if isinstance(data.get("report"), dict) else {}
+    worker = report.get("worker") if isinstance(report.get("worker"), dict) else {}
+    confirmation = report.get("confirmation") if isinstance(report.get("confirmation"), dict) else {}
+    meta = data.get("meta") if isinstance(data.get("meta"), dict) else {}
+    # report_date priority: explicit top-level in data/meta/report fields
+    report_date = (
+        data.get("report_date")
+        or meta.get("report_date")
+        or report.get("report_date")
+        or (report.get("fields") or {}).get("report_date")
+    )
+    worker_code = worker.get("worker_code") or meta.get("worker_code") or data.get("worker_code")
+    centre_code = worker.get("centre_code") or meta.get("centre_code") or data.get("centre_code")
+    has_report = bool(report)
+    confirmed = bool(confirmation.get("explicit_confirmation"))
+    return {
+        "report_date": report_date,
+        "worker_code": worker_code,
+        "centre_code": centre_code,
+        "has_report": has_report,
+        "has_transcript": bool(data.get("transcript") or data.get("original_transcript")),
+        "confirmed": confirmed,
+        "draft_kind": "sample_report" if has_report else "draft",
+    }
+
+
 def list_drafts(limit: int = 100) -> list[dict[str, Any]]:
     with _connect() as conn:
         rows = conn.execute(
@@ -113,16 +140,23 @@ def list_drafts(limit: int = 100) -> list[dict[str, Any]]:
         ).fetchall()
     results = []
     for row in rows:
-        data = json.loads(row["data"])
+        data = json.loads(row["data"]) if row["data"] else {}
+        info = _extract_history_fields(data)
         results.append(
             {
                 "draft_id": row["draft_id"],
+                "id": row["draft_id"],
                 "status": row["status"],
                 "created_at": row["created_at"],
                 "updated_at": row["updated_at"],
+                "report_date": info.get("report_date"),
+                "worker_code": info.get("worker_code"),
+                "centre_code": info.get("centre_code"),
                 "summary": {
-                    "has_report": bool(data.get("report")),
-                    "has_transcript": bool(data.get("transcript") or data.get("original_transcript")),
+                    "has_report": info.get("has_report", False),
+                    "has_transcript": info.get("has_transcript", False),
+                    "confirmed": info.get("confirmed", False),
+                    "draft_kind": info.get("draft_kind", "draft"),
                 },
             }
         )

@@ -1,5 +1,5 @@
 import type {
-  AsrCapabilitiesResponse, ClarifyResponse, ConfirmResponse, DraftPayload, DraftSummary,
+  AsrCapabilitiesResponse, ClarifyResponse, ConfirmResponse, DraftHistoryResponse, DraftPayload, DraftSummary,
   EvaluationSummary, ExtractResponse, FeedbackPayload, PilotReport, TestScenario, TranscribeResponse,
 } from './types';
 
@@ -102,13 +102,25 @@ export const api = {
       method: 'POST', headers: jsonHeaders(), body: JSON.stringify(payload),
     }),
 
-  saveDraft: (draft: DraftPayload) =>
-    request<{ id: string; draft?: DraftPayload; saved_at?: string }>('/drafts', {
-      method: 'POST', headers: jsonHeaders(), body: JSON.stringify(draft),
-    }),
+  saveDraft: (draft: DraftPayload) => {
+    const payload = {
+      draft_id: draft.draft_id || draft.id,
+      transcript: draft.transcript,
+      original_transcript: draft.original_transcript,
+      extractions: draft.extractions || [],
+      answers: draft.answers || {},
+      corrections: draft.corrections || {},
+      report: draft.report || null,
+      meta: draft.meta || draft.metadata || {},
+    };
+    return request<{ id?: string; draft_id?: string; status?: string; updated_at?: string; saved_at?: string } & Record<string, unknown>>('/drafts', {
+      method: 'POST', headers: jsonHeaders(), body: JSON.stringify(payload),
+    });
+  },
 
   listDrafts: () => request<DraftSummary[] | { drafts: DraftSummary[] }>('/drafts'),
-  getDraft: (id: string) => request<DraftPayload & { id: string }>(`/drafts/${encodeURIComponent(id)}`),
+  getDraft: (id: string) => request<DraftPayload & { id?: string; draft_id?: string; data?: any }>(`/drafts/${encodeURIComponent(id)}`),
+  draftsHistory: () => request<DraftHistoryResponse>('/drafts/history'),
 
   exportReport: async (report: PilotReport, format: 'json' = 'json') => {
     // Prefer backend export endpoint; caller can fallback to client-side download.

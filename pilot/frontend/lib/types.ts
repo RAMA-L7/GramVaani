@@ -96,25 +96,81 @@ export interface PilotReport {
 export interface ConfirmResponse {
   report: PilotReport;
   validation: Validation;
+  draft_id?: string;
+  saved?: boolean;
 }
 
 export interface DraftSummary {
-  id: string;
+  id?: string;
+  draft_id?: string;
   updated_at?: string;
-  report_date?: string;
+  created_at?: string;
+  report_date?: string | null;
   status?: string;
+  status_label?: string;
+  date_key?: string | null;
+  period_label?: string;
+  worker_code?: string | null;
+  centre_code?: string | null;
   title?: string;
+  not_official?: boolean;
+  not_submitted?: boolean;
+  summary?: {
+    has_report?: boolean;
+    has_transcript?: boolean;
+    confirmed?: boolean;
+    draft_kind?: string;
+  };
+}
+
+export interface HistoryCounts {
+  total: number;
+  completed_samples: number;
+  drafts: number;
+  pending: number;
+  corrected: number;
+}
+
+export interface HistoryGroup {
+  date?: string;
+  period?: string;
+  total: number;
+  completed: number;
+  drafts: number;
+  corrected: number;
+  items?: DraftSummary[];
+}
+
+export interface DraftHistoryResponse {
+  records: DraftSummary[];
+  counts: HistoryCounts;
+  daily: HistoryGroup[];
+  weekly: HistoryGroup[];
+  monthly: HistoryGroup[];
+  note?: string;
+}
+
+export interface LocalWorkerProfile {
+  worker_code: string;
+  centre_code: string;
 }
 
 export interface DraftPayload {
   id?: string;
+  draft_id?: string;
   transcript?: string;
   original_transcript?: string;
-  report?: PilotReport;
+  report?: PilotReport | null;
   extractions?: Extraction[];
   answers?: Record<string, unknown>;
   corrections?: Record<string, unknown>;
+  meta?: Record<string, unknown>;
   metadata?: Record<string, unknown>;
+  validation?: Validation | null;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+  data?: Record<string, unknown>;
 }
 
 export interface FeedbackPayload {

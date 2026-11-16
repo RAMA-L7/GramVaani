@@ -22,6 +22,7 @@ export default function DonePage() {
     if (!wf.report) { router.replace('/report'); return; }
     setReport(wf.report);
     setValidation(wf.validation);
+    if (wf.draftId) setDraftId(wf.draftId);
   }, [router]);
 
   async function saveDraft() {
@@ -29,19 +30,24 @@ export default function DonePage() {
     setBusy('save'); setError(null); setMsg(null);
     try {
       const wf = loadWorkflow();
+      const wasCompleted = (report as any)?.confirmation?.explicit_confirmation === true || (report as any)?.status === 'confirmed_sample';
+      const metaStatus = wasCompleted ? 'corrected' : undefined;
       const res = await api.saveDraft({
-        id: draftId,
+        draft_id: draftId || wf.draftId,
         transcript: wf.transcript,
         original_transcript: wf.originalTranscript,
         report,
         extractions: wf.extractions,
         answers: wf.answers,
         corrections: wf.corrections,
-        metadata: { sample: true, saved_from: 'worker_done' },
+        meta: { sample: true, saved_from: 'worker_done', worker_code: wf.workerProfile?.worker_code, centre_code: wf.workerProfile?.centre_code, report_date: (report as any)?.report_date, status: metaStatus },
       });
-      const id = res.id || (res as any).draft?.id;
-      if (id) setDraftId(id);
-      setMsg('సేవ్ అయింది. (Draft saved.)');
+      const id = (res as any).id || (res as any).draft_id || (res as any).draft?.id;
+      if (id) {
+        setDraftId(id);
+        patchWorkflow({ draftId: id });
+      }
+      setMsg(metaStatus === 'corrected' ? 'సవరించిన డ్రాఫ్ట్ సేవ్ అయింది. (Corrected draft saved.)' : 'సేవ్ అయింది. (Draft saved.)');
     } catch (e) {
       setError(`సేవ్ కాలేదు. (${errorMessage(e)})`);
     } finally { setBusy(null); }
