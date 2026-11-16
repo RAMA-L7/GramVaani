@@ -37,6 +37,8 @@ sandbox/backend/sandbox.db-wal
 sandbox/backend/.python-version
 sandbox/tests/test-results/
 sandbox/tests/playwright-report/
+sandbox/demo-backup/
+sandbox/tests/demo-backup/
 
 # --- Project-specific safety net ---------------------------------------------
 # Raw field audio, screenshots and notes must never be committed.

@@ -50,6 +50,20 @@ clarification instead of guessing; explicit confirm gate.
 
 Say explicitly: "The scripted transcripts in this demo are a **control**, not an ASR measurement."
 
+## "Is GramVaani ready for deployment?"
+
+Distinguish three stages — this is stronger than an unsupported yes/no:
+
+| Stage | Status | Evidence |
+|---|---|---|
+| **Technical feasibility** | **Demonstrated in the sandbox** | Components communicate, grounded extraction and correction work, local gateway handles duplicates and retries — see [RESULTS_SHEET.md](RESULTS_SHEET.md) |
+| **Speech accuracy** | **Not evaluated with real audio** | The demo uses scripted transcripts; WER/CER, accent, code-mixed and noise performance are unmeasured — see [TECHNICAL_EVALUATION_PLAN.md](TECHNICAL_EVALUATION_PLAN.md) |
+| **Real-world impact** | **Not established through field research** | Phase 0 is open: 0 sessions, 0 verified findings; workload reduction is a hypothesis (D-10) |
+
+> "Not yet. Technical feasibility is demonstrated in a simulated environment. Speech accuracy has not been
+> measured with real consented audio, and real-world impact has not been established through field research.
+> We are presenting a technical proof of concept and keeping those two questions open."
+
 ## Other likely questions
 
 | Question | Answer |
