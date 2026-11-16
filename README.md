@@ -56,7 +56,7 @@ D:\GramVaani
 │   ├── TECHNICAL_ARCHITECTURE.md
 │   ├── DEVELOPMENT_ROADMAP.md
 │   └── DECISIONS_AND_ASSUMPTIONS.md
-├── research/                       # Field research: plans, instruments, notes, findings
+├── research/                       # Field research + multi-agent desk study (see research/README.md)
 │   ├── FIELD_RESEARCH_PLAN.md
 │   ├── RESEARCH_FINDINGS.md
 │   ├── instruments/                # Consent script, interview guide, observation sheet, run sheet
@@ -83,6 +83,9 @@ D:\GramVaani
 | [PRODUCT_REQUIREMENTS.md](docs/PRODUCT_REQUIREMENTS.md) | What v0 must do, with acceptance criteria |
 | [TECHNICAL_ARCHITECTURE.md](docs/TECHNICAL_ARCHITECTURE.md) | How the pieces fit, and the seams that keep it flexible |
 | [FIELD_RESEARCH_PLAN.md](research/FIELD_RESEARCH_PLAN.md) | How we replace assumptions with evidence |
+| [Research knowledge base](research/README.md) | Multi-agent desk study: apps, policy, workload, voice tech, comparables, privacy |
+| [RESEARCH_SYNTHESIS.md](research/RESEARCH_SYNTHESIS.md) | What the desk study found and what it changes |
+| [RESEARCH_GAPS.md](research/RESEARCH_GAPS.md) | Contradictions, evidence map, what still needs a visit |
 | [RESEARCH_FINDINGS.md](research/RESEARCH_FINDINGS.md) | What we actually know so far (currently: very little) |
 | [DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md) | Phased build order and gates |
 | [DECISIONS_AND_ASSUMPTIONS.md](docs/DECISIONS_AND_ASSUMPTIONS.md) | Decisions made, assumptions held, and how each gets tested |
