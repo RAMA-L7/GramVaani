@@ -71,7 +71,7 @@ D:\GramVaani
 │   ├── prompt-library/
 │   └── ui-mocks/
 ├── tests/                          # Cross-cutting test strategy and fixtures
-└── scripts/                        # Developer utilities (empty for now)
+└── scripts/                        # Developer utilities (verify-structure.mjs)
 ```
 
 ## Documents
