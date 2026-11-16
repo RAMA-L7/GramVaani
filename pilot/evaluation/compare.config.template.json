@@ -1,0 +1,21 @@
+{
+  "_comment": "Template only. Copy to a local, gitignored file (e.g. config.local.json). Do not commit credentials.",
+  "approaches": {
+    "browser_web_speech": {
+      "captured_transcripts_dir": "corpus/captured_transcripts",
+      "version": "browser-client-capture"
+    },
+    "local_faster_whisper": {
+      "faster_whisper_model": "small",
+      "device": "cpu",
+      "compute_type": "int8",
+      "language": "te"
+    },
+    "cloud_provider": {
+      "provider": "google|azure|sarvam",
+      "adapter": "your_module:transcribe_clip",
+      "language": "te-IN",
+      "_credentials_note": "Provide API keys/tokens via environment variables or a secure local mechanism; never commit secrets."
+    }
+  }
+}

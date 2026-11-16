@@ -48,3 +48,33 @@ prototype-assets/audio-samples/*.wav
 prototype-assets/audio-samples/*.m4a
 prototype-assets/audio-samples/*.mp3
 *.recording.json
+
+# --- Pilot track (local/runtime data, secrets, recordings) --------------------
+pilot/.env
+pilot/**/.venv/
+pilot/**/node_modules/
+pilot/backend/pilot.db
+pilot/backend/pilot.db-*
+pilot/**/pilot.db
+pilot/**/pilot.db-*
+pilot/**/.audio_tmp/
+pilot/**/*.wav
+pilot/**/*.m4a
+pilot/**/*.mp3
+pilot/**/*.webm
+pilot/**/*.ogg
+# Evaluation: keep curated summaries/docs, ignore raw/local runs and any local audio artifacts
+pilot/evaluation/results/*.local.*
+pilot/evaluation/corpus/**/*.wav
+pilot/evaluation/corpus/**/*.m4a
+pilot/evaluation/corpus/**/*.mp3
+pilot/evaluation/corpus/**/*.webm
+pilot/evaluation/corpus/**/*.ogg
+pilot/evaluation/corpus/captured_transcripts/
+pilot/evaluation/corpus/**/reference.txt
+pilot/evaluation/corpus/**/numbers.expected.json
+pilot/evaluation/corpus/**/fields.expected.json
+pilot/evaluation/corpus/**/consent.json
+pilot/evaluation/corpus/manifest.json
+pilot/evaluation/*.local.json
+pilot/evaluation/config.local.json

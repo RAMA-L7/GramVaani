@@ -1,0 +1,13 @@
+{
+  "id": "number_formats",
+  "category": "number_formats",
+  "description": "Different number formats (ASCII, Telugu digits, decimal/weight context) in synthetic transcript text.",
+  "speaking_speed_proxy": "slow_clear",
+  "reference_text": "బరువు ౧౨.౫ కిలోలు మరియు ఎత్తు 85 సెంటీమీటర్లు నమోదు చేసాము",
+  "hypothesis_text": "బరువు 12.5 కిలోలు మరియు ఎత్తు 85 సెంటీమీటర్లు నమోదు చేసాము",
+  "expected_numbers": ["12.5", "85"],
+  "observed_numbers": ["12.5", "85"],
+  "expected_fields": {"weight_kg": "12.5", "height_cm": "85"},
+  "observed_fields": {"weight_kg": "12.5", "height_cm": "85"},
+  "correction_events": [{"field": "weight_kg", "corrected": false}]
+}

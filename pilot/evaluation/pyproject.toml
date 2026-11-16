@@ -1,0 +1,18 @@
+[project]
+name = "gramvaani-pilot-evaluation"
+version = "0.1.0"
+description = "Stdlib-first evaluation framework for GramVaani pilot (synthetic checks + ASR comparison harness)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+# Install only when running local ASR; not required for synthetic fixture scoring.
+local-asr = ["faster-whisper>=1.0.0"]
+
+[tool.uv]
+# No lock committed by default; evaluation is stdlib-first.
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"

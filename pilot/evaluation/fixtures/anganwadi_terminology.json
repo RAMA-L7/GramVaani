@@ -1,0 +1,13 @@
+{
+  "id": "anganwadi_terminology",
+  "category": "anganwadi_terminology_generic",
+  "description": "Common generic Anganwadi terminology and activity/material names (no personal data).",
+  "speaking_speed_proxy": "normal",
+  "reference_text": "పోషణ ట్రాకింగ్ కోసం Take Home Ration పంపిణీ చేసి immunization session నిర్వహించాము",
+  "hypothesis_text": "పోషణ ట్రాకింగ్ కోసం take home ration పంపిణీ చేసి immunization session నిర్వహించాము",
+  "expected_numbers": [],
+  "observed_numbers": [],
+  "expected_fields": {"materials": ["Take Home Ration"], "activities": ["పోషణ ట్రాకింగ్", "immunization session"]},
+  "observed_fields": {"materials": ["take home ration"], "activities": ["పోషణ ట్రాకింగ్", "immunization session"]},
+  "correction_events": []
+}

@@ -1,0 +1,13 @@
+{
+  "id": "telugu_only_basic",
+  "category": "telugu_only",
+  "description": "Simple Telugu-only utterance with common Anganwadi activity term and a count.",
+  "speaking_speed_proxy": "normal",
+  "reference_text": "ఈరోజు పాఠశాల పూర్వ విద్యలో పది మంది పిల్లలు హాజరయ్యారు",
+  "hypothesis_text": "ఈరోజు పాఠశాల పూర్వ విద్యలో పది మంది పిల్లలు హాజరయ్యారు",
+  "expected_numbers": ["10"],
+  "observed_numbers": ["10"],
+  "expected_fields": {"activity": "పాఠశాల పూర్వ విద్య", "children_present": 10},
+  "observed_fields": {"activity": "పాఠశాల పూర్వ విద్య", "children_present": 10},
+  "correction_events": [{"field": "children_present", "corrected": false}]
+}

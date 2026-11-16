@@ -1,0 +1,14 @@
+{
+  "id": "repeated_pauses_incomplete",
+  "category": "repeated_words_pauses_incomplete",
+  "description": "Repeated words, pause markers, and incomplete sentence to exercise normalization/robustness in synthetic checks.",
+  "speaking_speed_proxy": "hesitant",
+  "reference_text": "ఈ రోజు ఈ రోజు [pause] two bags rice ఇచ్చాము",
+  "hypothesis_text": "ఈ రోజు ఈ రోజు two bags rice ఇచ్చాము",
+  "expected_numbers": ["2"],
+  "observed_numbers": ["2"],
+  "expected_fields": {"material": "rice", "quantity": 2, "unit": "bags"},
+  "observed_fields": {"material": "rice", "quantity": 2, "unit": "bags"},
+  "correction_events": [{"field": "transcript", "corrected": true, "note": "pause marker removed"}],
+  "corrected_text": "ఈ రోజు two bags rice ఇచ్చాము"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "status": "no_real_speech_evaluation_run",
+  "real_speech_evaluation": false,
+  "generated_at": null,
+  "summary": "No real speech evaluation run. No consented audio corpus has been evaluated in this repository state, and no real recognition accuracy results are fabricated or claimed.",
+  "claims": {
+    "real_recognition_accuracy": "not_measured",
+    "synthetic_pipeline_checks": "available_via_fixtures"
+  },
+  "corpus": {
+    "available": false,
+    "notes": "Real clips must be consented, stored locally, and kept out of git. See evaluation/corpus/README.md."
+  },
+  "approaches": {
+    "browser_web_speech": {"status": "not_run_on_real_corpus", "metrics": null},
+    "local_faster_whisper": {"status": "not_run_on_real_corpus", "metrics": null},
+    "cloud_provider": {"status": "not_run_on_real_corpus", "metrics": null}
+  },
+  "how_to_run_synthetic": "python score.py --fixtures --out results/synthetic-fixtures-score.json (local output; raw outputs gitignored except curated summaries)",
+  "frontend_notes": "Evaluation page can consume this JSON to display status, per-approach placeholders, and clearly labeled synthetic vs real evaluation state."
+}

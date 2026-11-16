@@ -6,8 +6,11 @@ burden for Anganwadi workers in Andhra Pradesh.**
 > **Private research repository.** Core project: Phase 0 — field research, no application code. An
 > experimental, clearly separated **GramVaani Sandbox** now lives under [`sandbox/`](sandbox/README.md):
 > simulated apps, scripted Telugu transcripts, synthetic data, and a local API simulation only. It does
-> not change the research status or accepted decisions D-10/D-11/D-12. Nothing here integrates with, or is
-> endorsed by, any government department.
+> not change the research status or accepted decisions D-10/D-11/D-12. A separate **real-voice pilot
+> prototype track** is being scaffolded under [`pilot/`](pilot/README.md) (evaluation harness, local dev
+> scripts, and docs; distinct pilot config/DB; synthetic/non-identifying by default) — it is not validation,
+> not deployment, and claims remain subject to D-10/D-11/D-12 and safeguarding/consent requirements.
+> Nothing here integrates with, or is endorsed by, any government department.
 
 ---
 
@@ -175,7 +178,8 @@ D:\GramVaani
 ├── backend/                         # Placeholder README — no code
 ├── tests/                           # Test strategy; golden fixture plan
 ├── scripts/verify-structure.mjs     # Dependency-free structure and contract check
-└── sandbox/                         # Experimental module: simulated apps, 22 scenarios, local gateway
+├── sandbox/                         # Experimental module: simulated apps, 22 scenarios, local gateway
+└── pilot/                           # Real-voice prototype track (separate): evaluation, scripts, docs
 ```
 
 ## 11. Setup and verification
@@ -215,3 +219,22 @@ gate would violate the research-first approach. Future scaffold commands are doc
 
 No contributors, achievements, statistics or deployments are claimed here beyond what the linked research
 documents actually record.
+
+## 13. Field-testing & live pilot planning (proposed)
+
+Planning documents now outline a possible, **gated** path from the simulated sandbox to controlled field
+testing of a real mobile-first Telugu voice prototype. These are **plans only** — not implementation,
+not validation, and not evidence of readiness, speech accuracy, or real-world impact.
+
+- [docs/FIELD_TESTING_PROGRAM.md](docs/FIELD_TESTING_PROGRAM.md) — controlled pilot programme
+  (layers, staged pilots, metrics, worker research dashboard, safeguards, feedback loop).
+- [docs/LIVE_PROTOTYPE_PLAN.md](docs/LIVE_PROTOTYPE_PLAN.md) — technical plan for a separate live
+  prototype track (real mic/ASR adapters, editable transcript, sample report, sandbox kept as fallback).
+- [research/instruments/PILOT_SAFEGUARDING_PROTOCOL.md](research/instruments/PILOT_SAFEGUARDING_PROTOCOL.md)
+  — draft consent, privacy, access, retention, withdrawal and safeguarding protocol.
+
+All pilot planning remains subject to **Phase 0** evidence, **D-10** (total documentation burden, not
+app-entry replacement), **D-11/ADR-006** (no government integration, submission, credentials or
+compatibility claims), **D-12** (voice unproven until tested with real consented speech and measured
+correction effort), synthetic/non-identifying initial pilots, and explicit worker consent. The main field
+config remains unverified.

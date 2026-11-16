@@ -1,0 +1,7 @@
+# Ignore raw/local evaluation outputs; keep curated placeholder summaries only.
+*
+!.gitignore
+!.gitkeep
+!summary.json
+!summary.md
+!README.md

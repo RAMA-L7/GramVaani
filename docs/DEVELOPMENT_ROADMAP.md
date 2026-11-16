@@ -202,3 +202,18 @@ Concretely:
 Rationale: the cheapest possible failure is discovering in a 30-minute interview that the report is weekly,
 that Bala Sanjeevini handles a different task entirely, or that photos are the real product — any of which
 would invalidate a UI built today.
+
+## Pilot-track planning (proposed, gated)
+
+Separate planning documents describe a possible controlled field-testing track for a **live, mobile-first
+Telugu voice prototype** (real microphone and ASR behind adapters, editable transcript, sample report),
+while keeping the current sandbox as fallback:
+
+- [FIELD_TESTING_PROGRAM.md](FIELD_TESTING_PROGRAM.md)
+- [LIVE_PROTOTYPE_PLAN.md](LIVE_PROTOTYPE_PLAN.md)
+- [../research/instruments/PILOT_SAFEGUARDING_PROTOCOL.md](../research/instruments/PILOT_SAFEGUARDING_PROTOCOL.md)
+
+These documents are **planning only** and do not change Phase 0 status, any gate, or accepted decisions
+D-10/D-11/D-12/ADR-006. A live pilot depends on field evidence, validated fields, consent and safeguarding
+readiness, synthetic/non-identifying initial use, and a measured ASR evaluation (D-12) — it is not a
+shortcut past Phase 0 or a claim of accuracy, compatibility, or impact.

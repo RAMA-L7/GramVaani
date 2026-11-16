@@ -1,0 +1,14 @@
+{
+  "id": "speed_proxy_long",
+  "category": "speaking_speed_proxy_long",
+  "description": "Longer utterance proxying faster/more content-dense speech with multiple clauses and counts.",
+  "speaking_speed_proxy": "fast_long",
+  "reference_text": "ఉదయం సమావేశం తర్వాత ఆరోగ్య తనిఖీ జరిగింది 6 మంది గర్భిణులు వచ్చారు 4 మంది పిల్లలకు weight record చేసాము మరియు supplementary nutrition గురించి వివరించాము",
+  "hypothesis_text": "ఉదయం సమావేశం తర్వాత ఆరోగ్య తనిఖీ జరిగింది 6 మంది గర్భిణులు వచ్చారు 4 మంది పిల్లలకు weight record చేసాము supplementary nutrition గురించి వివరించాము",
+  "expected_numbers": ["6", "4"],
+  "observed_numbers": ["6", "4"],
+  "expected_fields": {"pregnant_women_attended": 6, "children_weight_recorded": 4, "activity": "ఆరోగ్య తనిఖీ"},
+  "observed_fields": {"pregnant_women_attended": 6, "children_weight_recorded": 4, "activity": "ఆరోగ్య తనిఖీ"},
+  "corrected_text": "ఉదయం సమావేశం తర్వాత ఆరోగ్య తనిఖీ జరిగింది 6 మంది గర్భిణులు వచ్చారు 4 మంది పిల్లలకు weight record చేసాము మరియు supplementary nutrition గురించి వివరించాము",
+  "correction_events": [{"field": "transcript", "before": "missing connective", "after": "added మరియు", "corrected": true}]
+}

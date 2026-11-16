@@ -1,0 +1,7 @@
+# Never commit real evaluation audio or participant-derived corpus artifacts.
+*
+!.gitignore
+!.gitkeep
+!README.md
+# If a sanitized, non-identifying manifest template is ever added intentionally, unignore it explicitly.
+!manifest.template.json

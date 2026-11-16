@@ -1,0 +1,27 @@
+[project]
+name = "gramvaani-pilot-backend"
+version = "0.1.0"
+description = "GramVaani pilot backend - real audio workflow, provider-independent ASR adapters, sample reports only"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "pydantic>=2.6",
+    "python-multipart>=0.0.9",
+    "jsonschema>=4.21",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+asr-faster-whisper = ["faster-whisper>=1.0"]
+cloud = ["requests>=2.31"]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["."]

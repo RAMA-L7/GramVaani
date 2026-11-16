@@ -1,0 +1,14 @@
+{
+  "id": "telugu_english_mixed",
+  "category": "telugu_english_mixed",
+  "description": "Code-mixed Telugu-English with preserved English material/record terms and a date-like number.",
+  "speaking_speed_proxy": "normal",
+  "reference_text": "ఈ రోజు growth chart update చేసాము మరియు 3 mothers కి counselling ఇచ్చాము",
+  "hypothesis_text": "ఈ రోజు growth chart update చేసాము మరియు మూడు mothers కి counselling ఇచ్చాము",
+  "expected_numbers": ["3"],
+  "observed_numbers": ["3"],
+  "expected_fields": {"activity": "growth chart update", "mothers_counselled": 3, "materials_used": ["growth chart"]},
+  "observed_fields": {"activity": "growth chart update", "mothers_counselled": 3, "materials_used": ["growth chart"]},
+  "corrected_text": "ఈ రోజు growth chart update చేసాము మరియు 3 mothers కి counselling ఇచ్చాము",
+  "correction_events": [{"field": "mothers_counselled", "before": "మూడు", "after": "3", "corrected": true}]
+}

@@ -1,0 +1,190 @@
+{
+  "schema_version": "pilot-0.1",
+  "config_status": "PILOT_UNVERIFIED",
+  "data_status": "ILLUSTRATIVE_NOT_OFFICIAL",
+  "disclaimer": "PILOT_UNVERIFIED / NOT_OFFICIAL. These fields are illustrative for a research pilot and are not verified ICDS, Poshan Tracker, Bala Sanjeevini, or any government reporting requirements. Synthetic codes only. Do not describe as official or as submitted to any government system.",
+  "language": { "primary": "te", "secondary": "en", "output_script": "Telugu" },
+  "clarification": {
+    "max_questions": 3,
+    "allow_dont_know": true,
+    "ordering": ["required_missing", "ambiguous", "optional_missing"]
+  },
+  "preview": {
+    "title_te": "పైలట్ నమూనా నివేదిక",
+    "title_en": "Pilot sample report (experimental)",
+    "footer_te": "ఈ నివేదిక పరిశోధన పైలట్ నమూనా మాత్రమే. ఇది అధికారిక రికార్డు కాదు, ప్రభుత్వ వ్యవస్థకు సమర్పించబడలేదు.",
+    "footer_en": "EXPERIMENTAL SAMPLE REPORT - PILOT_UNVERIFIED, NOT_OFFICIAL, NOT SUBMITTED to any government system.",
+    "sections": [
+      { "id": "header", "label_te": "వివరాలు", "label_en": "Details" },
+      { "id": "activities", "label_te": "కార్యకలాపాలు", "label_en": "Activities" },
+      { "id": "nutrition", "label_te": "పోషణ", "label_en": "Nutrition" },
+      { "id": "notes", "label_te": "గమనికలు", "label_en": "Remarks" }
+    ]
+  },
+  "fields": [
+    {
+      "id": "report_date",
+      "label_te": "నివేదిక తేదీ",
+      "label_en": "Report date",
+      "type": "date",
+      "requirement": "required",
+      "priority": 1,
+      "section": "header",
+      "extraction": { "hints_te": ["ఈరోజు", "తేదీ"], "hints_en": ["today", "date"] },
+      "clarification": {
+        "question_te": "ఈ నివేదిక ఏ తేదీకి?",
+        "question_en": "Which date is this report for?"
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "PILOT_UNVERIFIED illustrative field." }
+    },
+    {
+      "id": "centre_code",
+      "label_te": "కేంద్రం కోడ్",
+      "label_en": "Centre code",
+      "type": "string",
+      "requirement": "optional",
+      "priority": 6,
+      "section": "header",
+      "extraction": { "hints_te": ["కేంద్రం", "కోడ్"], "hints_en": ["centre", "center", "code"] },
+      "clarification": {
+        "question_te": "ఈ నివేదిక ఏ కేంద్రానికి (సింథటిక్ కోడ్)?",
+        "question_en": "Which centre is this report for? Use synthetic code only."
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "Synthetic identifiers only." }
+    },
+    {
+      "id": "activity_type",
+      "label_te": "కార్యకలాపం",
+      "label_en": "Activity",
+      "type": "enum_list",
+      "requirement": "required",
+      "priority": 2,
+      "section": "activities",
+      "options": [
+        { "value": "pre_school", "label_te": "ప్రీ స్కూల్", "label_en": "Pre-school education" },
+        { "value": "nutrition", "label_te": "పోషణ/భోజనం", "label_en": "Nutrition / meal" },
+        { "value": "health_check", "label_te": "ఆరోగ్య పరీక్ష", "label_en": "Health check" },
+        { "value": "weighing", "label_te": "బరువు కొలత", "label_en": "Weighing" },
+        { "value": "home_visit", "label_te": "ఇంటి సందర్శన", "label_en": "Home visit" }
+      ],
+      "extraction": {
+        "hints_te": ["పాఠం", "భోజనం", "బరువు", "ఇంటి సందర్శన", "ఆరోగ్య"],
+        "hints_en": ["class", "meal", "weighing", "home visit", "health"]
+      },
+      "clarification": {
+        "question_te": "ఈరోజు ప్రధాన కార్యకలాపం ఏమిటి?",
+        "question_en": "What was the main activity today?"
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "PILOT_UNVERIFIED options." }
+    },
+    {
+      "id": "children_enrolled",
+      "label_te": "నమోదైన పిల్లలు",
+      "label_en": "Children enrolled",
+      "type": "integer",
+      "requirement": "optional",
+      "priority": 7,
+      "section": "activities",
+      "validation": { "min": 0, "max": 200 },
+      "extraction": { "hints_te": ["మొత్తం పిల్లలు", "నమోదైన"], "hints_en": ["enrolled", "total children"] },
+      "clarification": {
+        "question_te": "మొత్తం ఎంత మంది పిల్లలు నమోదు అయ్యారు?",
+        "question_en": "How many children are enrolled?"
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "PILOT_UNVERIFIED." }
+    },
+    {
+      "id": "children_present",
+      "label_te": "హాజరైన పిల్లలు",
+      "label_en": "Children present",
+      "type": "integer",
+      "requirement": "required",
+      "priority": 3,
+      "section": "activities",
+      "validation": { "min": 0, "max": 200 },
+      "extraction": { "hints_te": ["వచ్చారు", "హాజరు", "పిల్లలు"], "hints_en": ["present", "came", "attended"] },
+      "clarification": {
+        "question_te": "ఈరోజు ఎంత మంది పిల్లలు హాజరయ్యారు?",
+        "question_en": "How many children came today?"
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "PILOT_UNVERIFIED." }
+    },
+    {
+      "id": "children_absent",
+      "label_te": "గైర్హాజరైన పిల్లలు",
+      "label_en": "Children absent",
+      "type": "integer",
+      "requirement": "optional",
+      "priority": 8,
+      "section": "activities",
+      "validation": { "min": 0, "max": 200 },
+      "extraction": { "hints_te": ["రాలేదు", "గైర్హాజరు", "లేరు"], "hints_en": ["absent", "missing"] },
+      "clarification": {
+        "question_te": "ఎంత మంది పిల్లలు గైర్హాజరయ్యారు?",
+        "question_en": "How many were absent?"
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "PILOT_UNVERIFIED." }
+    },
+    {
+      "id": "meal_served",
+      "label_te": "భోజనం పెట్టారా",
+      "label_en": "Meal served",
+      "type": "boolean",
+      "requirement": "optional",
+      "priority": 4,
+      "section": "nutrition",
+      "extraction": { "hints_te": ["భోజనం", "తిండి", "పెట్టారు"], "hints_en": ["meal", "served", "food"] },
+      "clarification": {
+        "question_te": "ఈరోజు భోజనం పెట్టారా?",
+        "question_en": "Was the meal served today?"
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "PILOT_UNVERIFIED." }
+    },
+    {
+      "id": "meal_count",
+      "label_te": "భోజనాల సంఖ్య",
+      "label_en": "Meals served count",
+      "type": "integer",
+      "requirement": "optional",
+      "priority": 9,
+      "section": "nutrition",
+      "validation": { "min": 0, "max": 200 },
+      "extraction": { "hints_te": ["భోజనం", "మందికి", "పెట్టారు"], "hints_en": ["meal", "meals", "served"] },
+      "clarification": {
+        "question_te": "ఎంత మందికి భోజనం పెట్టారు?",
+        "question_en": "How many meals were served?"
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "PILOT_UNVERIFIED." }
+    },
+    {
+      "id": "preschool_activity",
+      "label_te": "ప్రీ స్కూల్ కార్యకలాపం",
+      "label_en": "Preschool activity",
+      "type": "string",
+      "requirement": "optional",
+      "priority": 10,
+      "section": "activities",
+      "extraction": { "hints_te": ["ప్రీ స్కూల్", "పాఠం"], "hints_en": ["preschool", "class"] },
+      "clarification": {
+        "question_te": "ఈరోజు ప్రీ స్కూల్‌లో ఏమి చేశారు?",
+        "question_en": "What did you do in preschool today?"
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "PILOT_UNVERIFIED." }
+    },
+    {
+      "id": "remarks",
+      "label_te": "గమనికలు",
+      "label_en": "Remarks",
+      "type": "string",
+      "requirement": "optional",
+      "priority": 11,
+      "section": "notes",
+      "extraction": { "hints_te": ["గమనిక", "ఇతర"], "hints_en": ["remarks", "note", "other"] },
+      "clarification": {
+        "question_te": "ఇంకా ఏమైనా గమనికలు చెప్పాలనుకుంటున్నారా?",
+        "question_en": "Anything else to add?"
+      },
+      "verification": { "status": "unverified", "source": "pilot-hypothesis", "note": "PILOT_UNVERIFIED." }
+    }
+  ]
+}
