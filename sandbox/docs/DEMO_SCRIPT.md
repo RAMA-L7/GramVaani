@@ -13,6 +13,30 @@ is: "ఈరోజు ఇరవై నాలుగు మంది పిల్�
 
 ---
 
+## Recommended 3-minute run — see [DEMO_3MIN.md](DEMO_3MIN.md)
+
+Use five demo beats after a short framing intro: **normal Telugu scenario → incorrect meal-count
+correction → network failure → retry and dashboard → boundary statement**. The detailed 8-step walkthrough
+below is the reference; the 3-minute script is what to actually present.
+
+## What this proves — say only these
+
+- The application components communicate correctly.
+- Structured data moves through the simulated workflow.
+- Validation and correction mechanisms work in tested scenarios.
+- The simulated gateway handles duplicate submissions and network failures.
+
+## What remains unproven — state every time
+
+- Actual Telugu speech recognition accuracy.
+- Regional Telugu accent handling.
+- Telugu–English code-mixed speech accuracy.
+- Performance in noisy environments.
+- Whether the workflow reduces Anganwadi workers' workload.
+- Compatibility with government applications.
+
+---
+
 ### Step 1 — Frame the demo (narrator, no screen action)
 
 > "We built a simulated reporting environment to evaluate whether Telugu voice input, structured
@@ -73,7 +97,7 @@ all marked as needing confirmation. A clarification question appears for the mis
 ### Step 6 — Worker confirmation and correction
 
 > "No value enters the report until I explicitly confirm. Here I answer the clarification question
-> and correct one extracted number, as a worker would."
+> and correct one extracted number before the report is generated."
 
 **Action:** Answer `preschool_activity` with "పాటలు, కథలు". In the extraction review, change
 `meal_count` from 24 to **22**. Click "Confirm and generate report".
