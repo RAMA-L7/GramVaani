@@ -45,7 +45,16 @@ fills the report."
 Hand over the printed candidate field list. Ask: **must have / sometimes / not needed**, and "what is
 missing from this list?" Photograph the piles. Note every added item verbatim.
 
-## 7. Close (2 min)
+## 7. Errors, gaps and speech sample (8 min)
+22. What happens if information is entered incorrectly — how would you notice, and how would you fix it?
+23. What happens if something required is missing on the day? Who decides what to do?
+24. Who reads the finished report, and what do they check? *(supervisor confirmation, H7)*
+25. **Optional speech sample — ask separately.** "May I record you saying the report as if to your
+    supervisor? It stays on my device, only the research team hears it, and I delete it after writing the
+    text. You can say no." Consent yes/no: ____  Sample ID: ____
+    Do not ask for this until the observation is finished. Note Telugu/English mixing verbatim.
+
+## 8. Close (2 min)
 20. What should I have asked and didn't?
 21. May I come back with a rough version to try?
 

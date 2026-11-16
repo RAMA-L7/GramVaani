@@ -3,7 +3,8 @@
 **One line:** A Telugu-first, voice-assisted reporting prototype that turns a spoken activity summary into
 an editable, structured, human-confirmed draft report for Anganwadi workers.
 
-**Status:** Phase 0 (discovery). Documentation only. No application code.
+**Status:** Phase 0 (field research). Documentation only. No application code.
+**Problem framing:** revised per **D-10** — we investigate **total documentation burden**, not app-entry time.
 **Last updated:** 2026-11-16
 
 ---
@@ -11,28 +12,33 @@ an editable, structured, human-confirmed draft report for Anganwadi workers.
 ## 1. Context
 
 Anganwadi workers in Andhra Pradesh run early-childhood care, nutrition, health and pre-school activities
-at the centre, and then have to record what happened. Workers we have spoken to describe substantial time
-spent inside government reporting apps — **Poshan Tracker** and **Bala Sanjeevini** have both been named.
+at the centre, and then have to record what happened — in **paper registers and digital applications**.
+An early conversation named **Poshan Tracker** and **Bala Sanjeevini** as time-consuming.
 
-> ⚠️ This context is **reported by workers in conversation**, not yet studied systematically. It is a
-> hypothesis to investigate, not an established fact. See
+> ⚠️ That conversation is `[UNVERIFIED]` from our own study — 0 sessions completed. The multi-agent desk
+> study ([synthesis](../research/RESEARCH_SYNTHESIS.md)) **does not support** "app entry is the main
+> burden": published time-use measurements put registers at ~51–82 min/day and apps at ~13–24 min/day.
+> **D-10** therefore reframes the problem around total documentation burden. See
 > [RESEARCH_FINDINGS.md](../research/RESEARCH_FINDINGS.md).
 
-The mismatch that interests us: reporting is a **form-first, typing-heavy** task, while the worker's
-knowledge of the day is **narrative and spoken**, and is naturally expressed in **Telugu with English
-technical terms mixed in** ("today's attendance 24, meal served, three children weighed").
+The mismatch worth investigating: documentation is spread across paper and digital surfaces, with recall,
+copying and re-checking between them, while the worker's knowledge of the day is **narrative and spoken**,
+naturally expressed in **Telugu with English technical terms mixed in** ("today's attendance 24, meal
+served, three children weighed").
 
 ## 2. Core hypothesis
 
-> If an Anganwadi worker can *speak* the day's summary in her own Telugu, fix a short transcript, and
-> confirm a handful of extracted values, then the time and cognitive effort of preparing a routine report
-> decreases — without reducing the accuracy or completeness of what gets recorded.
+> **Working hypothesis (D-10/D-12):** much of the effort lies in **documentation as a whole** — registers,
+> re-entry into digital systems, recalling details, and re-checking. Voice-assisted capture is one candidate
+> way to reduce that effort, but it stays a **hypothesis** until tested with real, consented worker speech
+> and measured correction effort. GramVaani is **not** positioned as an app-entry replacement.
 
 **Falsifiable sub-hypotheses**
 
 | ID | Hypothesis | How we would falsify it |
 |---|---|---|
-| H1 | Voice + light correction is faster than typing into a form for the same content | Timed same-content tasks, Phase 0 |
+| H8 | Documentation burden (registers + digital entry + recall + re-checking) is the dominant workload | Four-way stopwatch in Session 01; if one category clearly dominates, target that task |
+| H1 | Voice + light correction reduces total documentation effort more than the current process | Timed comparison on synthetic content, only after Session 01 |
 | H2 | Telugu code-mixed speech transcribes accurately enough to be worth correcting | Measured WER/CER on real synthetic-style samples |
 | H3 | Extraction is accurate enough that confirmation is cheaper than manual entry | Edit-distance / correction count per field |
 | H4 | Workers trust and prefer the transcript-first flow over form-first | Post-task interviews, preference ranking |
@@ -89,7 +95,9 @@ Phase 0 succeeds when we can answer, with citations to session notes:
 - [ ] Which apps and forms are involved, and what does each ask for? (description only, not integration)
 - [ ] How Poshan Tracker, Bala Sanjeevini and pre-school photo submission relate to each other — separate,
       duplicated, or dependent?
-- [ ] Where exactly does the time go — recall, typing, navigation, or re-checking?
+- [ ] Where exactly does the time go, measured separately as paper register work, app entry,
+      recall/gathering, and re-checking/corrections (D-10)? Recalled estimates are not substituted for
+      measured minutes.
 - [ ] Is photo submission a side task or a real bottleneck?
 - [ ] Which parts of the report are *narrative* vs. *tabular*?
 - [ ] What Telugu/English mixing actually occurs, with real examples?

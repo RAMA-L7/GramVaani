@@ -22,6 +22,8 @@ application code.
 | RQ6 | What would make a worker trust or distrust a voice-prepared draft? | AS-06, H4 |
 | RQ7 | Who consumes the report afterwards, and in what form? | AS-10, D-6 |
 | RQ8 | What must never be recorded or shared? | Privacy design |
+| RQ12 | What happens when information is incorrect or a report is incomplete — who notices, who fixes it? | Error/recovery design, D-12 |
+| RQ13 | Will the worker consent to a real Telugu speech sample, and how much correction does it need? | D-12, ASR bake-off |
 
 ## 2. Non-goals for this study
 
@@ -107,7 +109,9 @@ escalation path, and do not record the detail in project files.
 ## 8. Exit criteria
 
 - [ ] RQ1 answered with a field-level table (partial answers labelled).
-- [ ] RQ4 answered with observed timings, not estimates.
+- [ ] RQ4 answered with observed timings, not estimates, split into **four separate categories**: paper
+      register work, app entry, recalling/gathering, re-checking/corrections (D-10). The worker's recalled
+      estimate is recorded separately and labelled `[said]`.
 - [ ] RQ5 answered with at least 10 real, consented example utterances (or a statement that consent was
       declined, which is itself a finding).
 - [ ] RQ9 answered: the Poshan Tracker / Bala Sanjeevini / photo relationship is described, even if only

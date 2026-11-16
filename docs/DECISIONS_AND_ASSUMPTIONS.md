@@ -95,7 +95,7 @@ and scripted.
 
 | ID | Assumption | Label | Risk if wrong | How it gets tested | Status |
 |---|---|---|---|---|---|
-| AS-01 | Anganwadi workers spend meaningful time per report in Poshan Tracker / Bala Sanjeevini | `hypothesis` | The whole problem framing is weak | Timed observation, Phase 0 | open |
+| AS-01 | Anganwadi workers spend meaningful time per report in Poshan Tracker / Bala Sanjeevini | `hypothesis` | The whole problem framing is weak | Four-way stopwatch in Session 01 (see D-10) | **challenged by published evidence (D-10)** — app time 13–24 min/day vs registers 51–82 min/day |
 | AS-02 | The pain is typing/entry, not recall or navigation | `hypothesis` | Voice input solves the wrong bottleneck | Task breakdown + think-aloud | open |
 | AS-03 | Workers speak a Telugu–English mix naturally for this content | `hypothesis` | A pure-Telugu design under-serves; or mix is rare | Recorded samples, Phase 0 | open |
 | AS-04 | A spoken summary can be mapped to report fields without reading from the app | `hypothesis` | Voice flow needs the form on screen | Wizard-of-Oz test | open |
@@ -111,6 +111,7 @@ and scripted.
 | AS-14 | Photo submission is a material part of the reporting burden, not a side task | `hypothesis` | If photos are the real bottleneck, a text/voice product may miss the point | Timed observation of the photo step | open |
 | AS-15 | A supervisor is a reliable source for "what is actually required" | `hypothesis` | We optimise for the wrong reviewer | Supervisor interview + cross-check against worker practice | open |
 | AS-16 | One field set can serve both Poshan Tracker and Bala Sanjeevini | `hypothesis` | Two divergent field sets; duplicated UI | Observe both, compare field lists | open |
+| AS-17 | Total documentation burden — paper registers, digital entry, recall and re-checking — is the dominant workload, not app entry alone | `hypothesis` (supported by published evidence, not yet measured locally) | We reframe around the wrong aggregate | Four-way stopwatch and task inventory in Session 01 | open — **current working hypothesis, see D-10** |
 
 **Rules for this register:** an assumption may be *accepted* only if it is reversible and documented here.
 It may never be silently promoted to `verified`. When a finding contradicts an assumption, the assumption is
@@ -118,7 +119,20 @@ marked `rejected` and the dependent design is revisited in the same week.
 
 ---
 
-## 3. Open decisions (blocked on research)
+## 3. Decision register
+
+### 3.1 Accepted decisions (recorded 2026-11-16)
+
+These are **choices we have made**, not findings. They follow the multi-agent desk study
+([synthesis](../research/RESEARCH_SYNTHESIS.md)) and the team review.
+
+| # | Decision | Status | Basis and consequences |
+|---|---|---|---|
+| **D-10** | **Reframe the problem around total documentation burden — paper registers, digital reporting, recall, repeated recording and re-checking — not app-entry time.** GramVaani is not positioned as an app-entry replacement. | accepted | Published time-use evidence contradicts our origin claim (app time ~13–24 min/day; registers ~51–82 min/day). Consequences: AS-01 is `challenged`, AS-17 becomes the working hypothesis; Session 01 must measure four separate time categories; no feature may claim to replace "app entry" without evidence. |
+| **D-11** | **No government integration without an authorized, documented interface.** | accepted | No public API, SSO or sync specification was found for Poshan Tracker or Bala Sanjeevini; "Open API" references have no published spec. Reinforces ADR-006 (no submission module exists). Consequences: no integration code, no credentials, no compatibility claim, no automated submission, in any phase of this prototype. |
+| **D-12** | **Voice remains a hypothesis until tested with real, consented worker speech and measured correction effort.** | accepted | No Telugu Anganwadi speech corpus or field-validated ASR exists; benchmarks do not transfer to field audio. Consequences: continue investigating voice, but no provider is selected from marketing or benchmarks alone; obtain a separate optional speech sample with separate recording consent in Session 01; ASR choice stays behind the Phase 2 bake-off gate; transcript grounding and worker confirmation stay mandatory. |
+
+### 3.2 Open decisions (blocked on evidence)
 
 | # | Decision | Blocked by |
 |---|---|---|
@@ -150,3 +164,4 @@ Not slogans — each has a mechanism that fails loudly.
 |---|---|---|
 | 2026-11-16 | Initial registers created; ADR-001…009, AS-01…AS-13 | Project init |
 | 2026-11-16 | Phase structure aligned to the agreed 6-phase plan; photo submission added as a research target; AS-14…AS-16 and D-8/D-9 added | Planning review |
+| 2026-11-16 | Accepted D-10 (reframe to documentation burden), D-11 (no integration without authorization), D-12 (voice remains a hypothesis); AS-01 challenged, AS-17 added; decision register split into accepted / open | Post-research team review |

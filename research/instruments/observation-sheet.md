@@ -22,15 +22,22 @@ Start the clock at the first interaction with the reporting app. One row per mea
 
 **Total elapsed:** ______ min  **Interruptions:** ____ × ____ min  **Net:** ______ min
 
-## B. Where the time went (estimate from the table, don't guess)
+## B. Where the time went (D-10: four separate categories, timed — not estimated)
 
-| Bucket | Minutes | Evidence |
-|---|---|---|
-| Recalling / finding information | | |
-| Typing / entering text | | |
-| Tapping, selecting, navigating | | |
-| Re-checking / correcting | | |
-| Waiting (network, loading) | | |
+| Category | Counts as | Minutes | Evidence |
+|---|---|---|---|
+| **A. Paper register work** | writing, copying, totals, filing, retrieving a register | | |
+| **B. App entry** | typing/tapping into any digital app | | |
+| **C. Recalling / gathering** | pausing, looking up another record, asking someone, finding a list | | |
+| **D. Re-checking / corrections** | going back, re-counting, fixing, verifying against paper | | |
+| **Total observed** | A + B + C + D | | |
+
+**Waiting (network/loading), if any:** ____ min — note under the app it affected, do not add as a fifth bucket.
+
+**Worker's own estimate:** ____ min `[said]`  **Observed total:** ____ min `[obs]`
+**If they differ, why?** ______________________
+
+> Recalled time is not measured time. Keep both figures and label them.
 
 ## C. Fields encountered
 Record field labels **as shown on screen**. Do not copy beneficiary values.

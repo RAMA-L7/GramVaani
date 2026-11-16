@@ -5,6 +5,11 @@ _Lead research agent consolidation | 7 domain agents + 2 independent reviewers |
 verified findings in [RESEARCH_FINDINGS.md](RESEARCH_FINDINGS.md). No application code, configuration or
 production system was modified.
 
+> **Team decisions based on this synthesis (2026-11-16):** **D-10** reframe around total documentation
+> burden, **D-11** no government integration without an authorized documented interface, **D-12** voice
+> remains a hypothesis until tested with real consented speech and measured correction effort. Register:
+> [DECISIONS_AND_ASSUMPTIONS.md §3.1](../docs/DECISIONS_AND_ASSUMPTIONS.md#31-accepted-decisions-recorded-2026-11-16).
+
 ---
 
 ## 1. Executive summary

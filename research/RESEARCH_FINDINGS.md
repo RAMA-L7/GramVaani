@@ -32,6 +32,11 @@ and a citation of the form `notes/<file>.md §<section>`.*
 
 > O-1 is the origin of the project's framing. It has **not** been measured, timed, or corroborated. Treat
 > any statement like "workers spend X hours per week reporting" as unsupported until §1 has an entry.
+>
+> **Post-research note (2026-11-16):** the multi-agent desk study found published app-time measurements of
+> ~13 min/day (MP) and ~24 min/day (AP), versus ~51–82 min/day on paper registers. O-1 is therefore
+> **challenged**, and **D-10** reframes our investigation around total documentation burden. O-1 stays
+> `[hypothesis]`; it is not promoted, and it is not yet `rejected` — our own session must still measure it.
 
 ## 3. Open questions
 
@@ -48,6 +53,8 @@ and a citation of the form `notes/<file>.md §<section>`.*
 | Q-9 | What is the maximum tolerable correction effort before voice loses to typing? | Phase 2 / Phase 3 gates | open |
 | Q-10 | Are Poshan Tracker and Bala Sanjeevini separate, duplicated, or dependent? | Field model, D-9 | open |
 | Q-11 | What does pre-school photo submission require, and is it the real bottleneck? | Scope, D-9 | open |
+| Q-12 | What happens when information is entered incorrectly, or a report is incomplete? Who notices and who fixes it? | Error/recovery design; D-12 | open |
+| Q-13 | Will the worker consent to a real Telugu speech sample, and how much correction does it need? | D-12, ASR bake-off | open (ask separately in Session 01) |
 
 ## 4. Working hypotheses under test
 
@@ -60,6 +67,7 @@ and a citation of the form `notes/<file>.md §<section>`.*
 | H5 | A draft (not a submission) is an acceptable output | Supervisor/worker interviews | untested |
 | H6 | Photo submission is a material part of the reporting burden, not a side task | Timed observation of the photo step | untested |
 | H7 | The supervisor is a reliable source for "what is actually required" | Supervisor interview + cross-check | untested |
+| H8 | Total documentation burden (registers + digital entry + recall + re-checking) dominates workload, not app entry alone (D-10) | Four-way stopwatch in Session 01 | supported by published evidence, **not yet measured locally** |
 
 ## 5. Rejected assumptions
 

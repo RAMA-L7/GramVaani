@@ -26,25 +26,29 @@ Phase 5  Usability testing + impact measurement
 
 ## Phase 0 — Field research (current)
 
-**Goal:** replace our invented picture of the workflow with an observed one.
+**Goal:** replace our invented picture of the workflow with an observed one. Per **D-10**, the subject is
+**total documentation burden** — paper registers, digital reporting, recall, repeated recording and
+re-checking — not app-entry time. GramVaani is not positioned as an app-entry replacement.
 
-### Session sequence (one worker, one visit)
+### Session 01 priorities (one worker, one visit)
 
 Run these in order. Run sheet: [`research/instruments/session-run-sheet.md`](../research/instruments/session-run-sheet.md).
+Obtain observation consent before step 1; speech-sample consent is asked **separately** at step 8.
 
 | # | Action | Expected result | Where it lands |
 |---|---|---|---|
-| 1 | Arrange the session with an Anganwadi worker | Confirmed slot, ~2 hours | `research/notes/` |
-| 2 | Explain the research, obtain written consent | Permission to observe; audio consent yes/no | Signed sheet (kept offline) |
-| 3 | Observe **Poshan Tracker** reporting | Actual field order, taps vs. typing, timings | Observation sheet §A–C |
-| 4 | Observe **Bala Sanjeevini** work | Which tasks are separate vs. synchronised with Poshan Tracker | Observation sheet §C–D |
-| 5 | Observe **pre-school photo submission** | What is photographed, how many, when, what the app requires | Observation sheet §D (workflow only — **no photos of children**) |
-| 6 | Record time and difficulties | Per-step baseline: recall / typing / navigation / re-check / waiting | §A–B |
-| 7 | Interview a supervisor | Which of the recorded fields are actually required, and for whom | `interview-guide.md` |
-| 8 | Update findings and field config | Evidence-based scope; assumptions marked verified or rejected | `RESEARCH_FINDINGS.md`, `config/report-fields.json` |
+| 1 | Ask the worker to describe a typical reporting day | Her own account, marked `[said]` | Note §2 |
+| 2 | Identify **every** paper register and digital application used | Complete inventory of the documentation surface | Observation sheet §C |
+| 3 | Observe one complete reporting task | Step-by-step record, with timings | Observation sheet §A |
+| 4 | Measure four time categories: paper register work, app entry, recall/gathering, re-checking/corrections | Four separate minutes, plus her estimate labelled separately | Observation sheet §B |
+| 5 | Investigate **Poshan Tracker** and **Bala Sanjeevini** separately | Separate field lists and workflows; duplicated vs separate work | Note §4 |
+| 6 | Ask whether preschool photos are required; observe the workflow **only if it exists** | Yes/no + workflow only, never photos of children | Note §5 |
+| 7 | Ask what happens when information is incorrect or a report is incomplete | Error/recovery and review path | `interview-guide.md` §7 |
+| 8 | Request an optional Telugu speech sample with **separate recording consent** | Consent yes/no; sample ID; mixed terms noted | Note §6, audio never committed |
 
-> Steps 3–5 are **observation of existing work**, not evaluation of our idea. Do not demo, suggest, or
-> "help". Note what the app asks for; never copy beneficiary values into notes.
+> **Recalled time is not measured time.** Keep `[said]` and `[obs]` figures separate. Steps 1–7 are
+> observation of existing work, not evaluation of our idea: do not demo, suggest or "help". Never ask for
+> credentials, never copy beneficiary values, never photograph children.
 
 **Deliverables**
 
@@ -59,9 +63,32 @@ Run these in order. Run sheet: [`research/instruments/session-run-sheet.md`](../
 
 **Exit criteria:** every field in the config is either cited to a session note or explicitly `unverified`
 with a plan; the "what does the report contain" question has a written, partial-but-honest answer; the
-Poshan Tracker / Bala Sanjeevini / photo relationship is described.
+Poshan Tracker / Bala Sanjeevini / photo relationship is described; and the gate below is met.
 
 **Do not build in this phase:** UI, models, storage, integrations.
+
+### Post-Session 01 development gate
+
+This gate decides whether we may move toward Phase 1. It is a gate on **evidence**, not on elapsed time.
+All six conditions must be met before product scope is decided:
+
+- [ ] **At least one fully documented real workflow** — a note that lets a stranger replay the task.
+- [ ] **Clear separation of paper and digital tasks** — which work happens on which surface, with the four
+      timed categories kept distinct.
+- [ ] **Verified reporting cadence and required fields** — confirmed with the worker, and where possible
+      with the supervisor; unverified fields stay flagged in config.
+- [ ] **Evidence of where workers spend their time** — observed minutes, not recalled estimates.
+- [ ] **One specific task GramVaani could reduce** — named explicitly, satisfying rule 3 (which existing
+      task does it improve or replace?).
+- [ ] **A realistic path for using the prepared output** — who consumes the draft and what happens to it;
+      no submission or compatibility claim.
+
+**If Session 01 does not establish a useful opportunity:** conduct more sessions before changing the
+product. Keep Phase 0 open. Do not build the UI.
+
+> Phase 0 remains open. The research prevented us from building around an unverified problem; that is
+> progress, not delay. Voice stays a hypothesis (D-12) until tested with real consented speech and measured
+> correction effort.
 
 ## Phase 1 — Validated product requirements
 

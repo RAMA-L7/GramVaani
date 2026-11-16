@@ -11,18 +11,25 @@ Telugu-first, voice-assisted reporting prototype for Anganwadi workers in Andhra
 
 ## The problem we are investigating
 
-Anganwadi workers report spending significant time entering routine activity data into government
-reporting apps, including Poshan Tracker and Bala Sanjeevini. That time is taken away from the children
-and families they serve.
+> **Current framing (D-10):** we are investigating **total documentation burden** — paper registers,
+> digital reporting, recall, repeated recording and re-checking — **not** app-entry time. Desk research did
+> not support our original "time in government apps" assumption. Voice stays a hypothesis (D-12) until
+> tested with real, consented worker speech and measured correction effort. See
+> [RESEARCH_SYNTHESIS.md](research/RESEARCH_SYNTHESIS.md) and
+> [DECISIONS_AND_ASSUMPTIONS.md §3.1](docs/DECISIONS_AND_ASSUMPTIONS.md#31-accepted-decisions-recorded-2026-11-16).
 
-Our hypothesis — **not yet verified** — is that preparing the same report by *speaking naturally in Telugu*
-(and mixing English where they already do), then correcting an editable transcript, reduces the effort
-compared with typing into a form-first app.
+Anganwadi workers record routine activity in both paper registers and digital applications. Published
+time-use studies put registers at ~51–82 min/day and apps at ~13–24 min/day. Our own participant's account
+is still `[UNVERIFIED]` — 0 sessions completed — and we will measure it with a four-way stopwatch rather
+than relying on recall.
 
-The actual reporting workflow, the real field set, and any integration requirements are **still under
-field research**. See [FIELD_RESEARCH_PLAN.md](research/FIELD_RESEARCH_PLAN.md).
+Voice-assisted preparation — speak in Telugu, correct an editable transcript, confirm extracted values —
+is a **candidate** way to reduce that burden, not a committed solution. The workflow, cadence, required
+fields and any output path are still under Phase 0 field research. See
+[FIELD_RESEARCH_PLAN.md](research/FIELD_RESEARCH_PLAN.md) and the
+[post-Session 01 gate](docs/DEVELOPMENT_ROADMAP.md#post-session-01-development-gate).
 
-## What the v0 prototype will do
+## Candidate capabilities for a future prototype (not committed scope)
 
 1. **Telugu voice input** — record a spoken activity summary.
 2. **Speech transcription** — convert speech to editable Telugu text.
