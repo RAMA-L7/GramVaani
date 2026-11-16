@@ -104,16 +104,29 @@ uv run pytest -q
   and test file exercises each feature.
 - Frontend typecheck: `cd sandbox/frontend && pnpm typecheck`.
 
-An end-to-end browser test (Playwright) is intended for the full flow; as of this writing it is a
-planned test layer, not present in the repository. The backend/pipeline tests above are the
-executable evidence that currently exists.
+Additional checks already run:
+
+```bash
+node scripts/verify-structure.mjs      # from repository root: config, links and anchors
+node sandbox/scripts/verify-sandbox.mjs # 22 scenarios and their manifest
+cd sandbox/tests && pnpm install && pnpm exec playwright test --config=playwright.config.ts
+```
+
+The Playwright suite is present and passing (3 tests: golden path, correction, network retry). It assumes
+the backend and frontend are already running. See [TESTING.md](tests/TESTING.md).
 
 ## Documentation
 
 - [Shared contract](API_CONTRACT.md) — the single source of truth for interfaces.
 - [Safety and claim discipline](SAFETY.md) — mandatory reading before any demo.
 - [Architecture](docs/ARCHITECTURE.md) — components, seams, validation, persistence, ADR mapping.
-- [Demo script](docs/DEMO_SCRIPT.md) — the golden-path narration and expected screens.
+- [Demo script](docs/DEMO_SCRIPT.md) — the detailed walkthrough.
+- [3-minute demo](docs/DEMO_3MIN.md) — the five beats to actually present.
+- [Architecture one-pager](docs/ARCHITECTURE_ONEPAGER.md) — printable diagram.
+- [Results sheet](docs/RESULTS_SHEET.md) — verified coverage and not-measured limitations.
+- [Question preparation](docs/QA_PREP.md) — the "voice-to-text vs workflow" answer and likely questions.
+- [Demo scope freeze](docs/DEMO_FREEZE.md) — what is blocked until after the presentation.
+- [ASR evaluation plan](docs/TECHNICAL_EVALUATION_PLAN.md) — three approaches, same consented corpus.
 - [Feature/test map](docs/FEATURE_TEST_MAP.md) — what each feature is tested by.
 
 Permitted demo wording (use verbatim):
