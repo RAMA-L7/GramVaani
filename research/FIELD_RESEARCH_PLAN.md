@@ -15,6 +15,8 @@ application code.
 | RQ1 | What exactly does a worker record, field by field, and in what order? | Field config, D-1 |
 | RQ2 | How often, and at what time of day, is each report prepared? | Cadence, D-2 |
 | RQ3 | Which apps/screens are used, and what does each ask for? (description only) | Problem framing |
+| RQ9 | What is the relationship between Poshan Tracker and Bala Sanjeevini — separate, duplicated, or dependent? | Scope, D-9 |
+| RQ10 | What does pre-school photo submission involve: how many photos, what must be visible, time taken, does it block the report? | Scope, D-9 |
 | RQ4 | Where does the time actually go: recall, typing, navigation, re-checking? | AS-02, H1 |
 | RQ5 | What Telugu/English mixing occurs? Collect concrete utterances. | AS-03, ADR-007 |
 | RQ6 | What would make a worker trust or distrust a voice-prepared draft? | AS-06, H4 |
@@ -43,6 +45,14 @@ Watch one real reporting session. Do not help. Time each step on the observation
 Record: app/screen sequence, field order, typing vs. tapping, pauses, re-checks, interruptions.
 Ask "what are you thinking here?" sparingly — every 5–7 minutes at most.
 
+Observe **each report type separately** (Poshan Tracker, Bala Sanjeevini, photo submission), and then note
+how they relate: is one copied from the other, does one block the other, is the same content entered twice?
+That relationship is a finding in itself, and it decides whether we need one field set or several.
+
+**Photo submission is observed as a workflow, never as content.** We record how many photos, how long it
+takes, and whether it blocks the report. We do not photograph children, do not ask to see stored photos, and
+do not write down anything identifying. See §5.
+
 ### 4.2 Semi-structured interview (30–40 min)
 Use `instruments/interview-guide.md`. Focus on effort, workarounds, and what they would change.
 Ask for a **spoken walkthrough**: "tell me today's report out loud, as if I were your supervisor."
@@ -64,6 +74,7 @@ values. Tests AS-04/AS-05 cheaply, with zero code.
 | Audio | Recorded only with explicit separate consent. Stored on an encrypted device, deleted after transcription, never committed to git. |
 | Notes | Anonymised codes only. No centre names in filenames. |
 | Beneficiary data | **Never** captured. If it appears on a screen, look away from it and note "beneficiary screen present" only. |
+| Photographs | **No photos of children, ever** — not taken, not reviewed, not stored. Observe the photo-submission workflow only. Photos of app screens are allowed only if they contain no names or faces, and only with separate consent. |
 | Credentials | Never requested, never observed, never stored. |
 | Sharing | Raw notes stay with the research lead. Summaries go into this repo, anonymised. |
 | Retention | Raw audio/notes deleted 90 days after the study closes, or on request. |
@@ -72,6 +83,9 @@ If a participant discloses a safeguarding concern, stop the session, follow the 
 escalation path, and do not record the detail in project files.
 
 ## 6. Session protocol (checklist)
+
+> Printable one-pager with the full 8-step sequence, timing boxes and red flags:
+> [`instruments/session-run-sheet.md`](instruments/session-run-sheet.md). Print it for every visit.
 
 1. Confirm consent; give the participant the withdrawal option again.
 2. Observation: start the timer at first interaction with the reporting app; note each step.
@@ -96,10 +110,13 @@ escalation path, and do not record the detail in project files.
 - [ ] RQ4 answered with observed timings, not estimates.
 - [ ] RQ5 answered with at least 10 real, consented example utterances (or a statement that consent was
       declined, which is itself a finding).
+- [ ] RQ9 answered: the Poshan Tracker / Bala Sanjeevini / photo relationship is described, even if only
+      partially.
+- [ ] RQ10 answered: photo count, timing, and whether it blocks the report.
 - [ ] `config/report-fields.json` updated; every field has `verification.status` and a citation or an
       explicit open flag.
 - [ ] Privacy constraints (RQ8) written into the architecture, not just noted.
-- [ ] Go/no-go recorded in `RESEARCH_FINDINGS.md` for starting Phase 1.
+- [ ] Go/no-go recorded in `RESEARCH_FINDINGS.md` for starting Phase 1 (validated product requirements).
 
 ## 9. Timeline (indicative)
 

@@ -40,7 +40,7 @@ Hiding errors behind a form would make them invisible.
 **Consequence:** every extracted value must carry a `source_span`; editing a span invalidates derived values.
 
 ### ADR-003 — Two runtimes: Next.js frontend, FastAPI backend
-**Status:** provisional (accepted for Phase 1)
+**Status:** provisional (accepted for Phase 2)
 **Decision:** separate frontend and backend processes, talking over typed HTTP.
 **Why:** the ASR/model ecosystem is Python; the best mobile-web iteration speed is Node. A single-language
 app would compromise one of them.
@@ -105,9 +105,12 @@ and scripted.
 | AS-08 | Telugu script (not Romanised Telugu) is the acceptable output form | `assumption` | Romanised output would be preferred | Ask in Phase 0 | accepted |
 | AS-09 | Reports are prepared daily or per-session | `hypothesis` | Cadence changes the whole UX | Phase 0 | open |
 | AS-10 | A printable/copyable draft is useful even without submission | `hypothesis` | Output has no consumer | Ask supervisors | open |
-| AS-11 | ≤ 3 clarification questions is tolerable | `assumption` | More questions kill the flow | Phase 4 usage data | accepted |
+| AS-11 | ≤ 3 clarification questions is tolerable | `assumption` | More questions kill the flow | Phase 5 pilot usage data | accepted |
 | AS-12 | A hosted ASR call is acceptable under consent, or on-device is required | `hypothesis` | Architecture/legal rework | Phase 0 consent discussion | open |
 | AS-13 | Field staff can review Telugu question text in config without engineering help | `assumption` | Config review becomes a bottleneck | Try it with one reviewer | accepted |
+| AS-14 | Photo submission is a material part of the reporting burden, not a side task | `hypothesis` | If photos are the real bottleneck, a text/voice product may miss the point | Timed observation of the photo step | open |
+| AS-15 | A supervisor is a reliable source for "what is actually required" | `hypothesis` | We optimise for the wrong reviewer | Supervisor interview + cross-check against worker practice | open |
+| AS-16 | One field set can serve both Poshan Tracker and Bala Sanjeevini | `hypothesis` | Two divergent field sets; duplicated UI | Observe both, compare field lists | open |
 
 **Rules for this register:** an assumption may be *accepted* only if it is reversible and documented here.
 It may never be silently promoted to `verified`. When a finding contradicts an assumption, the assumption is
@@ -121,16 +124,29 @@ marked `rejected` and the dependent design is revisited in the same week.
 |---|---|---|
 | D-1 | Final field list, types, required/optional, bounds | AS-01, AS-04, AS-09 |
 | D-2 | Report cadence and period semantics (daily vs. weekly; "today" vs. "this week") | AS-09 |
-| D-3 | ASR provider | Phase 1 bake-off |
+| D-3 | ASR provider | Phase 2 bake-off |
 | D-4 | Cloud vs. on-device transcription | AS-12 |
 | D-5 | Whether confirmation is per-field or per-section | Phase 4 usability |
 | D-6 | Whether the preview should mimic any existing form layout | AS-10, supervisor input |
 | D-7 | Language of the UI chrome (Telugu-only vs. bilingual labels) | Phase 0 preference |
+| D-8 | Hackathon date and demo scope | Date not yet recorded — see roadmap "Deadline discipline" |
+| D-9 | Scope relationship: one field set for both apps, or per-app field sets? Is photo capture in scope? | Q-10, Q-11 |
 
 ---
 
-## 4. Change log
+## 4. How the three project rules are enforced
+
+Not slogans — each has a mechanism that fails loudly.
+
+| Rule | Enforced by |
+|---|---|
+| **1. Never treat an assumption as a verified requirement** | `verified` requires a `validated_in` citation (schema-enforced); `scripts/verify-structure.mjs` fails a `verified` field without one; every config field carries a `verification.status`; `RESEARCH_FINDINGS.md` separates verified from observed |
+| **2. Never use real beneficiary data** | No beneficiary/child entity exists in the data model; the config guardrail rejects `beneficiary`, `aadhaar`, `child_id`, `credentials` keys; no photos of children at any stage; `.gitignore` blocks recorded audio |
+| **3. Never build a feature without naming the task it improves or replaces** | Each phase gate names the replaced task; a requirement without a Phase 0 citation stays in the hypothesis column; roadmap rule 3 rejects features that replace nothing |
+
+## 5. Change log
 
 | Date | Change | By |
 |---|---|---|
 | 2026-11-16 | Initial registers created; ADR-001…009, AS-01…AS-13 | Project init |
+| 2026-11-16 | Phase structure aligned to the agreed 6-phase plan; photo submission added as a research target; AS-14…AS-16 and D-8/D-9 added | Planning review |

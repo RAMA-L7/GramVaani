@@ -87,7 +87,10 @@ Phase 0 succeeds when we can answer, with citations to session notes:
 
 - [ ] What does an Anganwadi worker actually record, in what order, and how often?
 - [ ] Which apps and forms are involved, and what does each ask for? (description only, not integration)
+- [ ] How Poshan Tracker, Bala Sanjeevini and pre-school photo submission relate to each other — separate,
+      duplicated, or dependent?
 - [ ] Where exactly does the time go — recall, typing, navigation, or re-checking?
+- [ ] Is photo submission a side task or a real bottleneck?
 - [ ] Which parts of the report are *narrative* vs. *tabular*?
 - [ ] What Telugu/English mixing actually occurs, with real examples?
 - [ ] Would a worker accept a voice-first flow at all, and under what conditions?

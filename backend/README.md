@@ -43,7 +43,7 @@ backend/
 - **No beneficiary entities.** `models/` must not gain a `child`, `person`, or `family` type.
 - **Fail loudly on invalid config** at startup, not at request time.
 
-## When it gets scaffolded (Phase 1)
+## When it gets scaffolded (Phase 2)
 
 ```powershell
 cd D:\GramVaani\backend

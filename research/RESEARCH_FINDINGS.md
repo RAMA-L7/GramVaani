@@ -45,7 +45,9 @@ and a citation of the form `notes/<file>.md §<section>`.*
 | Q-6 | Who reads the report after it is entered, and in what form? | AS-10, D-6 | open |
 | Q-7 | Would workers accept audio recording for transcription? On-device only? | AS-12, AS-06 | open |
 | Q-8 | Is there a supervisor review step that changes the required content? | Field config | open |
-| Q-9 | What is the maximum tolerable correction effort before voice loses to typing? | Phase 2 gate | open |
+| Q-9 | What is the maximum tolerable correction effort before voice loses to typing? | Phase 2 / Phase 3 gates | open |
+| Q-10 | Are Poshan Tracker and Bala Sanjeevini separate, duplicated, or dependent? | Field model, D-9 | open |
+| Q-11 | What does pre-school photo submission require, and is it the real bottleneck? | Scope, D-9 | open |
 
 ## 4. Working hypotheses under test
 
@@ -56,6 +58,8 @@ and a citation of the form `notes/<file>.md §<section>`.*
 | H3 | Extraction is accurate enough that confirmation costs less than manual entry | Per-field correction count | untested |
 | H4 | Workers trust a transcript-first flow more than a form-first flow | Interviews + preference | untested |
 | H5 | A draft (not a submission) is an acceptable output | Supervisor/worker interviews | untested |
+| H6 | Photo submission is a material part of the reporting burden, not a side task | Timed observation of the photo step | untested |
+| H7 | The supervisor is a reliable source for "what is actually required" | Supervisor interview + cross-check | untested |
 
 ## 5. Rejected assumptions
 

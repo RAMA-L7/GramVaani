@@ -89,22 +89,47 @@ const mdFiles = [];
 })(root);
 
 let linkCount = 0;
+const slug = (heading) => heading
+  .toLowerCase()
+  .replace(/[*`~]/g, '')
+  .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+  .replace(/[^\p{L}\p{N}\s_-]/gu, '')
+  .trim()
+  .replace(/\s/g, '-');
+
+const anchorsOf = (file) => {
+  const set = new Set();
+  for (const line of fs.readFileSync(file, 'utf8').split(/\r?\n/)) {
+    const m = /^#{1,6}\s+(.*)$/.exec(line);
+    if (m) set.add(slug(m[1]));
+  }
+  return set;
+};
+
 for (const file of mdFiles) {
   const text = fs.readFileSync(file, 'utf8');
   const re = /\[[^\]]*\]\(([^)\s]+)\)/g;
   let m;
   while ((m = re.exec(text))) {
     const target = m[1];
-    if (/^(https?:|mailto:|#)/.test(target)) continue;
+    if (/^(https?:|mailto:)/.test(target)) continue;
     linkCount++;
-    const clean = target.split('#')[0];
-    if (!clean) continue;
-    if (!fs.existsSync(path.resolve(path.dirname(file), decodeURIComponent(clean)))) {
+    const [clean, anchor] = target.split('#');
+    const resolved = clean
+      ? path.resolve(path.dirname(file), decodeURIComponent(clean))
+      : file;
+    if (!fs.existsSync(resolved)) {
       errors.push(`broken link in ${rel(file)} -> ${target}`);
+      continue;
+    }
+    if (anchor && resolved.endsWith('.md')) {
+      if (!anchorsOf(resolved).has(anchor.toLowerCase())) {
+        errors.push(`broken anchor in ${rel(file)} -> ${target}`);
+      }
     }
   }
 }
-notes.push(`${mdFiles.length} markdown files, ${linkCount} relative links checked`);
+notes.push(`${mdFiles.length} markdown files, ${linkCount} relative links checked (files + anchors)`);
 
 for (const d of ['docs', 'research', 'research/instruments', 'research/notes', 'config',
   'frontend', 'backend', 'prototype-assets', 'tests', 'scripts']) {

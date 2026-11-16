@@ -15,7 +15,7 @@ Run it before every commit. Exit code 1 means the config and the docs disagree.
 | Script | Purpose | Dependency |
 |---|---|---|
 | `validate-config.mjs` | Full JSON Schema validation of `config/report-fields.json` (supersedes the manual checks in `verify-structure.mjs`) | Node + ajv |
-| `bench-asr.mjs` | Run the provider bake-off over `prototype-assets/audio-samples/`, emit WER/CER + latency table | Phase 1 providers |
+| `bench-asr.mjs` | Run the provider bake-off over `prototype-assets/audio-samples/`, emit WER/CER + latency table | Phase 2 providers |
 | `make-fixture.mjs` | Turn a synthetic transcript into an extraction fixture skeleton | Phase 3 |
 | `report-config-diff.mjs` | Show what changed between config versions, in plain language | Config only |
 

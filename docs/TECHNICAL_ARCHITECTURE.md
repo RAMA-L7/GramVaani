@@ -64,7 +64,7 @@ Candidate implementations, **all unevaluated**:
 | On-device Web Speech / OS API | No audio leaves device | Telugu coverage is unreliable |
 
 > Selection is a **bake-off**, not an assumption. See
-> [DEVELOPMENT_ROADMAP.md](DEVELOPMENT_ROADMAP.md#phase-1--voice-capture--transcription).
+> [DEVELOPMENT_ROADMAP.md](DEVELOPMENT_ROADMAP.md#phase-2--telugu-voice-input-prototype).
 
 ### [3] Normalise (code-mixing layer)
 Deterministic, no model:

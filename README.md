@@ -2,9 +2,10 @@
 
 Telugu-first, voice-assisted reporting prototype for Anganwadi workers in Andhra Pradesh.
 
-> **Status: Phase 0 — discovery and documentation only.**
+> **Status: Phase 0 — field research. Documentation only.**
 > No application code has been written. Nothing here integrates with, submits to, or is endorsed by any
-> government system.
+> government system. Hackathon date: not recorded yet — see
+> [deadline discipline](docs/DEVELOPMENT_ROADMAP.md#deadline-discipline-hackathon).
 
 ---
 
@@ -58,7 +59,7 @@ D:\GramVaani
 ├── research/                       # Field research: plans, instruments, notes, findings
 │   ├── FIELD_RESEARCH_PLAN.md
 │   ├── RESEARCH_FINDINGS.md
-│   ├── instruments/                # Consent script, interview guide, observation sheet
+│   ├── instruments/                # Consent script, interview guide, observation sheet, run sheet
 │   └── notes/                      # Dated session notes, one file per session
 ├── config/                         # Configurable reporting fields (the contract)
 │   ├── report-fields.json
@@ -86,20 +87,31 @@ D:\GramVaani
 | [DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md) | Phased build order and gates |
 | [DECISIONS_AND_ASSUMPTIONS.md](docs/DECISIONS_AND_ASSUMPTIONS.md) | Decisions made, assumptions held, and how each gets tested |
 
-## Five rules for this repository
+## The three rules
 
-1. **Evidence before features.** A field or workflow enters the code only after it is documented as
-   verified, or explicitly flagged as a hypothesis.
-2. **Synthetic data only.** No real beneficiary data, no real credentials, anywhere, at any stage.
-3. **Config over code.** Reporting fields live in `config/`, not in source files.
-4. **Provider-agnostic.** ASR, LLM, and storage are interfaces with swappable implementations.
-5. **No unofficial claims.** We describe this as a research prototype. Always.
+1. **Never treat an assumption as a verified requirement.** A field is `unverified` until a session note
+   says otherwise.
+2. **Never use real beneficiary data in the prototype.** No names, no child records, no photos of children,
+   no credentials — synthetic only.
+3. **Never build a feature without naming the existing task it improves or replaces.** If it replaces
+   nothing, it is scope creep.
+
+How each rule is enforced in practice (not just stated):
+[DECISIONS_AND_ASSUMPTIONS.md §4](docs/DECISIONS_AND_ASSUMPTIONS.md#4-how-the-three-project-rules-are-enforced).
+
+Two supporting conventions: **config over code** (fields live in `config/`), and **provider-agnostic with no
+unofficial claims** (ASR/extraction behind interfaces; always described as a research prototype).
 
 ## Getting started
 
-There is nothing to run yet.
+There is nothing to run yet. **The next action is a visit, not a commit.**
 
-The next milestone is **Phase 0 exit**: a completed field research pass that converts the open questions
-in [RESEARCH_FINDINGS.md](research/RESEARCH_FINDINGS.md) into verified findings, and updates
-`config/report-fields.json` accordingly. See
-[DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md#recommended-next-step).
+1. Arrange one observation session with an Anganwadi worker.
+2. Print [`research/instruments/session-run-sheet.md`](research/instruments/session-run-sheet.md) and the
+   [consent script](research/instruments/consent-script-te.md) (Telugu).
+3. Observe Poshan Tracker, Bala Sanjeevini and photo submission; time each step.
+4. Write the note, then update [RESEARCH_FINDINGS.md](research/RESEARCH_FINDINGS.md) and
+   [`config/report-fields.json`](config/report-fields.json).
+
+The milestone after that is **Phase 0 exit**, described in
+[DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md#phase-0--field-research-current).

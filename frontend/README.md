@@ -37,7 +37,7 @@ frontend/
 - **No submit/send/share-to-app action** exists anywhere in the UI.
 - Offline capture and editing are first-class; transcription may queue.
 
-## When it gets scaffolded (Phase 1)
+## When it gets scaffolded (Phase 2)
 
 ```powershell
 cd D:\GramVaani\frontend

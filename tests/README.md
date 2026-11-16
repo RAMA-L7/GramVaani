@@ -25,7 +25,7 @@ tests/
 ├── contract/                 # config schema validation
 ├── unit/                     # normalise, clarify ranking, span verification
 ├── integration/              # pipeline with fake providers
-└── e2e/                      # Playwright flows (added in Phase 5)
+└── e2e/                      # Playwright flows (added in Phase 4)
 ```
 
 Backend unit tests will live in `backend/tests/` (pytest convention); this folder holds cross-cutting

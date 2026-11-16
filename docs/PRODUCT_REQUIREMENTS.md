@@ -114,9 +114,11 @@ marker.
 - Authentication, multi-user, roles, sync between devices.
 - Any government app integration, submission, or "export to Poshan Tracker / Bala Sanjeevini".
 - Beneficiary records, child-level tracking, growth charts.
-- Photo/document capture, offline maps, supervisor dashboards.
+- Photo/document capture. Photo submission **is** being observed in Phase 0 (it may be the real bottleneck),
+  but capture is out of scope for v0: we handle text and voice only, and no photos of children are taken at
+  any stage.
 - Multi-language support beyond Telugu + English terms.
-- Model fine-tuning (evaluate first, fine-tune only if Phase 1 benchmarks justify it).
+- Model fine-tuning (evaluate first, fine-tune only if Phase 2 benchmarks justify it).
 
 ## 6. Metrics we intend to collect (research, not product analytics)
 
