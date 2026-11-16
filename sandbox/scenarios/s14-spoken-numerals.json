@@ -1,0 +1,19 @@
+{
+  "id": "s14-spoken-numerals",
+  "title": "Composite spoken numerals",
+  "category": "normal",
+  "transcript": "ఈరోజు ప్రీస్కూల్ జరిగింది. నలభై రెండు మంది పిల్లలు వచ్చారు. ఐదుగురు రాలేదు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 42,
+    "children_absent": 5,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "Adjacent Telugu number words 'నలభై రెండు' must be combined into the single value 42 by the numeral parser.",
+  "synthetic": true
+}

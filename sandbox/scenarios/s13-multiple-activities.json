@@ -1,0 +1,18 @@
+{
+  "id": "s13-multiple-activities",
+  "title": "Multiple activities in one report",
+  "category": "normal",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో పాటలు, తరువాత బరువు తూగాం, ఆరోగ్య తనిఖీ కూడా చేశాం. ఇరవై మంది పిల్లలు వచ్చారు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition", "weighing", "health_check"],
+    "children_present": 20,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "One transcript mentions four activities; the enum-list field must collect all matched values without dropping the extras.",
+  "synthetic": true
+}

@@ -1,0 +1,20 @@
+{
+  "id": "s18-extra-remarks",
+  "title": "Extra remarks and no photo",
+  "category": "normal",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో పాటలు. ఇరవై మంది పిల్లలు వచ్చారు. భోజనం పెట్టారు. గమనిక నీటి సరఫరా ఆగిపోయింది, సరిచేశాం. చిత్రం లేదు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 20,
+    "meal_served": true,
+    "photo_attached": false,
+    "remarks": "నీటి సరఫరా ఆగిపోయింది సరిచేశాం"
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "Free-text remarks are captured verbatim from the grounded phrase, and 'చిత్రం లేదు' yields photo_attached=false rather than being omitted.",
+  "synthetic": true
+}

@@ -1,0 +1,17 @@
+{
+  "id": "s03-missing-attendance-count",
+  "title": "Missing attendance count",
+  "category": "missing",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో కథలు చెప్పాను. పిల్లలు వచ్చారు కాని ఎంత మందో చెప్పలేదు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school"],
+    "meal_served": true
+  },
+  "expected_missing": ["children_present"],
+  "clarification_answers": { "children_present": 18 },
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "Required children_present has no number in the transcript, so it becomes a clarification question before confirmation.",
+  "synthetic": true
+}

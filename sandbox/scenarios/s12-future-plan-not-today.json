@@ -1,0 +1,18 @@
+{
+  "id": "s12-future-plan-not-today",
+  "title": "Future plan must not become today's value",
+  "category": "normal",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో పాటలు. ఇరవై మంది పిల్లలు వచ్చారు. రేపు ముప్పై మంది పిల్లలు వస్తారు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 20,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "A tomorrow plan of 30 children must not overwrite today's grounded attendance of 20; the nearest-count rule keeps 20.",
+  "synthetic": true
+}

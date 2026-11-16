@@ -1,0 +1,19 @@
+{
+  "id": "s15-photo-step",
+  "title": "Synthetic sample photo attached",
+  "category": "normal",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో పాటలు. ఇరవై మంది పిల్లలు వచ్చారు. భోజనం పెట్టారు. సింథటిక్ నమూనా చిత్రం జోడించాను.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 20,
+    "meal_served": true,
+    "photo_attached": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "The photo step references only a synthetic sample image; no child photo is captured or uploaded anywhere in the sandbox.",
+  "synthetic": true
+}

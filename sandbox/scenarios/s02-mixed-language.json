@@ -1,0 +1,19 @@
+{
+  "id": "s02-mixed-language",
+  "title": "Telugu-English mixed report",
+  "category": "mixed-language",
+  "transcript": "ఈరోజు preschool లో పాటలు. పది మంది పిల్లలు present అయ్యారు. భోజనం served, పది మందికి meal.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 10,
+    "meal_served": true,
+    "meal_count": 10
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "Code-mixed Telugu/English tokens still produce grounded extractions without an external translation service.",
+  "synthetic": true
+}

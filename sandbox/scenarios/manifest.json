@@ -1,0 +1,30 @@
+{
+  "schema_version": "sandbox-0.1",
+  "count": 22,
+  "synthetic": true,
+  "disclaimer": "All scenarios are synthetic and invented for this simulated hackathon sandbox. Transcripts are scripted Telugu or Telugu-English code-mixed text with no real names, child identifiers, or personal data. No official reporting requirement is verified.",
+  "scenarios": [
+    { "id": "s01-normal-telugu", "title": "Normal Telugu daily report", "category": "normal", "gateway_mode": "accept", "file": "s01-normal-telugu.json" },
+    { "id": "s02-mixed-language", "title": "Telugu-English mixed report", "category": "mixed-language", "gateway_mode": "accept", "file": "s02-mixed-language.json" },
+    { "id": "s03-missing-attendance-count", "title": "Missing attendance count", "category": "missing", "gateway_mode": "accept", "file": "s03-missing-attendance-count.json" },
+    { "id": "s04-unclear-number", "title": "Unclear spoken number", "category": "ambiguous", "gateway_mode": "accept", "file": "s04-unclear-number.json" },
+    { "id": "s05-contradictory-information", "title": "Contradictory information", "category": "contradiction", "gateway_mode": "accept", "file": "s05-contradictory-information.json" },
+    { "id": "s06-duplicate-voice-submission", "title": "Repeated voice submission (duplicate)", "category": "duplicate", "gateway_mode": "duplicate", "file": "s06-duplicate-voice-submission.json" },
+    { "id": "s07-extraction-error-meal-count", "title": "Incorrectly extracted meal count corrected before confirmation", "category": "extraction-error", "gateway_mode": "accept", "file": "s07-extraction-error-meal-count.json" },
+    { "id": "s08-network-failure-retry", "title": "Network interruption then successful retry", "category": "network", "gateway_mode": "network_failure", "file": "s08-network-failure-retry.json" },
+    { "id": "s09-gateway-reject", "title": "API failure / gateway rejection", "category": "normal", "gateway_mode": "reject", "file": "s09-gateway-reject.json" },
+    { "id": "s10-worker-correction-attendance", "title": "Worker corrects attendance before confirmation", "category": "correction", "gateway_mode": "accept", "file": "s10-worker-correction-attendance.json" },
+    { "id": "s11-negation-meal-not-given", "title": "Negation: meal was not given", "category": "normal", "gateway_mode": "accept", "file": "s11-negation-meal-not-given.json" },
+    { "id": "s12-future-plan-not-today", "title": "Future plan must not become today's value", "category": "normal", "gateway_mode": "accept", "file": "s12-future-plan-not-today.json" },
+    { "id": "s13-multiple-activities", "title": "Multiple activities in one report", "category": "normal", "gateway_mode": "accept", "file": "s13-multiple-activities.json" },
+    { "id": "s14-spoken-numerals", "title": "Composite spoken numerals", "category": "normal", "gateway_mode": "accept", "file": "s14-spoken-numerals.json" },
+    { "id": "s15-photo-step", "title": "Synthetic sample photo attached", "category": "normal", "gateway_mode": "accept", "file": "s15-photo-step.json" },
+    { "id": "s16-empty-transcript", "title": "Empty scripted transcript", "category": "missing", "gateway_mode": "accept", "file": "s16-empty-transcript.json" },
+    { "id": "s17-boundary-values", "title": "Boundary integer values", "category": "normal", "gateway_mode": "accept", "file": "s17-boundary-values.json" },
+    { "id": "s18-extra-remarks", "title": "Extra remarks and no photo", "category": "normal", "gateway_mode": "accept", "file": "s18-extra-remarks.json" },
+    { "id": "s19-wrong-date", "title": "Wrong report date corrected before confirmation", "category": "correction", "gateway_mode": "accept", "file": "s19-wrong-date.json" },
+    { "id": "s20-absent-meal", "title": "Home visit with no meal served", "category": "normal", "gateway_mode": "accept", "file": "s20-absent-meal.json" },
+    { "id": "s21-enrolled-exceeded", "title": "Attendance exceeds enrolment, resolved by worker", "category": "contradiction", "gateway_mode": "accept", "file": "s21-enrolled-exceeded.json" },
+    { "id": "s22-clarification-missing-activity", "title": "Missing activity resolved by clarification", "category": "missing", "gateway_mode": "accept", "file": "s22-clarification-missing-activity.json" }
+  ]
+}

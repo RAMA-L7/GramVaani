@@ -1,0 +1,18 @@
+{
+  "id": "s04-unclear-number",
+  "title": "Unclear spoken number",
+  "category": "ambiguous",
+  "transcript": "ఈరోజు ప్రీస్కూల్ జరిగింది. పిల్లలు దాదాపు ఇరవై లేదా ముప్పై మంది వచ్చారు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school"],
+    "children_present": 20,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": { "children_present": 25 },
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "Two competing number candidates (20 and 30) near 'వచ్చారు' flag children_present as ambiguous; the worker resolves it before confirming.",
+  "synthetic": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "s19-wrong-date",
+  "title": "Wrong report date corrected before confirmation",
+  "category": "correction",
+  "transcript": "తేదీ 2026-01-15. ఈరోజు ప్రీస్కూల్ జరిగింది. ఇరవై మంది పిల్లలు వచ్చారు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "report_date": "2026-01-15",
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 20,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": { "report_date": "2026-11-16" },
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "The transcript states an old date; the worker corrects it to the intended report date before generating the report so the wrong date is not submitted.",
+  "synthetic": true
+}

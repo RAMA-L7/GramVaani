@@ -3,9 +3,11 @@
 **A Telugu-first, voice-assisted reporting research project exploring ways to reduce documentation
 burden for Anganwadi workers in Andhra Pradesh.**
 
-> **Private research repository.** Phase 0 — field research. Documentation only: no application code,
-> no integrations, no submissions, no deployment. Nothing here is endorsed by, affiliated with, or an
-> official product of any government department.
+> **Private research repository.** Core project: Phase 0 — field research, no application code. An
+> experimental, clearly separated **GramVaani Sandbox** now lives under [`sandbox/`](sandbox/README.md):
+> simulated apps, scripted Telugu transcripts, synthetic data, and a local API simulation only. It does
+> not change the research status or accepted decisions D-10/D-11/D-12. Nothing here integrates with, or is
+> endorsed by, any government department.
 
 ---
 
@@ -172,7 +174,8 @@ D:\GramVaani
 ├── frontend/                        # Placeholder README — no code
 ├── backend/                         # Placeholder README — no code
 ├── tests/                           # Test strategy; golden fixture plan
-└── scripts/verify-structure.mjs     # Dependency-free structure and contract check
+├── scripts/verify-structure.mjs     # Dependency-free structure and contract check
+└── sandbox/                         # Experimental module: simulated apps, 22 scenarios, local gateway
 ```
 
 ## 11. Setup and verification
@@ -185,6 +188,9 @@ cd D:\GramVaani
 
 # Structure, config contract, fixture references, Markdown links and anchors
 node scripts/verify-structure.mjs
+
+# Optional: validate the sandbox's 22 synthetic scenarios and manifest
+node sandbox/scripts/verify-sandbox.mjs
 
 # Optional full JSON Schema validation (fetches ajv-cli once)
 npx --yes ajv-cli@5 validate -s config/report-fields.schema.json `

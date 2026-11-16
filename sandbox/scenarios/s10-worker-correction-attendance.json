@@ -1,0 +1,18 @@
+{
+  "id": "s10-worker-correction-attendance",
+  "title": "Worker corrects attendance before confirmation",
+  "category": "correction",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో కథలు. ముప్పై మంది పిల్లలు వచ్చారు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 30,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": { "children_present": 28 },
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "The worker notices the spoken attendance was misheard and changes 30 to 28 in the extraction review before confirming.",
+  "synthetic": true
+}

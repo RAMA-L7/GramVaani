@@ -1,0 +1,18 @@
+{
+  "id": "s20-absent-meal",
+  "title": "Home visit with no meal served",
+  "category": "normal",
+  "transcript": "ఈరోజు ఇంటి సందర్శన చేశాం. ఇరవై మంది పిల్లలు వచ్చారు. భోజనం లేదు.",
+  "expected_extracted": {
+    "activity_type": ["nutrition", "home_visit"],
+    "children_present": 20,
+    "meal_served": false
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "An absent meal ('భోజనం లేదు') is captured as meal_served=false with no contradictory meal_count; the home-visit activity is still recorded.",
+  "synthetic": true
+}

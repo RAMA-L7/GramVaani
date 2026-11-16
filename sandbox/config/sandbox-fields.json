@@ -1,0 +1,116 @@
+{
+  "schema_version": "sandbox-0.1",
+  "status": "ILLUSTRATIVE_NOT_OFFICIAL",
+  "disclaimer": "These fields are invented for a simulated hackathon environment. They are NOT verified ICDS, Poshan Tracker or Bala Sanjeevini reporting requirements and must not be described as such.",
+  "language": { "primary": "te", "secondary": "en", "output_script": "Telugu" },
+  "fields": [
+    {
+      "id": "report_date",
+      "label_te": "నివేదిక తేదీ",
+      "label_en": "Report date",
+      "type": "date",
+      "requirement": "required",
+      "clarification_te": "ఈ నివేదిక ఏ తేదీకి?",
+      "clarification_en": "Which date is this report for?"
+    },
+    {
+      "id": "centre_code",
+      "label_te": "కేంద్రం కోడ్",
+      "label_en": "Centre code",
+      "type": "string",
+      "requirement": "required",
+      "clarification_te": "సింథటిక్ సెంటర్ కోడ్ ఏమిటి?",
+      "clarification_en": "What is the synthetic centre code?"
+    },
+    {
+      "id": "activity_type",
+      "label_te": "కార్యకలాపం",
+      "label_en": "Activity",
+      "type": "enum_list",
+      "requirement": "required",
+      "options": ["pre_school", "nutrition", "weighing", "home_visit", "health_check"],
+      "clarification_te": "ఈరోజు ప్రధాన కార్యకలాపం ఏమిటి?",
+      "clarification_en": "What was the main activity today?"
+    },
+    {
+      "id": "children_enrolled",
+      "label_te": "నమోదైన పిల్లలు",
+      "label_en": "Children enrolled",
+      "type": "integer",
+      "requirement": "optional",
+      "min": 0,
+      "max": 200,
+      "clarification_te": "మొత్తం ఎంత మంది పిల్లలు నమోదయ్యారు?",
+      "clarification_en": "How many children are enrolled?"
+    },
+    {
+      "id": "children_present",
+      "label_te": "హాజరైన పిల్లలు",
+      "label_en": "Children present",
+      "type": "integer",
+      "requirement": "required",
+      "min": 0,
+      "max": 200,
+      "clarification_te": "ఈరోజు ఎంత మంది పిల్లలు వచ్చారు?",
+      "clarification_en": "How many children came today?"
+    },
+    {
+      "id": "children_absent",
+      "label_te": "గైర్హాజరు",
+      "label_en": "Children absent",
+      "type": "integer",
+      "requirement": "optional",
+      "min": 0,
+      "max": 200,
+      "clarification_te": "ఎంత మంది రాలేదు?",
+      "clarification_en": "How many were absent?"
+    },
+    {
+      "id": "meal_served",
+      "label_te": "భోజనం పెట్టారా",
+      "label_en": "Meal served",
+      "type": "boolean",
+      "requirement": "optional",
+      "clarification_te": "ఈరోజు భోజనం పెట్టారా?",
+      "clarification_en": "Was the meal served today?"
+    },
+    {
+      "id": "meal_count",
+      "label_te": "భోజనం పొందిన పిల్లలు",
+      "label_en": "Meals served count",
+      "type": "integer",
+      "requirement": "optional",
+      "min": 0,
+      "max": 200,
+      "clarification_te": "ఎంత మందికి భోజనం పెట్టారు?",
+      "clarification_en": "How many meals were served?"
+    },
+    {
+      "id": "preschool_activity",
+      "label_te": "ప్రీస్కూల్ కార్యకలాపం",
+      "label_en": "Preschool activity",
+      "type": "string",
+      "requirement": "optional",
+      "clarification_te": "ఈరోజు ప్రీస్కూల్ లో ఏమి చేశారు?",
+      "clarification_en": "What did you do in preschool today?"
+    },
+    {
+      "id": "photo_attached",
+      "label_te": "చిత్రం జోడించబడింది",
+      "label_en": "Photo attached",
+      "type": "boolean",
+      "requirement": "optional",
+      "clarification_te": "సింథటిక్ నమూనా చిత్రం జోడించాలా?",
+      "clarification_en": "Attach a synthetic sample image?"
+    },
+    {
+      "id": "remarks",
+      "label_te": "వ్యాఖ్యలు",
+      "label_en": "Remarks",
+      "type": "string",
+      "requirement": "optional",
+      "clarification_te": "ఇంకా ఏమైనా చెప్పాలా?",
+      "clarification_en": "Anything else to add?"
+    }
+  ]
+}

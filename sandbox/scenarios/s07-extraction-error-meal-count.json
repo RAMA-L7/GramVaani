@@ -1,0 +1,19 @@
+{
+  "id": "s07-extraction-error-meal-count",
+  "title": "Incorrectly extracted meal count corrected before confirmation",
+  "category": "extraction-error",
+  "transcript": "ఈరోజు ప్రీస్కూల్ జరిగింది. ఇరవై మంది పిల్లలు వచ్చారు. ముప్పై మందికి భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 20,
+    "meal_served": true,
+    "meal_count": 30
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": { "meal_count": 22 },
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "The rule parser reads 30 meals, but the worker knows only 22 were served and corrects the value in the review step before confirming.",
+  "synthetic": true
+}

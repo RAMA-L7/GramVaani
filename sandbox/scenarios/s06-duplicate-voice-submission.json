@@ -1,0 +1,18 @@
+{
+  "id": "s06-duplicate-voice-submission",
+  "title": "Repeated voice submission (duplicate)",
+  "category": "duplicate",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో కథలు. ఇరవై మంది పిల్లలు వచ్చారు. భోజనం పెట్టారు. ఇదే నివేదిక మళ్ళీ పంపుతున్నాను.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 20,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "duplicate", "fail_first_attempt": false },
+  "notes": "The worker repeats the same report with the same idempotency key; the gateway returns status 'duplicate' and must not create a second row.",
+  "synthetic": true
+}

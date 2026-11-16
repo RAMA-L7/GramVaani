@@ -1,0 +1,27 @@
+{
+  "id": "s05-contradictory-information",
+  "title": "Contradictory information",
+  "category": "contradiction",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో పాటలు. ఇరవై మంది పిల్లలు వచ్చారు. ఐదుగురు రాలేదు. నమోదైన పిల్లలు ఇరవై మంది. భోజనం పెట్టలేదు కాని ఐదుగురు మందికి భోజనం ఇచ్చారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 20,
+    "children_absent": 5,
+    "children_enrolled": 20,
+    "meal_served": false,
+    "meal_count": 5
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": {
+    "valid": false,
+    "errors": [
+      "children_absent + children_present must not exceed children_enrolled",
+      "meal_served=false with meal_count>0 is a contradiction"
+    ]
+  },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "Two contradictions: 20 present + 5 absent exceeds 20 enrolled, and a meal is counted although the transcript says it was not served. Validation must block this until the worker resolves it.",
+  "synthetic": true
+}

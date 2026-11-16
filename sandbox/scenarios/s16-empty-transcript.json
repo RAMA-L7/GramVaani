@@ -1,0 +1,17 @@
+{
+  "id": "s16-empty-transcript",
+  "title": "Empty scripted transcript",
+  "category": "missing",
+  "transcript": "",
+  "expected_extracted": {},
+  "expected_missing": ["activity_type", "children_present"],
+  "clarification_answers": {
+    "activity_type": "pre_school",
+    "children_present": 0
+  },
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "Empty transcript edge case: simulated transcription returns no text (the API may respond 404), and extraction yields both required fields as gaps. Answers make the report valid.",
+  "synthetic": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "s01-normal-telugu",
+  "title": "Normal Telugu daily report",
+  "category": "normal",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో పాటలు, కథలు. ఇరవై నాలుగు మంది పిల్లలు వచ్చారు. ముగ్గురు రాలేదు. భోజనం పెట్టారు. ఇరవై నాలుగు మందికి భోజనం పెట్టారు. గమనిక ఈరోజు బాగా జరిగింది.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 24,
+    "children_absent": 3,
+    "meal_served": true,
+    "meal_count": 24,
+    "preschool_activity": "పాటలు కథలు",
+    "remarks": "ఈరోజు బాగా జరిగింది"
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "Golden path: a clean Telugu report where every required field is grounded in the transcript. Use this for the happy-path end-to-end demo.",
+  "synthetic": true
+}

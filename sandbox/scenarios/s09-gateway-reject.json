@@ -1,0 +1,18 @@
+{
+  "id": "s09-gateway-reject",
+  "title": "API failure / gateway rejection",
+  "category": "normal",
+  "transcript": "ఈరోజు ఆరోగ్య తనిఖీ జరిగింది. ఇరవై మంది పిల్లలు వచ్చారు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["health_check", "nutrition"],
+    "children_present": 20,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "reject", "fail_first_attempt": false },
+  "notes": "The report is locally valid but the simulated gateway forces HTTP 422 with validation errors, exercising the rejection UI.",
+  "synthetic": true
+}

@@ -1,0 +1,18 @@
+{
+  "id": "s08-network-failure-retry",
+  "title": "Network interruption then successful retry",
+  "category": "network",
+  "transcript": "ఈరోజు ప్రీస్కూల్ లో పాటలు. ఇరవై ఐదు మంది పిల్లలు వచ్చారు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 25,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "network_failure", "fail_first_attempt": true },
+  "notes": "First gateway POST returns HTTP 503 for the idempotency key; retrying with the same key is accepted and creates exactly one row.",
+  "synthetic": true
+}

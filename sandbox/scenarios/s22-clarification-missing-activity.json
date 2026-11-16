@@ -1,0 +1,17 @@
+{
+  "id": "s22-clarification-missing-activity",
+  "title": "Missing activity resolved by clarification",
+  "category": "missing",
+  "transcript": "ఈరోజు ఇరవై మంది పిల్లలు వచ్చారు. సింథటిక్ చిత్రం జోడించాను.",
+  "expected_extracted": {
+    "children_present": 20,
+    "photo_attached": true
+  },
+  "expected_missing": ["activity_type"],
+  "clarification_answers": { "activity_type": "pre_school" },
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "No activity synonym appears in the transcript, so only activity_type becomes a gap; the worker answers the clarification to make the report valid.",
+  "synthetic": true
+}

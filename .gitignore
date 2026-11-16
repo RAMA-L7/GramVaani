@@ -30,6 +30,14 @@ uv.lock.bak
 Thumbs.db
 *.swp
 
+# Sandbox runtime data (regenerated locally; never commit demo state)
+sandbox/backend/sandbox.db
+sandbox/backend/sandbox.db-shm
+sandbox/backend/sandbox.db-wal
+sandbox/backend/.python-version
+sandbox/tests/test-results/
+sandbox/tests/playwright-report/
+
 # --- Project-specific safety net ---------------------------------------------
 # Raw field audio, screenshots and notes must never be committed.
 # Only synthetic assets belong in prototype-assets/.

@@ -1,0 +1,18 @@
+{
+  "id": "s11-negation-meal-not-given",
+  "title": "Negation: meal was not given",
+  "category": "normal",
+  "transcript": "ఈరోజు ప్రీస్కూల్ జరిగింది. ఇరవై మంది పిల్లలు వచ్చారు. భోజనం పెట్టలేదు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 20,
+    "meal_served": false
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "The negation 'పెట్టలేదు' must yield meal_served=false, never true. No meal_count is invented when no meal was served.",
+  "synthetic": true
+}

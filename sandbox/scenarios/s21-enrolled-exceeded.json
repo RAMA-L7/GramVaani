@@ -1,0 +1,20 @@
+{
+  "id": "s21-enrolled-exceeded",
+  "title": "Attendance exceeds enrolment, resolved by worker",
+  "category": "contradiction",
+  "transcript": "ఈరోజు ప్రీస్కూల్ జరిగింది. పది మంది పిల్లలు వచ్చారు. ఐదుగురు రాలేదు. పది మంది నమోదయ్యారు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 10,
+    "children_absent": 5,
+    "children_enrolled": 10,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": { "children_enrolled": 16 },
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "10 present + 5 absent exceeds the stated 10 enrolled; the worker corrects enrolment to 16 before confirmation and validation then passes.",
+  "synthetic": true
+}

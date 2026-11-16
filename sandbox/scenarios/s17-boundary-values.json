@@ -1,0 +1,19 @@
+{
+  "id": "s17-boundary-values",
+  "title": "Boundary integer values",
+  "category": "normal",
+  "transcript": "ఈరోజు ప్రీస్కూల్ జరిగింది. 200 మంది పిల్లలు వచ్చారు. 0 మంది రాలేదు. భోజనం పెట్టారు.",
+  "expected_extracted": {
+    "activity_type": ["pre_school", "nutrition"],
+    "children_present": 200,
+    "children_absent": 0,
+    "meal_served": true
+  },
+  "expected_missing": [],
+  "clarification_answers": {},
+  "worker_corrections": {},
+  "expected_validation": { "valid": true, "errors": [] },
+  "gateway": { "mode": "accept", "fail_first_attempt": false },
+  "notes": "children_present at the configured maximum 200 and children_absent at the minimum 0 must both validate without an out-of-range error.",
+  "synthetic": true
+}

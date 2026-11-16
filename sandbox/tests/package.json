@@ -1,0 +1,13 @@
+{
+  "name": "gramvaani-sandbox-tests",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Playwright end-to-end tests for GramVaani Sandbox (simulated environment only).",
+  "scripts": {
+    "test:e2e": "playwright test --config=playwright.config.ts",
+    "install:browser": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}
