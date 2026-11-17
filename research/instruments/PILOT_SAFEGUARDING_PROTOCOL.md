@@ -1,326 +1,233 @@
-# Pilot Safeguarding Protocol (Controlled Live Pilot)
+# Pilot Safeguarding Protocol (Controlled Live Pilot / Workflow Observation)
 
 **Project:** GramVaani (research prototype, Telugu-first, voice-assisted)  
-**Document:** Ethics, consent, privacy, and safety protocol for a controlled live pilot  
-**Date:** 2026-11-16  
-**Status:** Draft research protocol (desk research; **not legal advice**)  
-**Location context:** Pilot begins with Anganwadi worker contacts in West Godavari district, Andhra Pradesh (subject to recruitment and consent)  
+**Document:** Ethics, consent, privacy, and safety protocol  
+**Date:** 2026-11-16 (v0.1) · **Updated:** 2026-11-17 (v0.2 draft)  
+**Status:** Draft research protocol — **not legal advice, not ethics approval, not authorized for participant data collection** until required blockers are resolved and evidenced.  
+**Location context:** West Godavari district, Andhra Pradesh (subject to approved recruitment/consent and resolved safeguards)
 
-> **Important:** This protocol is practical research guidance, not legal advice or a compliance determination. DPDP Act/Rules commencement, exemptions, and any field-research ethics approvals (e.g., IEC) must be re-verified with qualified counsel/ethics reviewers before real-world deployment or data collection.
+> **Important:** This protocol is practical research guidance, not legal advice or a compliance determination. DPDP Act/Rules applicability/commencement/exemptions and any field-research ethics approvals (e.g., IEC/institutional) must be verified with qualified reviewers/counsel before real-world data collection. **Do not invent contacts, legal requirements, approvals, safeguarding arrangements, or retention periods.** Unresolved operational items are explicit **BLOCKERS** (see `OUTSTANDING_BLOCKER_REGISTER.md`).
+
+---
+
+## 0. Readiness and blocker status (2026-11-17)
+
+- **Participant observation/data collection is NOT authorized** by this document. It may proceed only after required governance, consent, safeguarding, and data-handling blockers are resolved and evidenced by responsible owners.
+- **Observation-only path (no audio, no prototype introduction):** may be supported procedurally **only** when observation consent/notes handling and applicable governance/safeguarding blockers are resolved/evidenced. Declining audio must not prevent observation-only participation.
+- **Audio recording / retained research samples:** require separate explicit consents and approved storage/retention/deletion/access arrangements (BLOCKED until resolved).
+- **Prototype introduction:** do not introduce GramVaani before observing the existing workflow; voice path is not a prerequisite for observation-only research.
+- **Related documents:** `OUTSTANDING_BLOCKER_REGISTER.md`, `consent-script-te.md` (draft pending human review), `recruitment-and-observation-procedure.md`, `audio-data-retention-deletion-procedure.md`, `field-observation-readiness-checklist.md`, `LIVE_MICROPHONE_TEST_CHECKLIST.md`.
 
 ---
 
 ## 1. Purpose and scope
 
 ### 1.1 Purpose
-This protocol defines how to run a **small, controlled, voluntary live pilot** of the GramVaani Telugu voice prototype with Anganwadi workers in a way that protects participants, prevents misuse of sensitive information, and keeps the pilot clearly separate from government systems and mandatory reporting.
+Define how to run a **small, controlled, voluntary** workflow observation/research session (and, if separately approved later, prototype research activities) with Anganwadi workers in a way that protects participants, prevents misuse of sensitive information, and keeps activities clearly separate from government systems and mandatory reporting.
 
-The pilot is intended to learn whether and how a voice-assisted draft/report-preparation aid is usable, understandable, and trustworthy in practice (including correction effort and consent to audio handling), **not** to evaluate workers, produce official records, or replace existing reporting.
+The goal is to understand existing reporting work and, where approved, evaluate research/prototype usability (including correction effort and consented audio handling) — **not** to evaluate workers, produce official records, or replace existing reporting.
 
 ### 1.2 Scope
-Applies to:
-- Recruitment and participation in pilot sessions (in-person or remote, if used).
-- Prototype use during pilot sessions, including hosted/web access to a prototype.
-- Collection, handling, storage, access, retention, and deletion of pilot data (session metadata, transcripts, corrections, feedback, and audio **only if separately consented**).
-- Researcher conduct, incident/safeguarding response, and dashboard/analytics outputs derived from pilot data.
+Applies to recruitment and participation, observation/prototype sessions (if approved), collection/handling/storage/access/retention/deletion of pilot data (session metadata, transcripts, corrections, feedback, and audio **only if separately consented and approved**), researcher conduct, incident/safeguarding response, and analytics outputs.
 
-Out of scope:
-- Any integration with government applications/systems (e.g., Poshan Tracker, Bala Sanjeevini) or use of government credentials (D-11, ADR-006).
-- Collection or processing of real beneficiary/child data, official records, or operational submissions.
-- Production deployment, public open access, or use of pilot outputs as official evidence.
+**Out of scope:** any government integration/submission/credentials (D-11, ADR-006), real beneficiary/child data or official records, production deployment/public access, or use of outputs as official evidence.
 
 ### 1.3 Key principles (hard constraints)
-- **Voluntary participation:** no coercion, no penalty for declining/stopping, and no dependency on the prototype for mandatory reporting. **Experimental outputs are never sent to government systems.**
-- **Synthetic or non-identifying information only (initial pilots):** no children's names, Aadhaar/beneficiary identifiers, child photos, addresses/phone numbers of families, or government app credentials/logins.
-- **Consent before recording speech:** separate, explicit consent for (a) observation/prototype use, (b) audio recording, and (c) research use/storage/sharing of recordings and transcripts beyond the session.
-- **Transparency (D-12 / ASR unproven):** explain that voice recognition/extraction may be inaccurate, outputs are drafts, and worker review/correction is required.
-- **Least privilege and minimisation:** collect only what is needed; restrict access; retain for the shortest justified period; delete securely.
-- **No performance ranking:** no individual worker rankings/leaderboards in dashboards or reports; analytics must be aggregated/anonymised and used only to improve the product/research.
+- **Voluntary participation:** no coercion, no penalty for declining/stopping, no dependency on prototype for mandatory reporting. **Experimental outputs are never sent to government systems.**
+- **Synthetic or non-identifying information only (initial activities):** no children's names, Aadhaar/beneficiary identifiers, child photos, family addresses/phone numbers, or government app credentials/logins.
+- **Separate explicit consents:** (A) observation/participation/notes, (B) optional audio recording, (C) retained research/evaluation use/storage/sharing of recordings/transcripts beyond immediate session (if applicable), (D) optional screen capture/photos of app screens (rare, no PII/children). Audio must never be recorded/retained without required consents.
+- **Transparency (D-12 / ASR unproven):** voice recognition/extraction may be inaccurate; outputs are drafts requiring review/correction.
+- **Least privilege and minimisation:** collect only what is needed; restrict access; retain for the shortest justified approved period; delete securely.
+- **No performance ranking/surveillance:** no individual worker rankings/leaderboards; aggregated/anonymised analysis only for research/product improvement.
 
 ---
 
 ## 2. Participant eligibility and recruitment
 
 ### 2.1 Eligibility
-**Inclusion (indicative):**
-- Currently working as an Anganwadi worker (or closely related reporting role, if explicitly justified and consented) and preparing reports themselves.
-- Able to consent independently.
-- Willing to participate voluntarily in a prototype/research session using synthetic or non-identifying information only.
+**Inclusion (indicative):** currently preparing reports (or closely related role if explicitly justified and consented), able to consent independently, willing to participate voluntarily using synthetic/non-identifying information only.  
+**Exclusion:** unable to consent independently; feels pressured by supervisor/employer/intermediary; cannot avoid discussing/displaying real beneficiary/child-identifying information (reschedule/stop).
 
-**Exclusion:**
-- Anyone unable to consent independently.
-- Anyone who feels pressured by a supervisor/employer/intermediary to participate.
-- Sessions where the participant cannot avoid discussing or displaying real beneficiary/child-identifying information (reschedule or stop; see incident handling).
-
-### 2.2 Recruitment
-- **Starting point:** West Godavari district contact(s), through a trusted local intermediary where appropriate.
-- **Voluntary:** make clear that participation is optional, not monitored as job performance, and will not affect employment, benefits, or reporting obligations.
-- **Varied experience:** aim to include workers with varied experience levels, centre contexts, and device familiarity (as feasible in a small pilot) to understand different needs; do not over-recruit or incentivize in ways that distort consent.
-- **No dependency:** participants must continue to use their normal, approved processes for any mandatory reporting; the prototype is a research aid only.
-- **Anonymisation codes:** assign participant codes (e.g., `W1`, `W2`…) for notes, files, and analysis. Keep any name/contact-to-code linkage (if needed for scheduling/withdrawal) separate from research data, in a restricted location, and delete when no longer needed.
+### 2.2 Recruitment (non-coercive)
+- **Status:** procedure drafted in `recruitment-and-observation-procedure.md`; **operational recruitment not authorized** until REC-01 and related blockers resolved/evidenced.
+- Participation must be clearly optional, not monitored as job performance, and without employment/benefit/reporting consequences.
+- If a trusted local intermediary is used, role/approach must be voluntary and approved (no pressure). Any incentives/reimbursements must be reviewed/approved and transparently described — **[UNRESOLVED: no incentives/reimbursements specified or approved]**.
+- **Anonymisation codes:** assign participant codes (e.g., `W1`…) for notes/files/analysis. Any name/contact-to-code linkage needed for scheduling/withdrawal must be minimal, stored separately/restricted, and deleted when no longer needed (**storage/owner/retention: UNRESOLVED — DATA-02/DATA-01**).
 
 ### 2.3 Participant information (plain language)
-Before consent, explain clearly:
-- What the study/pilot is, who is conducting it, and that it is **not** a government programme and **not** a test of the worker.
-- What the prototype can/cannot do; that ASR/voice understanding may make mistakes (D-12) and outputs are drafts requiring review.
-- What will be asked (e.g., try the prototype with **synthetic/non-identifying** examples, share feedback, optional audio sample).
-- What data may be collected, where stored, who can access, how long retained, and how to withdraw/delete data.
-- That the participant can skip any question/action, pause, or stop at any time without giving a reason.
+Before consent, explain clearly (using approved, reviewed materials): study purpose and that it is **not** a government programme and **not** a test; what will happen; that prototype/ASR (if involved) may make mistakes and outputs are drafts; what data may be collected, where stored, who can access, how long retained, and how to withdraw/delete; right to skip/pause/stop anytime. **[UNRESOLVED: withdrawal contact/path and instance-specific storage/retention/access details must be completed and approved — CON-01, DATA-01/02]**
 
 ---
 
 ## 3. Informed consent (separate, explicit components)
 
-Consent must be obtained **before** any recording or research data collection. Use plain language, read aloud if helpful, allow questions, and provide a copy/record of consent as appropriate. **Consent for audio recording and for research use/storage/sharing is separate** from consent to observe/use the prototype.
+Consent must be obtained **before** any recording or research data collection. Use plain language, read aloud if helpful, allow questions, and provide a copy/record of consent as appropriate. **Consent types remain separate.**
 
-Align with existing field-research consent practices (see `research/instruments/consent-script-te.md`) and extend for hosted pilot/audio uploads.
+### 3.1 Consent components
 
-### 3.1 Consent components (obtain separately)
 | Component | Required for | Notes |
-|---|---:|---|
-| **A. Participation / observation / prototype use** | Any pilot session | Voluntary; can stop anytime; synthetic/non-identifying info only; prototype not for mandatory reporting. |
-| **B. Audio recording** | Recording speech during the session | **Consent before recording.** Participant can participate without audio recording. Explain microphone/audio capture, possible background voices, and upload/storage if hosted. |
-| **C. Research use, storage, and sharing of recordings/transcripts** | Keeping/analysing audio or transcripts beyond the immediate session | Separate, explicit consent. Specify who can access (named roles/team), retention period, allowed research uses, and whether any sharing beyond the core research team is permitted (**default: no external sharing of raw audio/transcripts**). |
-| **D. Screen capture / photos of app screens (optional, rare)** | Only if needed and explicitly consented | **No photos of children, ever.** Screen captures only if they contain no personal/beneficiary/government-account data and only with separate consent. Prefer not to capture screens. |
+|---|---|---|
+| **A. Participation / observation / notes** | Observation session | Voluntary; can stop anytime; synthetic/non-identifying info only; not for mandatory reporting. Observation-only path supported if A consented and audio declined. |
+| **B. Optional audio recording** | Recording speech during session | **Separate, explicit consent before recording.** May decline without affecting observation-only participation. Explain capture, possible background voices, and whether uploaded/stored. |
+| **C. Retained research/evaluation use, storage, sharing of recordings/transcripts beyond immediate session** | Keeping/analysing audio or transcripts beyond immediate transcription/session | **Separate, explicit consent.** Specify purpose, who can access (named roles), sharing limits, retention period, withdrawal/deletion path. Default: no external sharing of raw audio/transcripts. **Not covered by A or B.** |
+| **D. Optional screen capture/photos of app screens** | Only if needed and explicitly consented | **No photos of children, ever.** No PII/beneficiary/government-account data. Prefer not to capture. |
 
-### 3.2 Participant-facing consent text (Telugu) — **DRAFT, needs review**
-> Use and adapt the existing script in `research/instruments/consent-script-te.md` as the base. Below are **pilot-specific additions/placeholders** to be reviewed by a fluent Telugu speaker and, where appropriate, ethics/legal reviewers before use. Read slowly; do not paraphrase in ways that change meaning.
-
-**పాల్గొనడం / పరిశీలన (ఘటం A) — డ్రాఫ్ట్**  
-- `[PLACEHOLDER_TE_A1]` మీరు ఈ పైలట్/పరిశోధనలో పాల్గొనడం పూర్తిగా స్వచ్ఛందం. ఏ సమయంలోనైనా ఆపవచ్చు. కారణం చెప్పాల్సిన అవసరం లేదు.  
-- `[PLACEHOLDER_TE_A2]` ఇది మీ పనిని పరీక్షించడం కాదు. ఈ ప్రోటోటైప్ ప్రభుత్వ నివేదికలు సమర్పించడానికి కాదు; తప్పనిసరి నివేదికల కోసం మీరు సాధారణంగా ఉపయోగించే అధికారిక విధానాన్నే కొనసాగించాలి.  
-- `[PLACEHOLDER_TE_A3]` దయచేసి పిల్లల పేర్లు, ఆధార్/లబ్ధిదారుల గుర్తింపు సంఖ్యలు, కుటుంబాల వివరాలు, పిల్లల ఫోటోలు, ప్రభుత్వ యాప్ లాగిన్ వివరాలు చెప్పవద్దు/చూపవద్దు. మనం **నకిలీ (synthetic) లేదా గుర్తింపు లేని** సమాచారంతో మాత్రమే ప్రయత్నిస్తాము.  
-- `[PLACEHOLDER_TE_A4]` వాయిస్/ASR సరిగా గుర్తించకపోవచ్చు; చూపించిన సమాచారం డ్రాఫ్ట్ మాత్రమే. మీరు సరిచూసి అవసరమైతే మార్చాలి.  
-
-**ఆడియో రికార్డింగ్ (ఘటం B, ప్రత్యేక అనుమతి) — డ్రాఫ్ట్**  
-- `[PLACEHOLDER_TE_B1]` మీ అనుమతి ఉంటే మాత్రమే మీ మాటలను రికార్డ్ చేస్తాము. రికార్డింగ్ లేకుండా కూడా పాల్గొనవచ్చు.  
-- `[PLACEHOLDER_TE_B2]` ఏమి రికార్డ్ అవుతుంది: `[PLACEHOLDER: session speech/audio, duration/context]`  
-- `[PLACEHOLDER_TE_B3]` ఎక్కడ నిల్వ చేస్తాము: `[PLACEHOLDER: device/secure storage/hosting location]` | ఎవరు చూడగలరు: `[PLACEHOLDER: roles]` | ఎంతకాలం: `[PLACEHOLDER: retention period]`  
-- `[PLACEHOLDER_TE_B4]` మీరు ఏ సమయంలోనైనా రికార్డింగ్ ఆపమని చెప్పవచ్చు.  
-
-**రికార్డింగ్/ట్రాన్స్‌క్రిప్ట్‌ల పరిశోధన ఉపయోగం, నిల్వ, భాగస్వామ్యం (ఘటం C, ప్రత్యేక అనుమతి) — డ్రాఫ్ట్**  
-- `[PLACEHOLDER_TE_C1]` రికార్డింగ్‌లు/ట్రాన్స్‌క్రిప్ట్‌లను పరిశోధన కోసం ఉపయోగించడానికి, నిల్వ చేయడానికి మీ ప్రత్యేక అనుమతి అవసరం.  
-- `[PLACEHOLDER_TE_C2]` ఉపయోగం: `[PLACEHOLDER: improve prototype, analyse errors/corrections, research summary - no individual performance ranking]`  
-- `[PLACEHOLDER_TE_C3]` భాగస్వామ్యం: `[PLACEHOLDER: default no sharing outside core research team / specify if any]`  
-- `[PLACEHOLDER_TE_C4]` ఉపసంహరణ/తొలగింపు: `[PLACEHOLDER: how to withdraw and request deletion, contact, timeframe within retention period]`  
-
-**English meaning of placeholders (for team review, not read aloud):**
-- A1: participation voluntary; can stop anytime, no reason needed.
-- A2: not a test; prototype not for government submission; continue normal official process for mandatory reporting.
-- A3: do not share/show child names, Aadhaar/beneficiary IDs, family details, child photos, government logins; use synthetic/non-identifying info only.
-- A4: ASR may be inaccurate; outputs are drafts and must be reviewed/corrected.
-- B1–B4: audio recorded only with separate permission; can participate without it; what/where/who/how long; can stop recording anytime.
-- C1–C4: separate permission for research use/storage/sharing of recordings/transcripts; purpose; sharing limits; withdrawal/deletion path.
+### 3.2 Participant-facing consent materials (status)
+- `research/instruments/consent-script-te.md` provides a **draft** Telugu participant-facing script with separate components A–D and explicit unresolved placeholders. **It is NOT approved for use.**
+- **BLOCKERS:** fluent Telugu human review required (CON-02); withdrawal contact/path, retention/access/storage specifics, and any legal/ethics-required wording must be completed/approved (CON-01, CON-03, DATA-01/02, GOV-01). Do not claim linguistic, legal, or ethics approval without evidence.
+- Audio recording and retained research samples must be described accurately per approved instance arrangements; **no recording/retention without separate explicit consent and approved handling**.
 
 ### 3.3 Consent documentation
-- Record which components (A/B/C/D) were consented to, date/time, session/pilot ID, and participant code.
-- Do **not** store consent records in the same file/location as raw audio/transcripts where avoidable; keep linkable via participant/session code with restricted access.
-- If audio consent is refused, proceed only with non-audio components (if consented) and note refusal neutrally as a finding/context, not a failure.
-- Re-confirm consent if the session purpose, data handling, or recording method changes.
+- Record components consented/refused (A/B/C/D), date/time, session/pilot ID, participant code, and approved material/version used.
+- Store consent records in an approved restricted location/system **separate from raw audio/transcripts where possible** (**[UNRESOLVED — DATA-02]**), linkable via participant/session code with restricted access.
+- If audio/retained-sample consent refused: proceed only with consented components (observation-only if A consented); record refusal neutrally.
+- Re-confirm consent if purpose, data handling, or recording method changes.
 
 ---
 
 ## 4. Data collected and prohibited data
 
-### 4.1 What may be collected (minimum necessary)
-| Category | Examples | Conditions |
-|---|---|---|
-| **Session metadata** | Date/time window, session ID, participant code (W1…), centre context type (e.g., urban/rural, non-identifying), device/app version, language settings, task/scenario used | No names, no precise addresses, no centre names in filenames/IDs. |
-| **Prototype interaction data** | Synthetic/non-identifying inputs entered or spoken, UI actions/events relevant to usability (as designed), error states | Must not contain beneficiary/child-identifying data. |
-| **Transcripts** | ASR transcript and/or researcher-verified transcript of **synthetic/non-identifying** speech | Collect/store only with appropriate consent (and separate research-use consent if retained beyond session). Review for accidental identifiers before retention. |
-| **Corrections** | Worker corrections/edits to transcript or extracted draft fields, correction counts/time/notes (aggregatable) | Used to assess usability/ASR quality (D-12); do not use for individual performance ranking. |
-| **Feedback** | Interview/think-aloud notes, usability ratings, trust/concerns, suggestions | Anonymised/coded; avoid attributing sensitive personal opinions in identifiable ways in shared outputs. |
-| **Audio recordings** | Session speech audio for evaluation/research | **Only with separate, explicit consent (B and C as applicable).** Prefer short, purpose-limited samples. Disclose if uploaded to hosted services. |
+### 4.1 Permitted (minimum necessary, as consented/approved)
+Session metadata (anonymized), prototype interaction data with synthetic/non-identifying inputs (if applicable), transcripts of synthetic/non-identifying speech (with appropriate consent), corrections/feedback (anonymized), and audio recordings **only with separate explicit consent(s) and approved handling**. Review for accidental identifiers before retention.
 
-### 4.2 Prohibited data (must not be collected, requested, stored, or shared)
-- **Children/beneficiary data:** children's names, photos/images/videos of children, dates of birth, growth/health records linked to individuals, Aadhaar numbers, beneficiary IDs, ration/family identifiers, addresses/phone numbers of families, or any other identifying information about children/families.
-- **Government credentials/systems:** app usernames/passwords, OTPs, device unlock codes, tokens, screenshots showing logged-in government accounts, or any access to Poshan Tracker/Bala Sanjeevini/government backends (D-11, ADR-006).
-- **Unnecessary personal data:** participant's government ID numbers, bank details, or personal contacts beyond what is strictly needed for scheduling/withdrawal (and if collected, keep separate and minimal).
-- **Covert recording:** no audio/screen capture without the participant's knowledge and explicit prior consent.
-- **Performance surveillance data:** keystroke-level monitoring or metrics intended to rank/discipline individual workers.
+### 4.2 Prohibited
+Children/beneficiary identifying data (names, photos/videos, DOB/health records linked to individuals, Aadhaar/beneficiary IDs, family contact/address, etc.), government credentials/systems/access, unnecessary personal data, covert recording, and performance surveillance/ranking data.
 
-### 4.3 Handling accidental capture
-If prohibited/identifying information appears (on screen, spoken, typed, or recorded):
-1. **Stop** the relevant capture/recording immediately.
-2. **Do not** transcribe, copy, photograph, or retain the identifying content.
-3. Note only that an incidental exposure occurred and what corrective action was taken (without recording the content).
-4. Delete/securely discard the affected audio/file/segment where feasible; document deletion.
-5. If the participant is distressed or a safeguarding concern arises, follow §8.
+### 4.3 Accidental capture
+Stop relevant capture/recording immediately; do not transcribe/copy/retain identifying content; note only that incidental exposure occurred and corrective action taken (no content); delete affected segment/file where feasible and document deletion; escalate per §8 if safeguarding concern/distress.
 
 ---
 
 ## 5. Access control and security
 
-### 5.1 Access principles
-- **Least privilege:** only named research team members with a legitimate need may access pilot data.
-- **Role separation:** separate roles for facilitation, transcription/analysis, and data administration where possible.
-- **Individual pilot access codes:** each participant/session uses a unique access code or session link/code as appropriate; do not share codes publicly or reuse across participants.
-- **No public access:** the prototype website being reachable over HTTPS does **not** mean pilot data is public. Research data, recordings, transcripts, and admin interfaces must be access-restricted.
+### 5.1 Principles
+Least privilege, role separation where possible, individual session/access codes (not shared publicly/reused), and no public access to research data/recordings/transcripts/admin interfaces.
 
-### 5.2 Hosted prototype / web pilot controls
-- **Transport security:** HTTPS for all hosted access; avoid transmitting data over unsecured channels.
-- **Authentication/access:** individual pilot/session access codes (or equivalent) for participants; restricted researcher/admin access (strong authentication, no shared accounts where feasible).
-- **Researcher access:** least privilege, need-to-know, and revocation when no longer required.
-- **Logging/auditing:** maintain audit logs of administrative/researcher access and key data-handling events (e.g., upload/export/delete actions) **without logging raw audio, transcript content, or secrets** inappropriately.
-- **Data minimisation in logs:** do not include participant names, speech content, credentials, or identifiers in application logs.
-- **Environment separation:** keep pilot/research data stores separate from any public/demo environment; disable analytics/telemetry that collects content unless explicitly consented and documented.
+### 5.2 Controls (to be specified/approved)
+**[UNRESOLVED — DATA-02, GOV-01 as applicable]:** concrete hosted/local systems, HTTPS/auth/access-code mechanisms, researcher/admin access model, audit logging destination/behavior (no raw content/secrets), environment separation, and (if any third-party/cloud/ASR) provider/purpose/region/retention/access controls and due diligence/disclosure before enabling.
 
 ### 5.3 Device and storage security
-- Use encrypted devices/storage for notes and any consented audio where feasible.
-- Avoid storing pilot data in personal/unmanaged messaging apps or public folders.
-- Do not commit raw notes, audio, transcripts, consent forms with identifiers, or exports containing pilot data to git/public repositories.
-- If third-party/cloud services are used for hosting, storage, transcription, or ASR, document provider, purpose, region, retention, and access controls; review against the project's cloud/AI due-diligence questions (`research/PRIVACY_AND_SAFEGUARDING.md` §7) before enabling.
+Use encrypted devices/storage where feasible; avoid unmanaged/public storage; never commit raw notes/audio/transcripts/identifiable consent records to git/public repos. Document and approve any third-party services before use.
 
 ---
 
 ## 6. Storage, retention, and deletion
 
-### 6.1 Storage locations (to be specified per pilot instance)
-| Data type | Storage location | Access | Notes |
-|---|---|---|---|
-| Consent records (component-level) | `[PLACEHOLDER: restricted location/system]` | Research lead / authorised staff only | Keep separate from raw content where possible. |
-| Participant code linkage (if any) | `[PLACEHOLDER: restricted location/system]` | Minimum necessary staff | Delete when no longer needed for withdrawal/contact. |
-| Session metadata / feedback / corrections | `[PLACEHOLDER: restricted research store]` | Authorised researchers | Store using participant/session codes. |
-| Transcripts (if consented) | `[PLACEHOLDER: restricted research store]` | Authorised researchers | Review/redact accidental identifiers before retention. |
-| Audio (if consented) | `[PLACEHOLDER: encrypted/restricted store]` | Strictly limited authorised researchers | Do not store in general shared drives. |
-| Audit/access logs | `[PLACEHOLDER: restricted logging system]` | Admin/research lead | No raw content/secrets. |
+> Detailed framework: `audio-data-retention-deletion-procedure.md`. **Instance-specific storage, retention periods, owners, tools, and timelines are UNRESOLVED BLOCKERS (DATA-01/02/03).**
 
-### 6.2 Retention
-- **Baseline (aligned with field research):** raw audio and identifiable/raw session notes retained for **up to 90 days after the pilot/study activity closes**, or a shorter period if sufficient, unless a justified and documented exception is approved. Delete earlier on valid withdrawal/deletion request where applicable.
-- **Transcripts/corrections/feedback:** retain only as long as needed for analysis and documented research/product-improvement purposes; prefer de-identified/aggregated derivatives for longer retention.
-- **Aggregated/anonymised outputs:** may be retained longer if they cannot reasonably be linked to an individual participant and contain no sensitive content.
-- **Hosted uploads:** define and enforce retention/deletion for any uploaded audio/session data in the hosting environment; do not rely on indefinite provider retention.
+### 6.1 Storage locations (to be specified and approved per pilot instance)
 
-`[PLACEHOLDER: specify exact retention period(s) for this pilot instance, including hosted backups/logs, and justification if different from 90 days]`
+| Data type | Storage location/system | Access | Notes | Status |
+|---|---|---|---|---|
+| Consent records (component-level) | **[UNRESOLVED]** | **[UNRESOLVED roles]** | Separate from raw content where possible | **BLOCKER (DATA-02)** |
+| Participant code linkage (if any) | **[UNRESOLVED]** | **[UNRESOLVED roles, minimum necessary]** | Delete when no longer needed | **BLOCKER (DATA-01/02/03)** |
+| Session metadata / feedback / corrections | **[UNRESOLVED]** | **[UNRESOLVED roles]** | Anonymized/coded | **BLOCKER (DATA-02)** |
+| Transcripts (if consented) | **[UNRESOLVED]** | **[UNRESOLVED roles]** | Review/redact accidental identifiers before retention | **BLOCKER (DATA-02)** |
+| Audio (if consented) | **[UNRESOLVED encrypted/restricted store]** | **[UNRESOLVED strictly limited roles]** | Separate temporary transcription vs retained research sample | **BLOCKER (DATA-02)** |
+| Audit/access logs | **[UNRESOLVED]** | **[UNRESOLVED roles]** | No raw content/secrets | **BLOCKER (DATA-02)** |
 
-### 6.3 Secure deletion procedure
-1. Identify all locations/copies for the participant/session (audio, transcripts, notes, exports, hosted storage, backups where feasible, and local researcher devices).
-2. Delete requested/in-scope data from primary stores and revoke access links/codes as needed.
-3. Remove or anonymise references in working files where feasible; retain a minimal withdrawal/deletion log entry (date, participant/session code, action taken) without storing deleted content.
-4. Confirm deletion actions were completed by the responsible researcher/admin and record completion date.
-5. For third-party/hosted systems, follow provider deletion mechanisms and document limitations (e.g., backup retention windows) transparently.
+### 6.2 Retention (framework — no invented periods)
+- **Baseline principle (not an approved instance schedule):** raw audio and identifiable/raw session notes retained for **up to 90 days after pilot/study activity closes**, or shorter if sufficient, **unless a justified and documented exception is approved**. Earlier deletion on valid withdrawal/deletion request where applicable/still linkable.
+- **Temporary transcription audio:** delete as soon as transcription/verification is complete within an **approved temporary window** (**[UNRESOLVED — define/approve window and trigger, DATA-01/03]**). Must not be retained as research sample.
+- **Retained research/evaluation samples:** only with Component B+C consents and **approved retention schedule** (**[UNRESOLVED — DATA-01]**).
+- **Transcripts/corrections/feedback, linkage, consent records, backups/logs/hosted copies:** **[UNRESOLVED — approved periods, justification, and enforcement per category/system]**.
+- **Aggregated/anonymised outputs:** may be retained longer only if not reasonably linkable and free of sensitive content (confirm per approved process).
 
-`[PLACEHOLDER: name responsible role(s), systems/tools used for deletion, and expected completion timeline]`
+### 6.3 Deletion responsibilities and process (framework)
+1. Identify all locations/copies (audio, transcripts, notes, exports, hosted storage, backups where feasible, local devices) using anonymized codes/approved linkage.
+2. Delete requested/in-scope data from primary stores; revoke access links/codes as needed; follow provider mechanisms for hosted/third-party systems and document limitations.
+3. Remove/anonymise references where feasible; retain minimal deletion log entry (date, participant/session code, action) without deleted content.
+4. Verify completion and record date/action by responsible owner.
 
----
+**[UNRESOLVED — DATA-03]:** deletion owner(s)/roles, systems/tools per store, verification steps, and expected completion timeline/SLA must be assigned and approved.
 
-## 7. Withdrawal
+### 6.4 Withdrawal (process)
 
-### 7.1 Withdrawal during a session
-- Participant may pause or stop at any time, for any reason, without explanation or penalty.
-- On request: stop recording immediately, stop the task, and confirm whether already-captured audio/notes for that session should be deleted.
-- If withdrawal occurs, thank the participant and provide/support any agreed follow-up (e.g., deletion confirmation contact path).
+- **During session:** participant may pause/stop anytime without explanation/penalty. On request stop recording immediately, stop task, and confirm whether already-captured audio/notes for that session should be deleted.
+- **After session (within approved retention period):** participant may request withdrawal/deletion of linkable data (audio, transcripts, identifiable notes) via approved contact/path. Locate records using anonymized codes/approved linkage, delete per §6.3, communicate outcome where possible/appropriate. If data irreversibly anonymised/aggregated and unlinkable, explain limitation and delete all still-linkable records.
+- **Withdrawal contact/path (BLOCKER — CON-01, must be completed/approved before participant sessions):**
 
-### 7.2 Withdrawal after a session (within retention period)
-- Participant may request withdrawal of data and/or deletion of their audio, transcripts, and identifiable notes within the applicable retention period.
-- Use participant code/session details and/or the separate contact/linkage process to locate records.
-- Complete deletion as per §6.3 and communicate outcome where contact is possible/appropriate.
-- If data has already been irreversibly anonymised and aggregated such that it cannot be linked back, explain this limitation clearly and delete all still-linkable records.
-
-### 7.3 Withdrawal contact/path (to be completed before pilot)
-- **Contact person/role:** `[PLACEHOLDER]`
-- **Phone/email/channel:** `[PLACEHOLDER]`
-- **Languages supported:** `[PLACEHOLDER: Telugu/English/other]`
-- **Expected response time:** `[PLACEHOLDER]`
-- **Identity verification (privacy-preserving):** `[PLACEHOLDER: use participant/session code or agreed method; avoid collecting extra identifiers]`
+| Field | Value |
+|---|---|
+| Contact person/role | **[UNRESOLVED]** |
+| Phone/email/channel | **[UNRESOLVED]** |
+| Languages supported | **[UNRESOLVED]** |
+| Expected response time | **[UNRESOLVED]** |
+| Privacy-preserving identity verification method | **[UNRESOLVED]** (use participant/session code or approved method; avoid collecting extra identifiers) |
 
 ---
 
-## 8. Incident and safeguarding response
+## 7. Incident and safeguarding response
 
-### 8.1 Safeguarding concerns (including child protection)
-- If a participant discloses a safeguarding concern or a child-protection concern: **stop the session** (or stop recording/data capture), prioritise safety, listen without pressing for detail, and follow the applicable district/local child-protection escalation path.
-- **Do not** record sensitive disclosure details in project files, notes, transcripts, tickets, or chat tools beyond the minimum necessary administrative note required by the escalation process (and handle any such note under restricted access).
-- Seek guidance from the designated safeguarding/field lead immediately: `[PLACEHOLDER: named role/contact]`.
+### 7.1 Safeguarding concerns (including child protection)
+- If a safeguarding/child-protection concern is disclosed: **stop the session** (or stop recording/data capture), prioritise safety, listen without pressing for detail.
+- Follow the **applicable local/district child-protection escalation pathway**. **[UNRESOLVED — SAFE-02: pathway/authority/process/contacts not identified or confirmed; do not invent. Confirm with appropriate local/institutional authorities before participant sessions.]**
+- Do not record sensitive disclosure details in project files/notes/transcripts/tickets/chat beyond minimum administrative note required by approved escalation process (restricted access).
+- Seek guidance from designated safeguarding/field lead immediately: **[UNRESOLVED — SAFE-01: named role/contact not assigned]**.
 
-### 8.2 Data/privacy incidents
-Examples: accidental recording without consent, capture of beneficiary/child-identifying data, credential exposure, unauthorised access, lost device, unintended sharing/upload, or log containing sensitive content.
-1. **Contain:** stop recording, disable access/link, remove exposed file/access, or isolate affected system as appropriate.
-2. **Assess:** what data was involved, who had access, whether it included prohibited/identifying content, and whether copies exist.
-3. **Remediate:** delete/secure affected data, rotate credentials/tokens if relevant, and document actions.
-4. **Notify/escalate:** inform research lead and follow organisational/legal/ethics reporting requirements as applicable. `[PLACEHOLDER: incident owner, escalation contacts, and notification criteria/timelines to be confirmed with qualified reviewers]`
-5. **Learn:** record a de-identified incident summary and update protocol/controls.
+### 7.2 Data/privacy incidents
+Examples: recording without required consent, capture of prohibited/identifying data, credential exposure, unauthorized access, lost device, unintended sharing/upload, sensitive content in logs.
+1. **Contain:** stop recording/capture, disable access/link, remove exposed data/access, isolate affected system as appropriate.
+2. **Assess:** data involved, access, prohibited/identifying content, copies/locations.
+3. **Remediate:** delete/secure affected data, rotate credentials/tokens if relevant, document actions.
+4. **Notify/escalate:** inform research lead and follow applicable organisational/legal/ethics reporting requirements. **[UNRESOLVED — SAFE-03: incident owner, escalation contacts, and notification criteria/timelines to be confirmed with qualified reviewers/institution; do not invent.]**
+5. **Learn:** record de-identified incident summary and update controls/protocol.
 
-### 8.3 Participant distress or discomfort
-- Pause or stop the session, offer to skip topics/tasks, and remind the participant of the right to withdraw.
-- Do not pressure continuation. Adjust the protocol for future sessions if needed.
-
----
-
-## 9. Researcher responsibilities
-
-Researchers/facilitators must:
-- Complete a protocol briefing before conducting pilot sessions; understand consent, prohibited data, and stop/escalation procedures.
-- Use only approved scripts/materials; describe the prototype honestly, including ASR limitations and non-government status (D-11, D-12).
-- Obtain and document **separate** consents (A/B/C/D as applicable) before relevant activities; never record covertly.
-- Use **synthetic/non-identifying** scenarios only; actively steer away from real beneficiary details and government credentials.
-- Protect confidentiality: anonymise/coded records (W1…), secure devices/files, least-privilege access, no sharing of raw data outside authorised channels.
-- Avoid leading questions and avoid framing the session as worker evaluation.
-- Report incidents/safeguarding concerns promptly per §8.
-- Respect withdrawal and deletion requests and follow retention/deletion rules.
-- Do not make legal, official, or performance claims based on pilot observations.
+### 7.3 Participant distress or discomfort
+Pause/stop, offer to skip, remind of right to withdraw; do not pressure continuation.
 
 ---
 
-## 10. Dashboard and analytics rules
+## 8. Researcher responsibilities
 
-- **Purpose:** dashboards/analytics are for understanding usability, reliability, correction burden, and product improvement only.
-- **Aggregation/anonymisation:** report metrics in aggregate (e.g., by session count, task type, time bands, error/correction categories) and suppress small-cell outputs that could identify an individual or centre.
-- **No individual rankings:** do **not** produce or display leaderboards, worker-by-worker performance rankings, "best/worst worker" comparisons, or metrics framed for supervision/discipline.
-- **No surveillance framing:** avoid continuous monitoring indicators; collect only measures justified by the research questions and consent.
-- **Content safety:** dashboards must not display raw audio, raw transcripts, or free-text notes that may contain identifiers; review outputs for accidental identifying content before sharing.
-- **Access:** restrict dashboard access to authorised researchers/product team members under least privilege; do not share externally without review and only in aggregated/anonymised form consistent with consent.
-- **Interpretation:** accompany findings with limitations (small sample, prototype/ASR unproven, not generalisable; desk research not legal advice where relevant).
+Researchers/facilitators must complete protocol briefing before sessions; use only approved/reviewed materials; obtain and document **separate** consents before relevant activities (never covert recording); use synthetic/non-identifying scenarios only; protect confidentiality (codes, secure handling, least privilege); avoid leading/evaluative framing; report incidents/safeguarding concerns promptly; respect withdrawal/deletion/retention rules; and make no legal/official/performance claims.
+
+**[UNRESOLVED — GOV-02/SAFE-01/DATA-03]:** role assignments, briefing completion records, and accountable owners not finalized.
 
 ---
 
-## 11. Pre-pilot checklist
+## 9. Dashboard and analytics rules
 
-Complete and sign off before the first pilot session:
-
-### 11.1 Governance and materials
-- [ ] Protocol reviewed by research lead; legal/ethics review status recorded (`[PLACEHOLDER: counsel/IEC/reviewer, date, outcome]`).
-- [ ] Participant information and consent materials finalized (English + Telugu draft reviewed by fluent speaker) with separate A/B/C/D components.
-- [ ] Withdrawal contact/path, retention period(s), and deletion owner/process filled in (§6, §7).
-- [ ] Incident/safeguarding escalation contacts and local child-protection pathway confirmed (§8).
-- [ ] Synthetic/non-identifying pilot scenarios/scripts prepared (no real beneficiary data).
-
-### 11.2 Technical and security controls
-- [ ] Hosted prototype uses HTTPS; individual pilot access codes/session controls configured and tested.
-- [ ] Researcher/admin access restricted (least privilege), accounts reviewed, and audit/logging enabled without capturing sensitive content.
-- [ ] Storage locations for consent records, metadata, transcripts, and audio (if any) are access-controlled and documented.
-- [ ] Backup/retention/deletion behavior understood for all systems (including third-party services, if used).
-- [ ] Cloud/AI/ASR provider due diligence completed and documented if any hosted processing is used; in-product disclosure prepared (§5.3, privacy note).
-- [ ] No government integration, no credential capture, and no submission/export path to government systems.
-
-### 11.3 Session readiness
-- [ ] Researchers briefed on prohibited data, accidental-capture steps, and stop/escalation procedures.
-- [ ] Devices checked (encryption where feasible, storage space, microphone only if audio-consented).
-- [ ] Participant code scheme ready (W1…); linkage file (if needed) stored separately/restricted.
-- [ ] Plan for "no audio consent" path confirmed (notes/feedback only, as consented).
-
-### 11.4 Post-session readiness
-- [ ] Template/location ready for de-identified session notes and metadata.
-- [ ] Process for reviewing transcripts/audio for accidental identifiers before retention.
-- [ ] Deletion/withdrawal request tracking method ready.
-
-**Pre-pilot sign-off:**  
-- Research lead: `[PLACEHOLDER: name, signature/initials, date]`  
-- Data/security owner (if different): `[PLACEHOLDER]`  
-- Safeguarding/field lead (if assigned): `[PLACEHOLDER]`
+Purpose limited to usability/reliability/correction burden/product improvement. Aggregate/anonymise outputs and suppress small cells; **no individual rankings or surveillance framing**. No raw audio/transcripts/identifying free text in dashboards; restricted access and review before sharing. Interpret with limitations (small sample, prototype/ASR unproven, not generalisable).
 
 ---
 
-## 12. Alignment notes (project context)
+## 10. Pre-pilot/pre-observation checklist (must be completed and evidenced)
 
-- **Field research alignment:** extends `research/FIELD_RESEARCH_PLAN.md` ethics and session practices (voluntary consent in Telugu/read aloud, participant codes W1…, no beneficiary data/photos/credentials, 90-day raw retention baseline unless justified, stop-and-escalate for safeguarding concerns).
-- **Privacy/safeguarding alignment:** consistent with `research/PRIVACY_AND_SAFEGUARDING.md` (synthetic/non-identifying data, session-scoped handling, cloud/AI due diligence before hosted processing; desk research, not legal advice).
-- **Decisions/ADRs:** reflects D-10 (documentation burden framing; do not overclaim), D-11/ADR-006 (no government integration/credentials/submission), D-12 (voice/ASR unproven; transparency and correction), ADR-005/ADR-008 principles as applicable to pilot handling.
-- **Sandbox safety:** `sandbox/docs/SAFETY.md` was not found at time of drafting; if created later, review and align this protocol with it.
+### 10.1 Governance and materials
+- [ ] **GOV-01:** legal/ethics review status recorded (**[UNRESOLVED: counsel/IEC/reviewer, date, outcome or documented confirmation as applicable]**).
+- [ ] **CON-02/CON-03:** consent materials finalized (English + Telugu) with separate A/B/C/D components, **fluent Telugu human review completed and recorded** (**[UNRESOLVED]**), and aligned with approved data handling.
+- [ ] **CON-01, DATA-01, DATA-03:** withdrawal contact/path, retention periods, and deletion owner/process filled in and approved (**[UNRESOLVED]**).
+- [ ] **SAFE-01/02/03:** incident owner, safeguarding/field lead, escalation contacts, notification criteria/timelines, and local child-protection pathway confirmed (**[UNRESOLVED]**).
+- [ ] **REC-01:** recruitment/intermediary approach confirmed voluntary/non-coercive (**[UNRESOLVED]**).
+- [ ] Synthetic/non-identifying scenarios/scripts prepared.
 
-## 13. Document history
+### 10.2 Technical and security controls (if/when applicable)
+- [ ] **DATA-02:** storage locations/systems, access controls, encryption, backup/retention/deletion behavior documented and approved (**[UNRESOLVED]**).
+- [ ] Hosted prototype controls (HTTPS, access codes), researcher/admin access restrictions, and audit logging (no sensitive content) configured/tested if used (**[UNRESOLVED as applicable]**).
+- [ ] Third-party/cloud/ASR due diligence and disclosures completed before enabling (**[UNRESOLVED as applicable]**).
+- [ ] No government integration, no credential capture, no submission/export path to government systems.
+
+### 10.3 Session and post-session readiness
+- [ ] Researchers briefed; stop/escalation/accidental-capture steps understood.
+- [ ] Devices checked; anonymized codes ready; linkage (if any) separate/restricted; observation-only (no audio) path ready.
+- [ ] De-identified note template/location ready; transcript/audio identifier review and deletion/withdrawal tracking ready (**[UNRESOLVED owners/systems]**).
+
+**Pre-pilot/pre-observation sign-off (BLOCKER — GOV-02):**
+- Research lead: **[UNRESOLVED: name, signature/initials, date]**
+- Data/security owner (if different): **[UNRESOLVED]**
+- Safeguarding/field lead (if assigned): **[UNRESOLVED]**
+
+---
+
+## 11. Alignment notes
+
+Aligned in intent with `research/FIELD_RESEARCH_PLAN.md`, `research/PRIVACY_AND_SAFEGUARDING.md`, and project decisions (D-10, D-11/ADR-006, D-12). `sandbox/docs/SAFETY.md` was not found at time of drafting; review and align if created later. This update defines process/framework and marks unresolved operational/governance items as blockers; it does not authorize participant data collection.
+
+## 12. Document history
 
 | Date | Version | Change | Author/Owner |
 |---|---|---|---|
-| 2026-11-16 | 0.1 (draft) | Initial pilot safeguarding protocol created for controlled live pilot (ethics, consent, privacy, safety). | `[PLACEHOLDER]` |
-| `[PLACEHOLDER]` | `[PLACEHOLDER]` | `[PLACEHOLDER: Telugu review / legal-ethics review / pilot-specific updates]` | `[PLACEHOLDER]` |
+| 2026-11-16 | 0.1 (draft) | Initial pilot safeguarding protocol created. | **[UNRESOLVED]** |
+| 2026-11-17 | 0.2 (draft) | Audited placeholders; added explicit blocker/readiness status; defined withdrawal/retention/deletion/escalation process frameworks without inventing specifics; separated temporary transcription vs retained research samples; aligned with blocker register and new procedures. | **[UNRESOLVED — record author/reviewer]** |
+| **[UNRESOLVED]** | **[UNRESOLVED]** | **[UNRESOLVED: Telugu review / legal-ethics review / approvals / pilot-instance specifics]** | **[UNRESOLVED]** |

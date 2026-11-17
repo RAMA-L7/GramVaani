@@ -7,6 +7,7 @@ import { api, fetchExportBlob } from '@/lib/api';
 import { displayValue, downloadJson, errorMessage, labelFor, teLabelFor } from '@/lib/utils';
 import { loadWorkflow, patchWorkflow } from '@/lib/workflow';
 import type { PilotReport, Validation } from '@/lib/types';
+import { isConfirmedSampleReport } from '@/lib/confirmation';
 
 export default function DonePage() {
   const router = useRouter();
@@ -25,12 +26,14 @@ export default function DonePage() {
     if (wf.draftId) setDraftId(wf.draftId);
   }, [router]);
 
+  const confirmed = isConfirmedSampleReport(report as any);
+
   async function saveDraft() {
     if (!report) return;
     setBusy('save'); setError(null); setMsg(null);
     try {
       const wf = loadWorkflow();
-      const wasCompleted = (report as any)?.confirmation?.explicit_confirmation === true || (report as any)?.status === 'confirmed_sample';
+      const wasCompleted = isConfirmedSampleReport(report as any);
       const metaStatus = wasCompleted ? 'corrected' : undefined;
       const res = await api.saveDraft({
         draft_id: draftId || wf.draftId,
@@ -47,7 +50,11 @@ export default function DonePage() {
         setDraftId(id);
         patchWorkflow({ draftId: id });
       }
-      setMsg(metaStatus === 'corrected' ? 'సవరించిన డ్రాఫ్ట్ సేవ్ అయింది. (Corrected draft saved.)' : 'సేవ్ అయింది. (Draft saved.)');
+      setMsg(
+        wasCompleted
+          ? 'సవరించిన డ్రాఫ్ట్ సేవ్ అయింది. (Corrected draft saved.)'
+          : 'డ్రాఫ్ట్ సేవ్ అయింది (నిర్ధారించబడలేదు). (Draft saved — not confirmed.)'
+      );
     } catch (e) {
       setError(`సేవ్ కాలేదు. (${errorMessage(e)})`);
     } finally { setBusy(null); }
@@ -61,10 +68,10 @@ export default function DonePage() {
       const blob = await fetchExportBlob(payload as any);
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href = url; a.download = `gramvaani-sample-report-${Date.now()}.json`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-      setMsg('డౌన్‌లోడ్ అయింది. (Downloaded.)');
+      setMsg(confirmed ? 'డౌన్‌లోడ్ అయింది. (Downloaded.)' : 'డ్రాఫ్ట్ డౌన్‌లోడ్ అయింది (నిర్ధారించబడలేదు). (Draft downloaded — not confirmed.)');
     } catch {
       downloadJson(`gramvaani-sample-report-${Date.now()}.json`, payload);
-      setMsg('డౌన్‌లోడ్ అయింది (local).');
+      setMsg(confirmed ? 'డౌన్‌లోడ్ అయింది (local).' : 'డ్రాఫ్ట్ డౌన్‌లోడ్ అయింది (local, నిర్ధారించబడలేదు).');
     } finally { setBusy(null); }
   }
 
@@ -73,26 +80,42 @@ export default function DonePage() {
 
   return (
     <div className="stack-lg">
-      <section className="card card-soft stack center">
-        <div style={{ fontSize: '2.5rem' }} aria-hidden="true">✅</div>
-        <h1>నమూనా నివేదిక సిద్ధం</h1>
-        <p>మీరు నిర్ధారించిన నమూనా నివేదిక తయారైంది. ఇది అధికారికం కాదు, ఎక్కడికీ పంపబడలేదు.</p>
+      <section className={`card stack center ${confirmed ? 'card-soft' : ''}`}>
+        <div style={{ fontSize: '2.5rem' }} aria-hidden="true">{confirmed ? '✅' : '📝'}</div>
+        <h1>{confirmed ? 'నమూనా నివేదిక సిద్ధం' : 'డ్రాఫ్ట్ (నిర్ధారించబడలేదు)'}</h1>
+        <p>
+          {confirmed
+            ? 'మీరు నిర్ధారించిన నమూనా నివేదిక తయారైంది. ఇది అధికారికం కాదు, ఎక్కడికీ పంపబడలేదు.'
+            : 'ఈ రికార్డు ఇంకా నిర్ధారించబడిన నమూనా నివేదిక కాదు. దయచేసి తిరిగి వెళ్లి వివరాలు సరిచేసి నిర్ధారించండి. (Draft only — not confirmed, not submitted.)'}
+        </p>
       </section>
 
       <div className="notice notice-warn">
-        <strong>ప్రయోగాత్మక నమూనా — సమర్పించబడలేదు</strong>
-        <div>Experimental sample report — not official, not submitted to any government system.</div>
+        <strong>ప్రయోగాత్మక నమూనా — సమర్పించబడలేదు / Not official, not submitted</strong>
+        <div>Experimental sample/draft — not official, not submitted to any government system.</div>
       </div>
+
+      {!confirmed && (
+        <div className="notice notice-error" role="alert">
+          <strong>నిర్ధారణ లేదు / Not confirmed</strong>
+          <div>ఈ నివేదిక డ్రాఫ్ట్ స్థితిలో ఉంది (explicit confirmation లేదు లేదా validation పూర్తి కాలేదు). నిర్ధారించిన నమూనాగా చూపబడదు. Please return to the report, fix issues, and confirm again.</div>
+        </div>
+      )}
 
       {validation && !validation.valid && (
         <div className="notice notice-info">
-          <strong>కొన్ని వివరాలు చూడండి</strong>
+          <strong>కొన్ని వివరాలు చూడండి / Validation issues</strong>
           <div>నమూనా నివేదికలో ఖాళీలు/గమనికలు ఉండవచ్చు. అవసరమైతే తిరిగి సరిచేయండి.</div>
+          {Array.isArray(validation.errors) && validation.errors.length > 0 && (
+            <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 18 }}>
+              {validation.errors.map((e, i) => <li key={i}>{e}</li>)}
+            </ul>
+          )}
         </div>
       )}
 
       <section className="card stack">
-        <h2>నమూనా నివేదిక వివరాలు</h2>
+        <h2>{confirmed ? 'నమూనా నివేదిక వివరాలు' : 'డ్రాఫ్ట్ వివరాలు (Draft details)'}</h2>
         <div className="field-list">
           {entries.map(([k, v]) => (
             <div className="field-item" key={k}>

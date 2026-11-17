@@ -87,6 +87,7 @@ export interface WorkerRef {
 export interface Confirmation {
   confirmed_by: string;
   confirmed_at: string;
+  explicit_confirmation?: boolean;
 }
 
 export interface PilotReport {

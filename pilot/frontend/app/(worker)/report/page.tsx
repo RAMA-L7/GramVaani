@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import type { Extraction, PilotReport, Validation } from '@/lib/types';
 import { coerceLike, displayValue, errorMessage, labelFor, newIdempotencyKey, stringifyValue, teLabelFor } from '@/lib/utils';
+import { formatValidationMessages, isConfirmedSampleResponse } from '@/lib/confirmation';
 import { loadWorkflow, patchWorkflow } from '@/lib/workflow';
 
 export default function ReportPage() {
@@ -22,6 +23,7 @@ export default function ReportPage() {
   const [error, setError] = useState<string | null>(null);
   const [report, setReport] = useState<PilotReport | null>(null);
   const [validation, setValidation] = useState<Validation | null>(null);
+  const [validationDetails, setValidationDetails] = useState<string[]>([]);
   const [confirmKey] = useState(() => newIdempotencyKey('confirm'));
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export default function ReportPage() {
 
   async function onConfirm() {
     if (!confirmChecked) { setError('దయచేసి నిర్ధారించండి (టిక్ చేయండి). Please confirm before creating the sample report.'); return; }
-    setBusy(true); setError(null);
+    setBusy(true); setError(null); setValidationDetails([]);
     try {
       const wf = loadWorkflow();
       const corrections: Record<string, unknown> = {};
@@ -89,11 +91,37 @@ export default function ReportPage() {
         meta: { worker_code: profile?.worker_code, centre_code: profile?.centre_code, report_date: (mergedAnswers as any)?.report_date },
       };
       const res = await api.confirm(payload);
-      const rep = { ...res.report, sample: true, label: (res.report as any).label || 'Experimental sample report (not official, not submitted)' } as PilotReport;
-      setReport(rep);
-      setValidation(res.validation);
-      patchWorkflow({ report: rep, validation: res.validation, answers: mergedAnswers, corrections, transcript, originalTranscript: original, draftId: res.draft_id || wf.draftId });
-      router.push('/done');
+      const respValidation = (res as any)?.validation ?? null;
+      const respDraftId = (res as any)?.draft_id || wf.draftId;
+      const correctedValues = { ...values };
+      // Preserve valid corrected field values in editable workflow/state regardless of confirmation outcome.
+      setValidation(respValidation);
+      if (isConfirmedSampleResponse(res as any)) {
+        const rep = { ...res.report, sample: true, label: (res.report as any).label || 'Experimental sample report (not official, not submitted)' } as PilotReport;
+        setReport(rep);
+        patchWorkflow({ report: rep, validation: respValidation, answers: mergedAnswers, corrections, transcript, originalTranscript: original, draftId: respDraftId });
+        router.push('/done');
+        return;
+      }
+
+      // Invalid or non-confirmed response (including HTTP 200): keep user in editable workflow, do not navigate.
+      const draftReport = (res as any)?.report ? ({ ...(res as any).report, sample: true, label: ((res as any).report?.label || 'Experimental draft (not confirmed, not official, not submitted)') } as PilotReport) : null;
+      setReport(draftReport);
+      setConfirmChecked(false);
+      const msgs = formatValidationMessages(respValidation);
+      setValidationDetails(msgs.details);
+      setError(`${msgs.te}\n${msgs.en}`);
+      // Keep corrected values and allow retry; preserve returned draft id/validation.
+      setValues(correctedValues);
+      patchWorkflow({
+        report: draftReport,
+        validation: respValidation,
+        answers: mergedAnswers,
+        corrections,
+        transcript,
+        originalTranscript: original,
+        draftId: respDraftId,
+      });
     } catch (e) {
       setError(`నమూనా నివేదిక తయారు కాలేదు. మళ్లీ ప్రయత్నించండి. (${errorMessage(e)})`);
     } finally {
@@ -153,7 +181,17 @@ export default function ReportPage() {
         <div className="transcript-box" lang="te" style={{ marginTop: 10 }}>{transcript || '—'}</div>
       </details>
 
-      {error && <div className="notice notice-error" role="alert"><strong>సమస్య</strong><div>{error}</div></div>}
+      {error && (
+        <div className="notice notice-error" role="alert">
+          <strong>సమస్య / Not confirmed</strong>
+          <div style={{ whiteSpace: 'pre-wrap' }}>{error}</div>
+          {validationDetails.length > 0 && (
+            <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 18 }}>
+              {validationDetails.map((d, i) => <li key={i}>{d}</li>)}
+            </ul>
+          )}
+        </div>
+      )}
 
       <section className="card stack">
         <label className="checkbox-row">
