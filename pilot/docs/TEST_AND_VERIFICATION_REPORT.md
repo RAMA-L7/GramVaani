@@ -59,7 +59,7 @@
 
 ## Addendum — 2026-11-17 correctness/documentation fix batch (repository-reported)
 
-**Commit/context covered:** uncommitted working tree on top of `02075b3` (`HEAD==origin/main` at time of checks) in `D:\GramVaani`. Not committed/pushed as part of this addendum; see `git status`/diff for exact file changes.
+**Commit/context covered:** commit `8f964a1` on top of `02075b3` in `D:\GramVaani` (repository-reported checks rerun on this fix batch).
 
 **Changes in this batch (scope):** observation/run-sheet timing definitions aligned (start at first action to prepare selected report; finish after required submission/checking/corrections), active/waiting/unrelated interruptions and non-overlapping D-10 category guidance; `/api/confirm` and `/api/voice/confirm` require strict boolean `explicit_confirmation===true` only (no coercion, no `sample_report` alternate path) and invalid confirmed attempts are saved as editable `draft` (not `confirmed_sample`) with validation errors and unconfirmed report state; frontend recording workflow adds distinct recording session handling, clears/invalidate stale transcript-derived state on new recording or transcript change, and disables Continue while recording/paused/busy; extraction adds heuristic confidence labeling plus supporting phrase/evidence (including per-activity/per-item spans and label/negation context where applicable); evaluation harness avoids fabricated imported-browser latency (captured timing only), separates/reuses faster-whisper model startup for warm transcription, and metrics track numerical insertions and wrong-field numeric assignments; root README status reconciled and report-labeling clarified.
 

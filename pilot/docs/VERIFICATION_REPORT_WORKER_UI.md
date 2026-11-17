@@ -86,7 +86,7 @@ The following must be **personally verified in a browser** (especially on a real
 
 ## 9. Addendum — 2026-11-17 correctness fix batch (repository-reported)
 
-**Commit/context covered:** uncommitted working tree on top of `02075b3` (not committed/pushed in this addendum).
+**Commit/context covered:** commit `8f964a1` on top of `02075b3` (repository-reported checks rerun on this fix batch).
 
 **Relevant fixes:** strict boolean confirmation only for `/api/confirm` and `/api/voice/confirm`; invalid confirmed attempts persisted as editable `draft` (not confirmed) with validation errors; frontend recording flow now uses distinct recording/session handling, clears/invalidates stale transcript-derived state on new recording and on transcript edits, and disables Continue while recording/paused/busy; extraction/evaluation and status docs updated as described in `pilot/docs/TEST_AND_VERIFICATION_REPORT.md` addendum.
 
