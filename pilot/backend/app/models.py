@@ -17,13 +17,25 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+class ExtractionEvidence(BaseModel):
+    value: Any
+    raw_text: str
+    source_span: list[int]
+    supporting_phrase: str | None = None
+    label_context: str | None = None
+    negated: bool = False
+
+
 class Extraction(BaseModel):
     field_id: str
     value: Any
     raw_text: str
     source_span: list[int]
     confidence: float = 0.9
+    confidence_kind: str = "heuristic_rule"
     needs_confirmation: bool = True
+    supporting_phrase: str | None = None
+    evidence: list[ExtractionEvidence] = Field(default_factory=list)
 
 
 class Worker(BaseModel):

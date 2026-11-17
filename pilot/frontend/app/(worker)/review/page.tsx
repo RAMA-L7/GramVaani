@@ -67,7 +67,21 @@ export default function ReviewPage() {
           id="transcript"
           lang="te"
           value={text}
-          onChange={(e) => { setText(e.target.value); patchWorkflow({ transcript: e.target.value, report: null, validation: null }); }}
+          onChange={(e) => {
+            const v = e.target.value;
+            setText(v);
+            // Transcript changed: invalidate stale extraction/clarification/confirmation state until re-extracted.
+            patchWorkflow({
+              transcript: v,
+              report: null,
+              validation: null,
+              extractions: [],
+              gaps: [],
+              ambiguities: [],
+              answers: {},
+              corrections: {},
+            });
+          }}
           placeholder="ఇక్కడ మీ మాటలు కనిపిస్తాయి. అవసరమైతే టైప్ చేయండి."
         />
         <p className="small muted">మీరు మార్చిన మాటలనే మేము ఉపయోగిస్తాము. (Your edits will be used.)</p>

@@ -6,10 +6,12 @@ import { detectBrowserSpeechRecognition, formatDuration } from '@/lib/utils';
 interface Props {
   onRecorded: (blob: Blob, durationMs: number, url: string) => void;
   onTranscript?: (finalText: string, interim: string) => void;
+  onRecordingStart?: (sessionId: string) => void;
+  onStatusChange?: (status: 'idle' | 'recording' | 'paused' | 'stopped') => void;
   language?: string;
 }
 
-export default function SimpleRecorder({ onRecorded, onTranscript, language = 'te-IN' }: Props) {
+export default function SimpleRecorder({ onRecorded, onTranscript, onRecordingStart, onStatusChange, language = 'te-IN' }: Props) {
   const [supported, setSupported] = useState<{ recorder: boolean; speech: boolean }>({ recorder: false, speech: false });
   const [status, setStatus] = useState<'idle' | 'recording' | 'paused' | 'stopped'>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -110,19 +112,25 @@ export default function SimpleRecorder({ onRecorded, onTranscript, language = 't
         setAudioUrl(url);
         setElapsedMs(finalMs);
         setStatus('stopped');
+        onStatusChange?.('stopped');
         stopTracks();
         try { recognitionRef.current?.stop?.(); } catch {}
         onRecorded(blob, finalMs, url);
       };
       mr.onerror = () => {
         setError('రికార్డింగ్ ఆగిపోయింది. దయచేసి మళ్లీ ప్రయత్నించండి. (Recording failed, please try again.)');
-        setStatus('idle'); stopTimer(); stopTracks();
+        setStatus('idle'); onStatusChange?.('idle'); stopTimer(); stopTracks();
       };
       accMsRef.current = 0; setElapsedMs(0); setInterim(''); setFinalStt(''); finalRef.current = '';
+      // New recording/session: clear previous parent transcript/audio and start a distinct session.
       if (audioUrl) { URL.revokeObjectURL(audioUrl); setAudioUrl(null); }
       setAudioBlob(null);
+      const sessionId = `rec-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      onTranscript?.('', '');
+      onRecordingStart?.(sessionId);
       mr.start(250);
       setStatus('recording');
+      onStatusChange?.('recording');
       startTimer();
       if (supported.speech) {
         const rec = initSpeechRecognition();
@@ -149,7 +157,7 @@ export default function SimpleRecorder({ onRecorded, onTranscript, language = 't
     try {
       mr.pause();
       accMsRef.current += Date.now() - startTsRef.current;
-      stopTimer(); setElapsedMs(accMsRef.current); setStatus('paused');
+      stopTimer(); setElapsedMs(accMsRef.current); setStatus('paused'); onStatusChange?.('paused');
       try { recognitionRef.current?.stop?.(); } catch {}
     } catch { setError('ఈ బ్రౌజర్‌లో పాజ్ చేయలేము. (Pause not supported.)'); }
   }
@@ -157,7 +165,7 @@ export default function SimpleRecorder({ onRecorded, onTranscript, language = 't
     const mr = mediaRecorderRef.current;
     if (!mr || mr.state !== 'paused') return;
     try {
-      mr.resume(); setStatus('recording'); startTimer();
+      mr.resume(); setStatus('recording'); onStatusChange?.('recording'); startTimer();
       if (supported.speech) { try { recognitionRef.current?.start?.(); } catch {} }
     } catch { setError('మళ్లీ ప్రారంభించలేకపోయాము. (Could not resume.)'); }
   }

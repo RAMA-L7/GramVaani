@@ -17,10 +17,10 @@ Implemented in `wer_cer.py`, `metrics.py`, `score.py`:
 ## ASR approaches (comparison harness: `compare.py`)
 Runner records per-clip: `id, approach, hypothesis, reference, latency_ms, status/error, version/settings`.
 - **A. `browser_web_speech`**: browser Web Speech API / client transcript capture. Harness ingests captured transcripts (e.g. `corpus/captured_transcripts/<id>.txt` or manifest `hypothesis`) because recognition happens client-side.
-- **B. `local_faster_whisper`**: local `faster-whisper` if installed and model available. Configure model/device/compute/language via config.
+- **B. `local_faster_whisper`**: local `faster-whisper` if installed and model available. Configure model/device/compute/language via config. Harness loads the model once per run and reports `model_startup_ms` separately; per-clip `latency_ms` is warm transcription time (model reused).
 - **C. `cloud_provider`**: cloud provider via config (e.g. Google/Azure/Sarvam) when credentials provided. Bundled as template/stub; supply `cloud.adapter = "module:function"` and credentials per provider SDK. No credentials bundled.
 
-Approaches that cannot run are recorded as `unavailable`/`error` with reasons; no hypotheses invented.
+Approaches that cannot run are recorded as `unavailable`/`error` with reasons; no hypotheses invented. For imported browser transcripts, recognition latency is **not** fabricated from file-read time; `latency_ms` is recorded only when captured browser recognition timing is provided (e.g. `recognition_latency_ms` in clip meta or `<id>.timing.json`), otherwise marked unavailable. Number metrics track numerical insertions and field-extraction metrics track wrong-field numeric assignments separately. End-to-end task time (speaking, review, corrections, report completion) must be measured separately from ASR-only latency.
 
 ## Layout
 - `corpus/` — **real consented corpus layout only** (README, `.gitkeep`, gitignore). **No real recordings committed.**

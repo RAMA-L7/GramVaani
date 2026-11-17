@@ -144,12 +144,40 @@ def _numeric_candidates(chunks: list[NumberChunk], tokens: list[Token], hints: l
 
 
 
-def _make_extraction(field_id: str, value: Any, transcript: str, start: int, end: int, confidence: float) -> Extraction | None:
+def _supporting_phrase(transcript: str, start: int, end: int, context: int = 24) -> str:
+    left = max(0, start - context)
+    right = min(len(transcript), end + context)
+    phrase = normalise_whitespace(transcript[left:right])
+    return phrase
+
+
+def _make_extraction(
+    field_id: str,
+    value: Any,
+    transcript: str,
+    start: int,
+    end: int,
+    confidence: float,
+    supporting_phrase: str | None = None,
+    evidence: list[dict[str, Any]] | None = None,
+    label_context: str | None = None,
+) -> Extraction | None:
     raw_text = transcript[start:end]
     span = [start, end]
     if not verify_grounding(transcript, raw_text, span):
         return None
-    return Extraction(field_id=field_id, value=value, raw_text=raw_text, source_span=span, confidence=confidence, needs_confirmation=True)
+    sp = supporting_phrase or _supporting_phrase(transcript, start, end)
+    return Extraction(
+        field_id=field_id,
+        value=value,
+        raw_text=raw_text,
+        source_span=span,
+        confidence=confidence,
+        confidence_kind="heuristic_rule",
+        needs_confirmation=True,
+        supporting_phrase=sp,
+        evidence=evidence or [],
+    )
 
 
 def _boolean_extraction(field_id: str, spec: dict[str, list[str]], tokens: list[Token], transcript: str) -> Extraction | None:
@@ -157,21 +185,47 @@ def _boolean_extraction(field_id: str, spec: dict[str, list[str]], tokens: list[
     if not subject_indices:
         return None
     for subject_idx in subject_indices:
+        subject_text = tokens[subject_idx].raw.strip()
         window = range(subject_idx + 1, min(len(tokens), subject_idx + 5))
         for idx in window:
             word = tokens[idx].text
             if any(n in word for n in spec.get("negative", [])):
-                return _make_extraction(field_id, False, transcript, tokens[subject_idx].start, tokens[idx].end, 0.8)
+                ev = [{
+                    "value": False,
+                    "raw_text": transcript[tokens[subject_idx].start:tokens[idx].end],
+                    "source_span": [tokens[subject_idx].start, tokens[idx].end],
+                    "supporting_phrase": _supporting_phrase(transcript, tokens[subject_idx].start, tokens[idx].end),
+                    "label_context": subject_text,
+                    "negated": True,
+                }]
+                return _make_extraction(field_id, False, transcript, tokens[subject_idx].start, tokens[idx].end, 0.8, evidence=ev, label_context=subject_text)
             if any(p in word for p in spec.get("positive", [])):
-                return _make_extraction(field_id, True, transcript, tokens[subject_idx].start, tokens[idx].end, 0.8)
+                ev = [{
+                    "value": True,
+                    "raw_text": transcript[tokens[subject_idx].start:tokens[idx].end],
+                    "source_span": [tokens[subject_idx].start, tokens[idx].end],
+                    "supporting_phrase": _supporting_phrase(transcript, tokens[subject_idx].start, tokens[idx].end),
+                    "label_context": subject_text,
+                    "negated": False,
+                }]
+                return _make_extraction(field_id, True, transcript, tokens[subject_idx].start, tokens[idx].end, 0.8, evidence=ev, label_context=subject_text)
         if field_id == "photo_attached":
-            return _make_extraction(field_id, True, transcript, tokens[subject_idx].start, tokens[subject_idx].end, 0.6)
+            ev = [{
+                "value": True,
+                "raw_text": transcript[tokens[subject_idx].start:tokens[subject_idx].end],
+                "source_span": [tokens[subject_idx].start, tokens[subject_idx].end],
+                "supporting_phrase": _supporting_phrase(transcript, tokens[subject_idx].start, tokens[subject_idx].end),
+                "label_context": subject_text,
+                "negated": False,
+            }]
+            return _make_extraction(field_id, True, transcript, tokens[subject_idx].start, tokens[subject_idx].end, 0.6, evidence=ev, label_context=subject_text)
     return None
 
 
 def _activity_extraction(tokens: list[Token], transcript: str) -> Extraction | None:
     matched: list[str] = []
-    first_span: tuple[int, int] | None = None
+    evidence: list[dict[str, Any]] = []
+    spans: list[tuple[int, int]] = []
     # Only emit values that exist in configured options if available.
     defs = {f["id"]: f for f in field_definitions()}
     allowed = None
@@ -182,17 +236,32 @@ def _activity_extraction(tokens: list[Token], transcript: str) -> Extraction | N
             continue
         for idx, token in enumerate(tokens):
             text_window = token.text
+            end_idx = idx
             if idx + 1 < len(tokens):
                 text_window = text_window + " " + tokens[idx + 1].text
             if any(syn.lower() in token.text or syn.lower() in text_window for syn in synonyms):
+                # prefer including next token in span if it participated in match
+                if idx + 1 < len(tokens) and any(syn.lower() in (token.text + " " + tokens[idx + 1].text) and syn.lower() not in token.text for syn in synonyms):
+                    end_idx = idx + 1
                 if option not in matched:
                     matched.append(option)
-                if first_span is None:
-                    first_span = (token.start, token.end)
+                    s, e = token.start, tokens[end_idx].end
+                    spans.append((s, e))
+                    evidence.append({
+                        "value": option,
+                        "raw_text": transcript[s:e],
+                        "source_span": [s, e],
+                        "supporting_phrase": _supporting_phrase(transcript, s, e),
+                        "label_context": "activity",
+                        "negated": False,
+                    })
                 break
-    if not matched or first_span is None:
+    if not matched or not spans:
         return None
-    return _make_extraction("activity_type", matched, transcript, first_span[0], first_span[1], 0.8)
+    start = min(s for s, _ in spans)
+    end = max(e for _, e in spans)
+    # main extraction spans all matched activity evidence (grounded coverage), with per-item evidence retained
+    return _make_extraction("activity_type", matched, transcript, start, end, 0.8, evidence=evidence, label_context="activity")
 
 
 def _capture_extraction(field_id: str, markers: list[str], tokens: list[Token], transcript: str) -> Extraction | None:
@@ -213,7 +282,15 @@ def _capture_extraction(field_id: str, markers: list[str], tokens: list[Token], 
             continue
         start, end = captured[0].start, captured[-1].end
         value = normalise_whitespace(" ".join(t.text for t in captured))
-        return _make_extraction(field_id, value, transcript, start, end, 0.7)
+        ev = [{
+            "value": value,
+            "raw_text": transcript[start:end],
+            "source_span": [start, end],
+            "supporting_phrase": _supporting_phrase(transcript, start, end),
+            "label_context": token.raw.strip(),
+            "negated": False,
+        }]
+        return _make_extraction(field_id, value, transcript, start, end, 0.7, evidence=ev, label_context=token.raw.strip())
     return None
 
 
@@ -221,7 +298,15 @@ def _date_extraction(transcript: str) -> Extraction | None:
     for pattern in [r"\b\d{4}-\d{2}-\d{2}\b", r"\b\d{2}/\d{2}/\d{4}\b", r"\b\d{2}-\d{2}-\d{4}\b"]:
         m = re.search(pattern, transcript or "")
         if m:
-            return _make_extraction("report_date", m.group(0), transcript, m.start(), m.end(), 0.9)
+            ev = [{
+                "value": m.group(0),
+                "raw_text": m.group(0),
+                "source_span": [m.start(), m.end()],
+                "supporting_phrase": _supporting_phrase(transcript, m.start(), m.end()),
+                "label_context": "date",
+                "negated": False,
+            }]
+            return _make_extraction("report_date", m.group(0), transcript, m.start(), m.end(), 0.9, evidence=ev, label_context="date")
     return None
 
 
@@ -240,7 +325,15 @@ def extract(transcript: str) -> tuple[list[Extraction], list[str]]:
             merged.extend(field_hints(defs[field_id], "te"))
             merged.extend(field_hints(defs[field_id], "en"))
         for chunk in _numeric_candidates(chunks, tokens, merged):
-            ex = _make_extraction(field_id, chunk.value, transcript, chunk.start, chunk.end, 0.9)
+            ev = [{
+                "value": chunk.value,
+                "raw_text": transcript[chunk.start:chunk.end],
+                "source_span": [chunk.start, chunk.end],
+                "supporting_phrase": _supporting_phrase(transcript, chunk.start, chunk.end),
+                "label_context": field_id,
+                "negated": False,
+            }]
+            ex = _make_extraction(field_id, chunk.value, transcript, chunk.start, chunk.end, 0.9, evidence=ev, label_context=field_id)
             if ex is not None:
                 candidates.setdefault(field_id, []).append(ex)
 

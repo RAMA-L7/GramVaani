@@ -22,6 +22,8 @@ export default function HomeClient() {
       validation: null,
       scenarioId: undefined,
       draftId: undefined,
+      recordingSessionId: undefined,
+      provider: undefined,
     });
     router.push('/speak');
   }

@@ -7,9 +7,12 @@
 ---
 
 ## A. Step timing
-Start the clock at the first interaction with the reporting app. One row per meaningful step.
+**Start:** the first action needed to prepare the selected report (including paper preparation, gathering information, or retrieving registers — not only the first app interaction).  
+**Finish:** after its required submission, checking, and corrections are complete.
 
-| # | Step (what happened) | Screen/app | Input (type/tap/select/scroll) | Start | End | Duration | Notes / pauses |
+One row per meaningful step. Record **active work**, **waiting** (e.g. network/loading), and **unrelated interruptions** separately in Notes/pauses and in the totals below.
+
+| # | Step (what happened) | Surface/app/register | Input/action (type/tap/select/write/look up/ask) | Start | End | Duration | Notes (active/waiting/unrelated interruption) |
 |---|---|---|---|---|---|---|---|
 | 1 | | | | | | | |
 | 2 | | | | | | | |
@@ -20,19 +23,23 @@ Start the clock at the first interaction with the reporting app. One row per mea
 | 7 | | | | | | | |
 | 8 | | | | | | | |
 
-**Total elapsed:** ______ min  **Interruptions:** ____ × ____ min  **Net:** ______ min
+**Total elapsed (start→finish):** ______ min  
+**Active work:** ______ min  **Waiting (network/loading):** ______ min  **Unrelated interruptions:** ______ min  **Net active (active, excl. waiting/unrelated):** ______ min
 
 ## B. Where the time went (D-10: four separate categories, timed — not estimated)
 
-| Category | Counts as | Minutes | Evidence |
-|---|---|---|---|
-| **A. Paper register work** | writing, copying, totals, filing, retrieving a register | | |
-| **B. App entry** | typing/tapping into any digital app | | |
-| **C. Recalling / gathering** | pausing, looking up another record, asking someone, finding a list | | |
-| **D. Re-checking / corrections** | going back, re-counting, fixing, verifying against paper | | |
-| **Total observed** | A + B + C + D | | |
+Assign each **active-work** minute to **exactly one** primary category (A–D). Do **not** double-count. If a step overlaps (e.g. looking up/retrieving a paper register while gathering information), assign it to the **single best-fit primary purpose** for that interval and note the overlap in Evidence (do not add the same minutes to multiple categories).
 
-**Waiting (network/loading), if any:** ____ min — note under the app it affected, do not add as a fifth bucket.
+| Category | Counts as | Minutes (active, non-overlapping) | Evidence |
+|---|---|---|---|
+| **A. Paper register work** | writing, copying, totals, filing in registers/paper records | | |
+| **B. App entry** | typing/tapping/selecting into any digital app/portal | | |
+| **C. Recalling / gathering** | pausing to recall, asking someone, finding a list or other source of information | | |
+| **D. Re-checking / corrections** | going back, re-counting, fixing, verifying/correcting entries | | |
+| **Total observed (A+B+C+D)** | should equal **Active work** above (excluding waiting/unrelated interruptions) | | |
+
+**Waiting (network/loading):** ____ min — recorded separately above; do not add as a fifth D-10 bucket and do not include in A–D.  
+**Unrelated interruptions:** ____ min — recorded separately above; exclude from A–D.
 
 **Worker's own estimate:** ____ min `[said]`  **Observed total:** ____ min `[obs]`
 **If they differ, why?** ______________________

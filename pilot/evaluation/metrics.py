@@ -27,8 +27,19 @@ def number_recognition_accuracy(expected: Iterable[str], observed: Iterable[str]
         if ok:
             correct += 1
         details.append({"index": i, "expected": e, "observed": o, "correct": ok})
+    # Numerical insertions: observed numbers beyond expected list (or extra tokens).
+    inserted = obs[total:] if len(obs) > total else []
+    insertions = [v for v in inserted if v != ""]
     acc = (correct / total) if total else None
-    return {"accuracy": acc, "correct": correct, "total": total, "details": details}
+    return {
+        "accuracy": acc,
+        "correct": correct,
+        "total": total,
+        "insertions": insertions,
+        "insertion_count": len(insertions),
+        "observed_count": len([v for v in obs if v != ""]),
+        "details": details,
+    }
 
 
 def field_extraction_accuracy(expected: dict[str, Any], observed: dict[str, Any]) -> dict:
@@ -36,19 +47,61 @@ def field_extraction_accuracy(expected: dict[str, Any], observed: dict[str, Any]
     total = len(keys)
     correct = 0
     details = []
+    wrong_field_assignments = []
+    # Build numeric lookup to detect expected numeric values appearing under wrong fields.
+    def _num(v: Any) -> str | None:
+        if v is None or isinstance(v, bool):
+            return None
+        if isinstance(v, (int, float)):
+            return normalize_number_token(str(v))
+        if isinstance(v, str):
+            n = normalize_number_token(v)
+            return n if n else None
+        return None
+    expected_numeric: dict[str, list[str]] = {}
+    for ek, ev in expected.items():
+        n = _num(ev)
+        if n:
+            expected_numeric.setdefault(n, []).append(ek)
     for k in keys:
         e = expected.get(k)
         o = observed.get(k)
         # Normalize strings/numbers for fair comparison in synthetic checks.
-        if isinstance(e, (int, float)) or isinstance(o, (int, float)):
-            ok = normalize_number_token(str(e)) == normalize_number_token(str(o)) and str(e) != ""
+        if isinstance(e, (int, float)) or isinstance(o, (int, float)) or (_num(e) and _num(o)):
+            ok = _num(e) == _num(o) and _num(e) is not None
         else:
             ok = normalize_text("" if e is None else str(e)) == normalize_text("" if o is None else str(o))
         if ok:
             correct += 1
-        details.append({"field": k, "expected": e, "observed": o, "correct": ok})
+        detail = {"field": k, "expected": e, "observed": o, "correct": ok}
+        # Wrong-field assignment: observed numeric value matches an expected numeric value of a different field.
+        on = _num(o)
+        en = _num(e)
+        if on and not ok and on in expected_numeric and k not in expected_numeric[on]:
+            detail["wrong_field_assignment"] = True
+            wrong_field_assignments.append({
+                "observed_field": k,
+                "observed_value": o,
+                "expected_fields_for_value": expected_numeric[on],
+            })
+        elif on and en and on != en and on in expected_numeric and k not in expected_numeric[on]:
+            # numeric mismatch but observed number belongs to another expected field
+            detail["wrong_field_assignment"] = True
+            wrong_field_assignments.append({
+                "observed_field": k,
+                "observed_value": o,
+                "expected_fields_for_value": expected_numeric[on],
+            })
+        details.append(detail)
     acc = (correct / total) if total else None
-    return {"accuracy": acc, "correct": correct, "total": total, "details": details}
+    return {
+        "accuracy": acc,
+        "correct": correct,
+        "total": total,
+        "wrong_field_assignments": wrong_field_assignments,
+        "wrong_field_assignment_count": len(wrong_field_assignments),
+        "details": details,
+    }
 
 
 def manual_correction_effort(reference_text: str, corrected_text: str) -> dict:

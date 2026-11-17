@@ -76,10 +76,20 @@ The following must be **personally verified in a browser** (especially on a real
 
 *Experimental pilot interface — sample outputs only, not official, not submitted, no government integration.*
 
-## 8. Addendum �?" Worker reporting history & local dashboard (implemented)
+## 8. Addendum — Worker reporting history & local dashboard (implemented)
 - **Route/UI:** worker-facing `/history` page added (Telugu-first, mobile-first) with counts (total/completed sample/draft-pending/corrected), day/week/month views, record status (`Draft` / `Completed (sample)` / `Corrected`), entry and last-updated timestamps, safe local profile identity (worker/centre code, stored locally; no sensitive/beneficiary PII), and actions to open/edit previous drafts into the existing workflow.
 - **Navigation/wiring:** History links added to worker layout/home; confirm/save flows preserve `draft_id` continuity and local worker/profile/report-date hints; saving an edited previously confirmed sample can be marked `Corrected` (local status). Saving a draft remains **not** an official submission.
 - **Backend (additive, local SQLite `pilot.db`, gitignored):** existing `drafts` persistence reused (no duplicate model); richer draft summaries, `GET /api/drafts/history` aggregations/counts, and safe meta/worker/status handling added.
-- **Safety labels:** history shows local pilot records only �?" **sample/experimental, not official, not submitted, no government integration**.
-- **Verification (this change):** backend `uv run pytest -q` **14 passed**; frontend `tsc --noEmit` **PASS**, `vitest` **1 file/5 passed**, `next build` **PASS (21 routes, includes `/history`)**.
+- **Safety labels:** history shows local pilot records only — **sample/experimental, not official, not submitted, no government integration**.
+- **Verification (this change, at time recorded):** backend `uv run pytest -q` **14 passed**; frontend `tsc --noEmit` **PASS**, `vitest` **1 file/5 passed**, `next build` **PASS (21 routes, includes `/history`)**.
 - **Manual/end-to-end to confirm in browser:** create/save/confirm drafts, reload `/history`, switch day/week/month, open/edit records, and confirm local profile/timestamps/status display. Live mic/real Telugu STT acceptance and real-corpus ASR evaluation remain **not performed/unmeasured** (D-12); Phase 0 field validation/impact remain **open/unproven**.
+
+## 9. Addendum — 2026-11-17 correctness fix batch (repository-reported)
+
+**Commit/context covered:** uncommitted working tree on top of `02075b3` (not committed/pushed in this addendum).
+
+**Relevant fixes:** strict boolean confirmation only for `/api/confirm` and `/api/voice/confirm`; invalid confirmed attempts persisted as editable `draft` (not confirmed) with validation errors; frontend recording flow now uses distinct recording/session handling, clears/invalidates stale transcript-derived state on new recording and on transcript edits, and disables Continue while recording/paused/busy; extraction/evaluation and status docs updated as described in `pilot/docs/TEST_AND_VERIFICATION_REPORT.md` addendum.
+
+**Checks rerun:** backend `uv run pytest -q` **15 passed**; frontend `npx tsc --noEmit` **PASS**, `npm test --silent` **1 file/5 passed**, `npm run build` **PASS (21 routes incl. `/history`)**.
+
+**Still required:** manual browser verification of consecutive different recordings (no stale state) and invalid-confirm-as-editable-draft UX in the running pilot app, plus live Telugu mic/STT acceptance and real-corpus evaluation (D-12). Not field-validated; outputs remain sample/experimental, not official, not submitted.

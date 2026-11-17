@@ -19,6 +19,7 @@ export interface WorkflowState {
   scenarioId?: string;
   draftId?: string;
   workerProfile?: LocalWorkerProfile;
+  recordingSessionId?: string;
   updatedAt?: string;
 }
 

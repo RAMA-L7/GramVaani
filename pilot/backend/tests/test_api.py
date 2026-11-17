@@ -79,16 +79,31 @@ def _run_confirm_flow(client):
     assert cl.status_code == 200
     assert isinstance(cl.json()["questions"], list)
 
-    # explicit confirmation required
-    no_conf = client.post("/api/confirm", json={
+    # explicit confirmation required (missing/false/string-valued must be rejected)
+    base_confirm = {
         "transcript": tbody["transcript"],
         "original_transcript": tbody["original_transcript"],
         "extractions": ed["extractions"],
         "answers": {"report_date": "2026-11-16"},
         "corrections": {"meal_count": 22},
-        "explicit_confirmation": False,
-    })
+    }
+    no_conf = client.post("/api/confirm", json={**base_confirm, "explicit_confirmation": False})
     assert no_conf.status_code == 400
+    missing_conf = client.post("/api/confirm", json={**base_confirm})
+    assert missing_conf.status_code == 400
+    str_false = client.post("/api/confirm", json={**base_confirm, "explicit_confirmation": "false"})
+    assert str_false.status_code == 400
+    # voice/confirm must not coerce and must not accept alternate sample_report path
+    v_missing = client.post("/api/voice/confirm", json={**base_confirm})
+    assert v_missing.status_code == 400
+    v_false = client.post("/api/voice/confirm", json={**base_confirm, "explicit_confirmation": False})
+    assert v_false.status_code == 400
+    v_str_false = client.post("/api/voice/confirm", json={**base_confirm, "explicit_confirmation": "false"})
+    assert v_str_false.status_code == 400
+    v_str_true = client.post("/api/voice/confirm", json={**base_confirm, "explicit_confirmation": "true"})
+    assert v_str_true.status_code == 400  # must be strict boolean true (no coercion)
+    v_sample = client.post("/api/voice/confirm", json={**base_confirm, "sample_report": True})
+    assert v_sample.status_code == 400
 
     conf = client.post("/api/confirm", json={
         "transcript": tbody["transcript"],
@@ -114,6 +129,29 @@ def _run_confirm_flow(client):
 def test_submit_text_extract_clarify_confirm_flow(client):
     cd = _run_confirm_flow(client)
     assert cd["report"]["confirmation"]["explicit_confirmation"] is True
+
+
+def test_confirm_invalid_report_saved_as_draft_not_confirmed(client):
+    # Minimal payload missing required extracted/answered fields -> validation fails; must not be confirmed.
+    r = client.post("/api/confirm", json={
+        "transcript": "పిల్లలు వచ్చారు",
+        "original_transcript": "పిల్లలు వచ్చారు",
+        "extractions": [],
+        "answers": {},
+        "corrections": {},
+        "explicit_confirmation": True,
+        "report_date": "2026-11-17",
+    })
+    assert r.status_code == 200
+    body = r.json()
+    assert body["validation"]["valid"] is False
+    assert body["report"]["status"] == "draft"
+    assert body["report"]["confirmation"]["explicit_confirmation"] is False
+    assert body["draft_id"]
+    assert body["saved"] is True
+    draft = client.get(f"/api/drafts/{body['draft_id']}")
+    assert draft.status_code == 200
+    assert draft.json()["status"] == "draft"
 
 
 def test_drafts_save_list_get_export_and_feedback(client):

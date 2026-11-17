@@ -3,14 +3,25 @@
 **A Telugu-first, voice-assisted reporting research project exploring ways to reduce documentation
 burden for Anganwadi workers in Andhra Pradesh.**
 
-> **Private research repository.** Core project: Phase 0 — field research, no application code. An
-> experimental, clearly separated **GramVaani Sandbox** now lives under [`sandbox/`](sandbox/README.md):
-> simulated apps, scripted Telugu transcripts, synthetic data, and a local API simulation only. It does
-> not change the research status or accepted decisions D-10/D-11/D-12. A separate **real-voice pilot
-> prototype track** is being scaffolded under [`pilot/`](pilot/README.md) (evaluation harness, local dev
-> scripts, and docs; distinct pilot config/DB; synthetic/non-identifying by default) — it is not validation,
-> not deployment, and claims remain subject to D-10/D-11/D-12 and safeguarding/consent requirements.
-> Nothing here integrates with, or is endorsed by, any government department.
+> **Research repository (public).** This repository contains field-research materials and evidence tracking,
+> a clearly separated **experimental [sandbox](sandbox/README.md)** (simulated apps, scripted transcripts,
+> synthetic data, local API simulation only), and a separate **real-voice [pilot](pilot/README.md)** prototype
+> track (experimental local application with evaluation/docs; distinct pilot config/DB; synthetic/non-identifying
+> by default). Nothing here is a validated, deployed, or officially endorsed system. No government integration,
+> submission, credentials, or compatibility claims (D-10/D-11/D-12 and safeguarding/consent requirements apply).
+
+## Project status (honest, as of commit `02075b3`)
+
+| Track | Honest current description |
+|---|---|
+| **Field validation** | **Zero completed sessions**; 0 verified findings (Phase 0 open). |
+| **Sandbox** | **Implemented simulation** (scripted/synthetic, no government integration). |
+| **Pilot** | **Implemented experimental local application** (worker voice/report workflow, researcher tools, local APIs/DB, `/history` dashboard); testing/accuracy/field-fit limitations apply (see `pilot/docs/`). |
+| **Real speech evaluation** | **Not yet completed** on a consented real-speech corpus; no fabricated accuracy claims (D-12). |
+| **Official workflow compatibility** | **Unverified** (fields/workflows/mappings not field-validated). |
+| **Government integration** | **None** (no submission, no credentials, no automated interaction, no approval). |
+
+**Test/report labeling:** repository test and verification reports (e.g. `pilot/docs/TEST_AND_VERIFICATION_REPORT.md`, `pilot/docs/VERIFICATION_REPORT_WORKER_UI.md`) are **repository-reported** for the commits they describe; they should be read with their stated scope/commit context and are not independent reproductions unless explicitly stated.
 
 ---
 

@@ -32,13 +32,25 @@ export interface TranscribeResponse {
   raw?: unknown;
 }
 
+export interface ExtractionEvidence {
+  value: unknown;
+  raw_text: string;
+  source_span: [number, number] | number[] | null;
+  supporting_phrase?: string;
+  label_context?: string;
+  negated?: boolean;
+}
+
 export interface Extraction {
   field_id: string;
   value: unknown;
   raw_text: string;
   source_span: [number, number] | number[] | null;
   confidence?: number;
+  confidence_kind?: string;
   needs_confirmation?: boolean;
+  supporting_phrase?: string;
+  evidence?: ExtractionEvidence[];
 }
 
 export interface ClarificationQuestion {

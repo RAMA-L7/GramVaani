@@ -1,7 +1,8 @@
 # Pilot Test and Verification Report
 
 **Scope:** GramVaani `pilot/` — real-voice prototype track (separate from frozen sandbox and main research config).  
-**Date:** 2026-11-16  
+**Original report date:** 2026-11-16  
+**Commit/context covered by sections "Environment/Commands run and results/Implemented/Not run/Manual acceptance steps/Notes" below:** repository state as exercised on 2026-11-16 (see command results recorded at that time; not independently reproduced in this addendum except where stated).  
 **Principle:** factual record only. No fabricated recognition accuracy/results. Real speech evaluation requires a consented corpus (D-12) and was **not** run.
 
 ## Environment (observed)
@@ -55,3 +56,17 @@
 - **Browser Web Speech API:** no server credentials; depends on browser/OS/network support for `te-IN` (commonly Chrome). Real-time client capture path is implemented.
 - **Local faster-whisper:** optional; install extra/deps and configure model in `pilot/backend/.env` (e.g. `FASTER_WHISPER_MODEL=small`); first run may download model and requires compute.
 - **Cloud providers:** set `CLOUD_ASR_PROVIDER`, endpoint/key/project/region in `pilot/backend/.env` (see `.env.example` and `pilot/backend/README.md`). Without valid credentials/config, endpoints return explicit configuration-required errors (no fabricated results). Do not commit secrets.
+
+## Addendum — 2026-11-17 correctness/documentation fix batch (repository-reported)
+
+**Commit/context covered:** uncommitted working tree on top of `02075b3` (`HEAD==origin/main` at time of checks) in `D:\GramVaani`. Not committed/pushed as part of this addendum; see `git status`/diff for exact file changes.
+
+**Changes in this batch (scope):** observation/run-sheet timing definitions aligned (start at first action to prepare selected report; finish after required submission/checking/corrections), active/waiting/unrelated interruptions and non-overlapping D-10 category guidance; `/api/confirm` and `/api/voice/confirm` require strict boolean `explicit_confirmation===true` only (no coercion, no `sample_report` alternate path) and invalid confirmed attempts are saved as editable `draft` (not `confirmed_sample`) with validation errors and unconfirmed report state; frontend recording workflow adds distinct recording session handling, clears/invalidate stale transcript-derived state on new recording or transcript change, and disables Continue while recording/paused/busy; extraction adds heuristic confidence labeling plus supporting phrase/evidence (including per-activity/per-item spans and label/negation context where applicable); evaluation harness avoids fabricated imported-browser latency (captured timing only), separates/reuses faster-whisper model startup for warm transcription, and metrics track numerical insertions and wrong-field numeric assignments; root README status reconciled and report-labeling clarified.
+
+**Checks rerun (this batch):**
+- `cd pilot/backend && uv run pytest -q` → **PASS — 15 passed** (1 warning: `StarletteDeprecationWarning` from `starlette.testclient/httpx`).
+- `cd pilot/frontend && npx tsc --noEmit` → **PASS** (exit 0).
+- `cd pilot/frontend && npm test --silent` → **PASS — 1 file, 5 tests passed** (`lib/utils.test.ts`).
+- `cd pilot/frontend && npm run build` → **PASS** — compiled successfully, 21 routes including `/history`.
+
+**Not performed in this addendum:** live human browser microphone acceptance with natural Telugu speech, real-corpus/consented ASR evaluation and latency/accuracy measurement (D-12), and Phase 0 field validation/impact. Manual end-to-end UI confirmation of consecutive different recordings (no stale transcript/extractions/answers/confirmation) and invalid-confirm-as-editable-draft behavior in the running app is recommended before worker testing. All outputs remain experimental sample/local pilot records only — not official, not submitted, no government integration.

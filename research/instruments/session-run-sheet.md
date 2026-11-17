@@ -37,23 +37,25 @@
 
 ## Step 3 — Observe one complete reporting task (30–40 min)
 
-- [ ] Start the stopwatch at the first action related to the task; stop when the task is recorded/filed
-- [ ] One row per step on the observation sheet: what she did, which register/app, input type, duration
+- [ ] **Start** the stopwatch at the **first action needed to prepare the selected report** (including paper preparation, gathering information, or retrieving registers — not only the first app interaction). **Finish** after its **required submission, checking, and corrections are complete**.
+- [ ] One row per step on the observation sheet: what she did, which register/app/surface, input/action, duration
+- [ ] Record **active work**, **waiting** (network/loading) and **unrelated interruptions** separately as they happen
 - [ ] Write field labels verbatim. **Never copy beneficiary values, names or identifiers**
-- [ ] Note pauses, look-ups, interruptions and re-checks as they happen
+- [ ] Note pauses, look-ups, interruptions and re-checks as they happen; if categories overlap (e.g. looking up a paper register while gathering), assign to **one primary category only** on the observation sheet and do not double-count
 
 ## Step 4 — Measure four separate time categories (during step 3)
 
-Use one stopwatch lap per category; do not merge them.
+Use one stopwatch lap per category; **do not merge or double-count**. Assign each **active-work** minute to **exactly one** primary category (A–D). If categories overlap (e.g. looking up/retrieving a paper register while gathering information), assign that interval to the **single best-fit primary purpose** and note the overlap (count it once). **Waiting** and **unrelated interruptions** are recorded separately and excluded from A–D.
 
-| Category | What counts | Minutes | Note |
+| Category | What counts (primary purpose) | Minutes (active, non-overlapping) | Note |
 |---|---|---|---|
-| **A. Paper register work** | Writing, copying, totals, filing, retrieving a register | ____ | |
-| **B. App entry** | Typing/tapping into Poshan Tracker or any app | ____ | |
-| **C. Recalling / gathering information** | Pausing, looking at another record, asking someone, checking a list | ____ | |
-| **D. Re-checking and corrections** | Going back, re-counting, fixing an entry, verifying against paper | ____ | |
-| **Total observed** | A + B + C + D | ____ | |
+| **A. Paper register work** | Writing, copying, totals, filing in registers/paper records | ____ | |
+| **B. App entry** | Typing/tapping/selecting into Poshan Tracker or any digital app/portal | ____ | |
+| **C. Recalling / gathering information** | Pausing to recall, asking someone, finding a list or other source of information | ____ | |
+| **D. Re-checking and corrections** | Going back, re-counting, fixing an entry, verifying/correcting | ____ | |
+| **Total observed (A+B+C+D)** | Equals active work (excluding waiting/unrelated interruptions) | ____ | |
 
+- [ ] Record **Active work / Waiting / Unrelated interruptions** separately (as in Step 3 / observation sheet)
 - [ ] Record the worker's own estimate separately: ____ min `[said]`
 - [ ] If observed ≠ recalled, note the likely reason (interruption, multi-tasking, unusual day)
 

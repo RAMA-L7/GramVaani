@@ -309,12 +309,13 @@ def _coerce_extractions(items: list[Any]) -> list[Extraction]:
 
 @router.post("/confirm")
 def confirm(request: ConfirmRequest) -> Any:
-    if not request.explicit_confirmation:
+    # Strict confirmation: only explicit boolean true is accepted.
+    if request.explicit_confirmation is not True:
         raise HTTPException(
             status_code=400,
             detail={
                 "error": "explicit_confirmation is required",
-                "message": "Set explicit_confirmation=true only after worker review/corrections to generate a sample report.",
+                "message": "Set explicit_confirmation=true (boolean true) only after worker review/corrections to generate a sample report.",
             },
         )
     original = request.original_transcript if request.original_transcript is not None else request.transcript
@@ -335,6 +336,35 @@ def confirm(request: ConfirmRequest) -> Any:
             meta = {**meta, "worker_code": request.worker.worker_code, "centre_code": request.worker.centre_code}
         except Exception:
             meta = {**meta}
+
+    if not validation.valid:
+        # Invalid records must remain editable drafts; do not mark as confirmed.
+        report_data = report.model_dump(mode="json")
+        report_data["status"] = "draft"
+        if isinstance(report_data.get("confirmation"), dict):
+            report_data["confirmation"]["explicit_confirmation"] = False
+        draft_data = {
+            "transcript": request.transcript,
+            "original_transcript": original,
+            "extractions": [e.model_dump(mode="json") for e in request.extractions],
+            "answers": request.answers,
+            "corrections": request.corrections,
+            "report": report_data,
+            "validation": validation.model_dump(mode="json"),
+            "meta": meta,
+        }
+        saved = save_draft(request.draft_id, draft_data, status="draft")
+        try:
+            report = report.model_copy(update={
+                "status": "draft",
+                "confirmation": report.confirmation.model_copy(update={"explicit_confirmation": False}),
+            })
+        except Exception:
+            # fallback: construct from dict
+            report = SampleReport(**report_data)
+        resp = ConfirmResponse(report=report, validation=validation, draft_id=saved["draft_id"], saved=True)
+        return resp
+
     draft_data = {
         "transcript": request.transcript,
         "original_transcript": original,
@@ -364,17 +394,22 @@ async def voice_confirm(request: Request) -> Any:
     extractions = _coerce_extractions(body.get("extractions") or [])
     answers = body.get("answers") or {}
     corrections = body.get("corrections") or {}
-    explicit = bool(body.get("explicit_confirmation"))
-    if "explicit_confirmation" not in body and body.get("sample_report") is True:
-        # frontend sends explicit_confirmation separately in UI; honor flag
-        explicit = True
+    # Strict confirmation: only explicit boolean true is accepted (no coercion, no alternate path).
+    if body.get("explicit_confirmation") is not True:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "error": "explicit_confirmation is required",
+                "message": "Set explicit_confirmation=true (boolean true) only after worker review/corrections to generate a sample report.",
+            },
+        )
     req = ConfirmRequest(
         transcript=str(transcript),
         original_transcript=str(original) if original is not None else None,
         extractions=extractions,
         answers=answers if isinstance(answers, dict) else {},
         corrections=corrections if isinstance(corrections, dict) else {},
-        explicit_confirmation=explicit,
+        explicit_confirmation=True,
         draft_id=body.get("draft_id"),
         report_date=body.get("report_date"),
         worker=body.get("worker"),

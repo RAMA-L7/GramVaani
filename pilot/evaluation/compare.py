@@ -87,20 +87,42 @@ def approach_browser_web_speech(clip: Clip, cfg: dict) -> dict:
     # Browser Web Speech API runs client-side; harness ingests captured transcripts.
     # Expect transcript in meta/captured_transcripts/<id>.txt or clip.meta['hypothesis'].
     hyp = clip.meta.get("hypothesis")
+    timing_ms = clip.meta.get("recognition_latency_ms") or clip.meta.get("latency_ms")
     cap_dir = Path(cfg.get("captured_transcripts_dir", ROOT / "corpus" / "captured_transcripts"))
     cap = cap_dir / f"{clip.id}.txt"
+    timing_cap = cap_dir / f"{clip.id}.timing.json"
+    if timing_ms is None and timing_cap.exists():
+        try:
+            tdata = json.loads(timing_cap.read_text(encoding="utf-8"))
+            timing_ms = tdata.get("recognition_latency_ms") or tdata.get("latency_ms")
+        except Exception:
+            timing_ms = None
     if hyp is None and cap.exists():
         hyp = cap.read_text(encoding="utf-8").strip()
     if hyp is None:
         return {"status": "unavailable", "error": "No client-captured transcript provided (browser Web Speech API produces transcripts in-browser; supply via manifest hypothesis or captured_transcripts/<id>.txt).", "hypothesis": None}
-    return {"status": "ok", "hypothesis": hyp, "engine": "browser-web-speech-capture"}
+    res = {"status": "ok", "hypothesis": hyp, "engine": "browser-web-speech-capture"}
+    # For imported transcripts, do not treat file-read time as recognition latency.
+    # Use captured browser recognition timestamps only when explicitly provided.
+    if timing_ms is not None:
+        try:
+            res["latency_ms"] = float(timing_ms)
+            res["latency_source"] = "captured_browser_recognition"
+        except Exception:
+            res["latency_ms"] = None
+            res["latency_unavailable"] = True
+            res["latency_note"] = "Imported transcript: recognition latency unavailable (no valid captured timing)."
+    else:
+        res["latency_ms"] = None
+        res["latency_unavailable"] = True
+        res["latency_note"] = "Imported transcript: recognition latency unavailable unless captured during actual browser recognition."
+    return res
 
 
-def approach_local_faster_whisper(clip: Clip, cfg: dict) -> dict:
-    if clip.audio is None or not clip.audio.exists():
-        return {"status": "unavailable", "error": "Audio file missing for clip.", "hypothesis": None}
+def _prepare_local_faster_whisper(cfg: dict) -> dict:
+    """Load model once so warm transcription latency can be measured separately from startup."""
     if importlib.util.find_spec("faster_whisper") is None:
-        return {"status": "unavailable", "error": "faster-whisper not installed. Install and provide model per README.", "hypothesis": None}
+        return {"status": "unavailable", "error": "faster-whisper not installed. Install and provide model per README.", "model": None}
     try:
         from faster_whisper import WhisperModel  # type: ignore
         model_name = cfg.get("faster_whisper_model", "small")
@@ -108,12 +130,45 @@ def approach_local_faster_whisper(clip: Clip, cfg: dict) -> dict:
         compute_type = cfg.get("compute_type", "int8")
         t0 = time.perf_counter()
         model = WhisperModel(model_name, device=device, compute_type=compute_type)
+        startup_ms = (time.perf_counter() - t0) * 1000
+        return {
+            "status": "ok",
+            "model": model,
+            "model_name": model_name,
+            "model_startup_ms": startup_ms,
+            "settings": {"device": device, "compute_type": compute_type, "language": cfg.get("language", "te")},
+        }
+    except Exception as e:
+        return {"status": "error", "error": f"{type(e).__name__}: {e}", "model": None}
+
+
+def approach_local_faster_whisper(clip: Clip, cfg: dict, ctx: dict | None = None) -> dict:
+    if clip.audio is None or not clip.audio.exists():
+        return {"status": "unavailable", "error": "Audio file missing for clip.", "hypothesis": None}
+    ctx = ctx or _prepare_local_faster_whisper(cfg)
+    if ctx.get("status") != "ok" or ctx.get("model") is None:
+        return {"status": ctx.get("status", "error"), "error": ctx.get("error", "faster-whisper unavailable"), "hypothesis": None}
+    try:
+        model = ctx["model"]
+        model_name = ctx.get("model_name", cfg.get("faster_whisper_model", "small"))
+        t0 = time.perf_counter()
         segments, info = model.transcribe(str(clip.audio), language=cfg.get("language", "te"))
         text = "".join(s.text for s in segments).strip()
         latency = (time.perf_counter() - t0) * 1000
-        return {"status": "ok", "hypothesis": text, "engine": f"faster-whisper:{model_name}", "latency_ms": latency, "settings": {"device": device, "compute_type": compute_type, "language": info.language if info else cfg.get("language")}}
+        settings = dict(ctx.get("settings") or {})
+        if info and getattr(info, "language", None):
+            settings["detected_language"] = info.language
+        return {
+            "status": "ok",
+            "hypothesis": text,
+            "engine": f"faster-whisper:{model_name}",
+            "latency_ms": latency,
+            "model_startup_ms": ctx.get("model_startup_ms"),
+            "latency_kind": "warm_transcription_only",
+            "settings": settings,
+        }
     except Exception as e:
-        return {"status": "error", "error": f"{type(e).__name__}: {e}", "hypothesis": None}
+        return {"status": "error", "error": f"{type(e).__name__}: {e}", "hypothesis": None, "model_startup_ms": ctx.get("model_startup_ms")}
 
 
 def approach_cloud_provider(clip: Clip, cfg: dict) -> dict:
@@ -175,14 +230,29 @@ def main() -> int:
     for name in names:
         fn = APPROACHES.get(name)
         acfg = (cfg.get("approaches") or {}).get(name, cfg.get(name, {}))
+        ctx = None
+        if name == "local_faster_whisper" and clips:
+            ctx = _prepare_local_faster_whisper(acfg)
+            if ctx.get("model_startup_ms") is not None:
+                run_meta.setdefault("approach_setup", {})[name] = {
+                    "model_startup_ms": ctx.get("model_startup_ms"),
+                    "settings": ctx.get("settings"),
+                    "note": "Model loaded once and reused for warm transcription latency measurements.",
+                }
+            elif ctx.get("status") != "ok" and ctx.get("error"):
+                run_meta.setdefault("approach_setup", {})[name] = {"status": ctx.get("status"), "error": ctx.get("error")}
         for clip in clips:
             t0 = time.perf_counter()
             if fn is None:
                 res = {"status": "error", "error": f"Unknown approach '{name}'", "hypothesis": None}
             else:
-                res = fn(clip, acfg)
+                if name == "local_faster_whisper":
+                    res = fn(clip, acfg, ctx)
+                else:
+                    res = fn(clip, acfg)
             latency = res.pop("latency_ms", None)
-            if latency is None and res.get("status") == "ok":
+            # Do not fabricate latency for imported browser transcripts (or other explicitly unavailable cases).
+            if latency is None and res.get("status") == "ok" and not res.get("latency_unavailable"):
                 latency = (time.perf_counter() - t0) * 1000
             rec = {
                 "id": clip.id,
@@ -195,6 +265,9 @@ def main() -> int:
                 "version": res.get("engine") or acfg.get("version"),
                 "settings": res.get("settings") or {k: v for k, v in acfg.items() if k.lower() not in {"api_key", "token", "secret", "password", "credentials"}},
             }
+            for k in ("model_startup_ms", "latency_kind", "latency_note", "latency_unavailable", "latency_source"):
+                if k in res:
+                    rec[k] = res[k]
             if clip.numbers_expected is not None:
                 rec["expected_numbers"] = clip.numbers_expected
             if clip.fields_expected is not None:
